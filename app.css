@@ -429,3 +429,26 @@ body{background:var(--bg)!important;background-image:none!important}
   .league-blocks .lg-group{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
     margin:0 0 14px;display:block}
 }
+
+/* ---- v44: كارت لكل ماتش (شكل كروت كبيرة) في أعمدة، وتمرير عمودي ---- */
+.mcard{border-radius:22px;background:#0d1a1f;background-image:none;border:1px solid rgba(53,224,125,.22)}
+.mcard.is-live-card{border-color:rgba(53,224,125,.65)}
+.mcard .lg-label{background:transparent!important;background-image:none!important;padding:14px 18px;font-size:14px;border-bottom:1px solid rgba(255,255,255,.06)}
+.mcard .lg-label .lg-chev{display:none}
+.mcard .lg-label .lg-date{margin-inline-start:auto;font-size:12px;color:var(--muted)}
+.mcard .match-wrap{border-bottom:0}
+.mcard .match-row,.mcard .match-row.is-live{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);padding:20px 12px 6px;gap:6px;align-items:center;background:none!important;box-shadow:none;border:0}
+.mcard .match-row .team,.mcard .match-row .team.away{flex-direction:column;justify-content:flex-start;text-align:center;gap:10px;font-size:14px;line-height:1.35}
+.mcard .match-row .team .logo,.mcard .match-row .team .dot{width:56px;height:56px}
+.mcard .match-row .center{min-width:92px;gap:8px}
+.mcard .match-row .score{font-size:32px}
+.mcard .match-row .time{font-size:22px}
+.mcard .match-row .minute{border:1px solid rgba(53,224,125,.5);border-radius:999px;padding:3px 12px;font-size:12px;background:rgba(53,224,125,.08)}
+.mcard .match-row .minute.ft{border-color:var(--line);background:rgba(255,255,255,.05)}
+.mcard .more-btn{margin-top:2px}
+.mcard .match-more{padding:8px 16px 14px}
+@media (max-width:900px){
+  .league-blocks{flex-direction:column;overflow:visible;scroll-snap-type:none;cursor:auto;padding:2px 0 10px;gap:12px}
+  .league-blocks .col{flex:none;max-width:100%;width:100%;gap:12px}
+  .mcard .match-row .team .logo,.mcard .match-row .team .dot{width:48px;height:48px}
+}
