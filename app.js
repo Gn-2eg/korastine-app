@@ -247,6 +247,8 @@
     var sel = document.getElementById("compFilter");
     if (!sel || sel.dataset.sig === "v1") return;
     sel.innerHTML = "";
+    var lv = el("option", null, "● مباشر");
+    lv.value = "__live"; sel.appendChild(lv);
     var all = el("option", null, "كل البطولات");
     all.value = ""; sel.appendChild(all);
     /* الدوريات الأول (بترتيب الأهمية)، وبعدهم الكؤوس */
@@ -271,6 +273,7 @@
     if (!sel) return;
     sel.addEventListener("change", function () {
       filterComp = sel.value;
+      if (filterComp === "__live" && sel_day() !== 0) { setDay(0); return; }
       if (lastRes) render(lastRes, false);
     });
   }
@@ -279,14 +282,18 @@
     var wrap = document.getElementById("leagueBlocks"), rail = document.getElementById("leagueRail");
     wrap.innerHTML = ""; rail.innerHTML = "";
     var groups = {}, order = [];
-    res.matches.forEach(function (m) {
+    var liveAll = res.matches.filter(function (m) { return m.status === "live"; });
+    var isLiveF = filterComp === "__live";
+    (isLiveF ? liveAll : res.matches).forEach(function (m) {
       if (!groups[m.comp]) { groups[m.comp] = []; order.push(m.comp); }
       groups[m.comp].push(m);
     });
     var idx = {}; L.COMPS.forEach(function (c, i) { idx[c.id] = i; });
     order.sort(function (a, b) { return idx[a] - idx[b]; });
     fillFilter();
-    if (filterComp && groups[filterComp]) order = [filterComp];
+    var lvOpt = document.querySelector("#compFilter option[value='__live']");
+    if (lvOpt) lvOpt.textContent = "● مباشر (" + ar(liveAll.length) + ")";
+    if (filterComp && !isLiveF && groups[filterComp]) order = [filterComp];
     var gs = order.map(function (id) { return { id: id, list: groups[id], n: groups[id].length }; });
 
     /* كل عمود يشيل حوالي ٦ ماتشات، والدوري ما يتقسمش غير لو أطول من كده */
@@ -322,10 +329,12 @@
     });
 
     var st = document.getElementById("dataStatus");
-    if (filterComp && !groups[filterComp]) {
+    if (isLiveF && !liveAll.length) {
+      wrap.appendChild(el("p", "note", "مفيش ماتشات شغالة دلوقتي."));
+    } else if (filterComp && !isLiveF && !groups[filterComp]) {
       wrap.appendChild(el("p", "note", "مفيش ماتشات في البطولة دي اليوم ده."));
     }
-    if (!res.matches.length) {
+    if (!res.matches.length && !isLiveF) {
       wrap.appendChild(el("p", "note", res.errors ? "مقدرتش أجيب الداتا دلوقتي. جرّب تاني." : "مفيش ماتشات في الدوريات دي اليوم ده."));
     }
     var msg = "آخر تحديث " + hhmm(res.at) + " · بتوقيتك";
@@ -389,6 +398,8 @@
     box.appendChild(tag); box.appendChild(league); box.appendChild(matchup); box.appendChild(meta);
   }
 
+  function sel_day() { return sel; }
+  function setDay(o) { sel = o; renderStrip(); load(false); }
   function load(force) {
     var my = ++reqId;
     var st = document.getElementById("dataStatus");
