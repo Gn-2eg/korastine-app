@@ -399,13 +399,18 @@ Object.assign(TEAMS, {"AL Masry": "المصري", "Abu Qair Semad": "أبو قي
     "ZESCO United": "https://upload.wikimedia.org/wikipedia/en/a/a0/NewZescoUtdFClogo.png",
     "Zamalek": "https://thumb.wikimedia.org/wikipedia/en/thumb/e/ef/Zamalek_SC_logo.svg/250px-Zamalek_SC_logo.svg.png"
   };
+  function normKey(s) {
+    return String(s || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+  }
+  var CAF_REMOTE_N = {};
+  Object.keys(CAF_REMOTE).forEach(function (k) { CAF_REMOTE_N[normKey(k)] = CAF_REMOTE[k]; });
   function teamLogo(n) {
     if (!LOGO56_AR) {
       LOGO56_AR = {};
       Object.keys(LOGO56).forEach(function (k) { LOGO56_AR[team(k)] = LOGO56[k]; });
     }
     var v = LOGO56_AR[team(n)] || LOGO56[n] || TEAMLOGO[n] || TEAMLOGO[team(n)];
-    if (!v) v = CAF_REMOTE[n] || CAF_REMOTE[team(n)] || null;
+    if (!v) v = CAF_REMOTE[n] || CAF_REMOTE[team(n)] || CAF_REMOTE_N[normKey(n)] || null;
     if (v && REPATH[v]) v = REPATH[v];
     if (!v || BAD_LOGO[v]) return UNKNOWN_LOGO;
     return v;
