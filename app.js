@@ -1,4 +1,5 @@
 (function () {
+  (function(){var m=/[?&]hl=([abc])\b/.exec(location.search);if(m)document.documentElement.classList.add("hl-"+m[1]);})();
   var D = window.KS_DATA;
   var AR = ["٠","١","٢","٣","٤","٥","٦","٧","٨","٩"];
   function ar(n) { return String(n).replace(/\d/g, function (d) { return AR[+d]; }); }
