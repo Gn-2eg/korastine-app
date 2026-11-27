@@ -3,8 +3,8 @@ window.KS_LIVE = (function () {
   var ESPN = "https://site.api.espn.com/apis/site/v2/sports/soccer/";
   var TSDB = "https://www.thesportsdb.com/api/v1/json/123/";
   var COMPS = [
-    { id: "egy", src: "tsdb", tid: "4829", name: "الدوري المصري" },
-    { id: "egyc", src: "tsdb", tid: "5185", name: "كأس مصر" },
+    { id: "egy", src: "curva", tid: "4829", name: "الدوري المصري" },
+    { id: "egyo", src: "curva", name: "بطولات مصرية تانية" },
     { id: "eng.1", name: "الدوري الإنجليزي" },
     { id: "esp.1", name: "الدوري الإسباني" },
     { id: "ita.1", name: "الدوري الإيطالي" },
@@ -33,7 +33,8 @@ window.KS_LIVE = (function () {
   ];
   var TEAMS = { "Al Ahly":"الأهلي","Zamalek":"الزمالك","Pyramids":"بيراميدز","Al Masry":"المصري","Smouha":"سموحة","ENPPI":"إنبي","Petrojet":"بتروجت","Ceramica Cleopatra":"سيراميكا كليوباترا","Real Madrid":"ريال مدريد","Barcelona":"برشلونة","Liverpool":"ليفربول","Arsenal":"آرسنال","Manchester City":"مانشستر سيتي","Manchester United":"مانشستر يونايتد","Chelsea":"تشيلسي","Tottenham Hotspur":"توتنهام","Newcastle United":"نيوكاسل","Aston Villa":"أستون فيلا","Bayern Munich":"بايرن ميونخ","Paris Saint-Germain":"باريس سان جيرمان","Juventus":"يوفنتوس","Inter Milan":"إنتر","Internazionale":"إنتر","AC Milan":"ميلان","Napoli":"نابولي","Atlético Madrid":"أتلتيكو مدريد","Borussia Dortmund":"دورتموند","Al Hilal":"الهلال","Al Nassr":"النصر","Al-Hilal":"الهلال","Al-Nassr":"النصر","Al-Ittihad":"الاتحاد","Al-Ahli":"الأهلي السعودي" };
     Object.assign(TEAMS, {"Wadi Degla": "وادي دجلة", "ZED": "زد", "Al Ittihad Alexandria": "الاتحاد السكندري", "Al Ittihad": "الاتحاد", "Abou Qir Fertilizers": "أبو قير للأسمدة", "National Bank of Egypt": "البنك الأهلي", "Tala'ea El Gaish": "طلائع الجيش", "Al-Mokawloon al-Arab": "المقاولون العرب", "Al Mokawloon Al Arab": "المقاولون العرب", "Asyut Petroleum": "بترول أسيوط", "Ghazl El Mahalla": "غزل المحلة", "El Gouna": "الجونة", "Modern Sport": "مودرن سبورت", "El Qanah": "القناة", "Future FC": "فيوتشر", "Al Ahly Cairo": "الأهلي", "Pharco": "فاركو", "Haras El Hodoud": "حرس الحدود", "Ismaily": "الإسماعيلي", "Al Ismaily": "الإسماعيلي", "Ittihad Alexandria": "الاتحاد السكندري", "Tottenham": "توتنهام", "Nottingham Forest": "نوتنجهام فورست", "West Ham United": "وست هام", "Everton": "إيفرتون", "Brighton & Hove Albion": "برايتون", "Fulham": "فولهام", "Brentford": "برينتفورد", "Crystal Palace": "كريستال بالاس", "Wolverhampton Wanderers": "وولفرهامبتون", "Leeds United": "ليدز", "Burnley": "بيرنلي", "Bournemouth": "بورنموث", "AFC Bournemouth": "بورنموث", "Sunderland": "سندرلاند", "Sevilla": "إشبيلية", "Valencia": "فالنسيا", "Villarreal": "فياريال", "Real Sociedad": "ريال سوسيداد", "Athletic Club": "أتلتيك بيلباو", "Real Betis": "ريال بيتيس", "Girona": "جيرونا", "Celta Vigo": "سيلتا فيجو", "Roma": "روما", "AS Roma": "روما", "Lazio": "لاتسيو", "Atalanta": "أتالانتا", "Fiorentina": "فيورنتينا", "Bologna": "بولونيا", "Torino": "تورينو", "Genoa": "جنوى", "Bayer Leverkusen": "باير ليفركوزن", "RB Leipzig": "لايبزيج", "Eintracht Frankfurt": "آينتراخت فرانكفورت", "VfB Stuttgart": "شتوتجارت", "Werder Bremen": "فيردر بريمن", "Borussia Mönchengladbach": "مونشنجلادباخ", "Wolfsburg": "فولفسبورج", "Marseille": "مارسيليا", "Olympique Marseille": "مارسيليا", "Lyon": "ليون", "Olympique Lyonnais": "ليون", "Monaco": "موناكو", "AS Monaco": "موناكو", "Lille": "ليل", "Nice": "نيس", "Lens": "لانس", "Brest": "بريست", "Benfica": "بنفيكا", "Porto": "بورتو", "FC Porto": "بورتو", "Sporting CP": "سبورتينج لشبونة", "Ajax": "أياكس", "PSV Eindhoven": "آيندهوفن", "Galatasaray": "جالطة سراي", "Fenerbahce": "فنربخشة", "Celtic": "سلتيك", "Club Brugge": "كلوب بروج", "Mamelodi Sundowns": "صنداونز", "Wydad AC": "الوداد", "Wydad Casablanca": "الوداد", "Raja Casablanca": "الرجاء", "Raja CA": "الرجاء", "Esperance de Tunis": "الترجي", "ES Tunis": "الترجي", "CR Belouizdad": "شباب بلوزداد", "Al Ahli Tripoli": "الأهلي طرابلس", "Azam FC": "أزام", "Al Qadsiah": "القادسية", "Al Qadsiyah": "القادسية", "Al Ettifaq": "الاتفاق", "Al Fayha": "الفيحاء", "Al Khaleej": "الخليج", "Al Kholood": "الخلود", "Neom SC": "نيوم", "Al Taawoun": "التعاون", "Al Shabab": "الشباب", "Al Fateh": "الفتح", "Damac": "ضمك", "Al Raed": "الرائد", "Al Riyadh": "الرياض", "Al Okhdood": "الأخدود", "Al Wehda": "الوحدة", "Al Ain": "العين", "Shabab Al Ahli": "شباب الأهلي", "Al Wahda": "الوحدة", "Al Jazira": "الجزيرة", "Al Wasl": "الوصل", "Sharjah": "الشارقة", "Al Nasr": "النصر", "Bani Yas": "بني ياس", "Khor Fakkan": "خورفكان", "Ajman": "عجمان", "Al Dhafra": "الظفرة", "Kalba": "كلباء", "Colombia U17": "كولومبيا تحت ١٧", "Serbia U17": "صربيا تحت ١٧", "Japan U17": "اليابان تحت ١٧", "Honduras U17": "هندوراس تحت ١٧", "Brazil U17": "البرازيل تحت ١٧", "Costa Rica U17": "كوستاريكا تحت ١٧", "Tanzania U17": "تنزانيا تحت ١٧", "Republic of Ireland U17": "أيرلندا تحت ١٧", "Egypt U17": "مصر تحت ١٧", "Morocco U17": "المغرب تحت ١٧", "Argentina U17": "الأرجنتين تحت ١٧", "England U17": "إنجلترا تحت ١٧", "France U17": "فرنسا تحت ١٧", "Germany U17": "ألمانيا تحت ١٧", "Spain U17": "إسبانيا تحت ١٧", "Italy U17": "إيطاليا تحت ١٧", "Portugal U17": "البرتغال تحت ١٧", "Mali U17": "مالي تحت ١٧", "Senegal U17": "السنغال تحت ١٧", "USA U17": "أمريكا تحت ١٧", "Mexico U17": "المكسيك تحت ١٧", "Saudi Arabia U17": "السعودية تحت ١٧"});
-var STAMP = "ks_cache_v1_";
+Object.assign(TEAMS, {"El Gouna FC": "الجونة", "El Geish": "طلائع الجيش", "Enppi": "إنبي", "Future FC": "فيوتشر", "Zamalek SC": "الزمالك", "Al Ahly": "الأهلي", "Al Ahly SC": "الأهلي", "Pyramids FC": "بيراميدز", "Ismaily SC": "الإسماعيلي", "El Mokawloon": "المقاولون العرب", "Haras El Hodood": "حرس الحدود", "Ittihad Alexandria": "الاتحاد السكندري", "Al Ittihad": "الاتحاد السكندري", "El Masry": "المصري", "Smouha SC": "سموحة", "Pharco FC": "فاركو", "Pharco": "فاركو", "Kahrabaa Ismailia": "كهرباء الإسماعيلية", "National Bank Of Egypt": "البنك الأهلي", "Zed FC": "زد", "ZED FC": "زد", "Modern Sport FC": "مودرن سبورت", "Modern Future": "مودرن سبورت", "Ghazl El Mehalla": "غزل المحلة", "El Entag El Harby": "الإنتاج الحربي", "Tanta": "طنطا", "Telecom Egypt": "المصرية للاتصالات", "Baladiyat Al Mahalla": "بلدية المحلة", "Bank Alahly": "البنك الأهلي"});
+  var STAMP = "ks_cache_v1_";
 
   function pad(n) { return (n < 10 ? "0" : "") + n; }
   function dkey(d) { return d.getFullYear() + "" + pad(d.getMonth() + 1) + pad(d.getDate()); }
@@ -95,6 +96,30 @@ var STAMP = "ks_cache_v1_";
     });
   }
 
+
+  var curvaP = null, curvaAt = 0;
+  function curvaAll() {
+    if (curvaP && Date.now() - curvaAt < 40000) return curvaP;
+    curvaAt = Date.now();
+    curvaP = fetch("fixtures.json", { cache: "no-cache" }).then(function (r) {
+      if (!r.ok) throw new Error("http " + r.status);
+      return r.json();
+    }).then(function (j) {
+      var list = (j.matches || []).map(function (m) {
+        var sh = m.status || "NS", state = "upcoming";
+        if (/^(FT|AET|PEN)$/.test(sh)) state = "ft";
+        else if (/^(PST|CANC|ABD|AWD|WO|SUSP)$/.test(sh)) state = "pp";
+        else if (/^(1H|HT|2H|ET|BT|P|LIVE|INT)$/.test(sh)) state = "live";
+        var hasS = m.hs !== null && m.as !== null;
+        return { comp: m.leagueId === 233 ? "egy" : "egyo", date: m.date, home: team(m.home), away: team(m.away),
+          hs: hasS ? +m.hs : NaN, as: hasS ? +m.as : NaN, status: state,
+          minute: state === "live" ? (sh === "HT" ? "ا" : String(m.minute || "")) : "", detail: m.league || "" };
+      });
+      return { list: list, at: j.updatedAt };
+    });
+    curvaP.catch(function () { curvaP = null; });
+    return curvaP;
+  }
   var cache = {};
   function loadDay(date, force) {
     var day = dkey(date), hit = cache[day];
@@ -102,9 +127,13 @@ var STAMP = "ks_cache_v1_";
     var from = new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime(), to = from + 86400000;
     var errors = 0;
     var jobs = COMPS.map(function (c) {
-      var p = c.src === "tsdb"
-        ? tsdbList(c).then(function (l) { return l.filter(function (m) { return m.date >= from && m.date < to; }); })
-        : espnDay(c, day);
+      var inDay = function (l) { return l.filter(function (m) { return m.date >= from && m.date < to; }); };
+      var p;
+      if (c.src === "curva") {
+        p = curvaAll().then(function (o) { return inDay(o.list).filter(function (m) { return m.comp === c.id; }); })
+          .catch(function () { return c.id === "egy" ? tsdbList(c).then(inDay) : []; });
+      } else if (c.src === "tsdb") p = tsdbList(c).then(inDay);
+      else p = espnDay(c, day);
       return p.catch(function () { errors++; return []; });
     });
     return Promise.all(jobs).then(function (parts) {

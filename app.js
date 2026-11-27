@@ -81,6 +81,7 @@
       block.id = "lg-" + id.replace(/\W/g, "_");
       var head = el("div", "league-head");
       head.appendChild(el("h3", null, compName[id]));
+      if (id === "egy" || id === "egyo") head.appendChild(el("small", "src", "المصدر: كورفا"));
       head.appendChild(el("span", null, ar(list.length) + " ماتش"));
       block.appendChild(head);
       list.forEach(function (m) { block.appendChild(matchRow(m)); });

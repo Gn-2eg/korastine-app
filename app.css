@@ -177,3 +177,4 @@ a{color:inherit;text-decoration:none}
 .day.on{background:#f5c542;color:#0a0f14;border-color:#f5c542}.day.on small{opacity:.9}
 .data-status{font-size:.78rem;opacity:.7}
 .featured[hidden]{display:none}
+.league-head .src{font-size:.7rem;opacity:.65;margin-inline-start:8px}

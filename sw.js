@@ -1,5 +1,5 @@
 /* كورهسطين app shell */
-const CACHE = "korastine-app-v2";
+const CACHE = "korastine-app-v3";
 const SHELL = ["./", "./index.html", "./app.css", "./app.js", "./data.js", "./live.js",
   "./manifest.webmanifest", "./assets-brand.svg", "./favicon.png",
   "./icon-192.png", "./icon-512.png"];
@@ -19,6 +19,7 @@ self.addEventListener("fetch", (e) => {
   if (req.method !== "GET") return;
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
+  if (url.pathname.endsWith("/fixtures.json")) return;
   e.respondWith(
     caches.match(req, { ignoreSearch: true }).then((hit) => {
       const net = fetch(req).then((res) => {
