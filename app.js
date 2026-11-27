@@ -145,10 +145,19 @@
     sel.innerHTML = "";
     var all = el("option", null, "كل البطولات");
     all.value = ""; sel.appendChild(all);
-    L.COMPS.forEach(function (c) {
-      var o = el("option", null, c.name);
-      o.value = c.id; sel.appendChild(o);
-    });
+    /* الدوريات الأول (بترتيب الأهمية)، وبعدهم الكؤوس */
+    function grp(label, list) {
+      if (!list.length) return;
+      var g = document.createElement("optgroup");
+      g.label = label;
+      list.forEach(function (c) {
+        var o = el("option", null, c.name);
+        o.value = c.id; g.appendChild(o);
+      });
+      sel.appendChild(g);
+    }
+    grp("الدوريات", L.COMPS.filter(function (c) { return !c.cup; }));
+    grp("الكؤوس", L.COMPS.filter(function (c) { return c.cup; }));
     sel.dataset.sig = "v1";
     sel.value = filterComp || "";
   }
