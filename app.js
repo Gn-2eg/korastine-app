@@ -700,17 +700,23 @@
     document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeDash(); });
     return ov;
   }
-  function closeDash() {
+  function closeDash(fromPop) {
     var ov = document.getElementById("ksDash");
     if (ov) ov.hidden = true;
     document.body.classList.remove("dash-open");
+    if (fromPop !== true && history.state && history.state.ksDash) { try { history.back(); } catch (e) {} }
   }
+  window.addEventListener("popstate", function () {
+    var o = document.getElementById("ksDash");
+    if (o && !o.hidden) closeDash(true);
+  });
   function openDash(compId) {
     if (!compById(compId)) return;
     dashComp = compId; dashTab = "table";
     var ov = dashOverlay();
     ov.hidden = false;
     document.body.classList.add("dash-open");
+    if (!(history.state && history.state.ksDash)) { try { history.pushState({ ksDash: 1 }, ""); } catch (e) {} }
     renderDash();
     clearInterval(dashPoll);
     if (compId === "caf.confed") {
