@@ -104,6 +104,8 @@ Object.assign(TEAMS, {"AL Masry": "المصري", "Abu Qair Semad": "أبو قي
  "ZED FC": "logos/zed-fc.png",
  "زد": "logos/zed-fc.png"
 };
+  var SEENLOGO = {}, seenDirty = false;
+  try { SEENLOGO = JSON.parse(localStorage.getItem("ks_lgl") || "{}") || {}; } catch (e) { SEENLOGO = {}; }
   var COMPLOGO = { "caf.confed": "logos/caf-confed.svg" };
   var STAMP = "ks_cache_v1_";
 
@@ -490,10 +492,12 @@ Object.assign(TEAMS, {"Abha": "أبها", "Al Faisaly": "الفيصلي", "Al Di
       /* لوجوهات محلية: كأس الكونفدرالية والفرق اللي جورج بعت لوجوهاتها */
       all.forEach(function (m) {
         if (COMPLOGO[m.comp]) m.leagueLogo = COMPLOGO[m.comp];
+        else if (m.leagueLogo && SEENLOGO[m.comp] !== m.leagueLogo) { SEENLOGO[m.comp] = m.leagueLogo; seenDirty = true; }
         var h = teamLogo(m.home), a = teamLogo(m.away);
         if (h && h !== UNKNOWN_LOGO) m.homeLogo = h;
         if (a && a !== UNKNOWN_LOGO) m.awayLogo = a;
       });
+      if (seenDirty) { seenDirty = false; try { localStorage.setItem("ks_lgl", JSON.stringify(SEENLOGO)); } catch (e) {} }
       return applyProxy(all).then(function () { applyLogos56(all); }).then(function () {
         var v = { matches: all, errors: errors, at: Date.now() };
         if (errors < COMPS.length) cache[day] = { t: Date.now(), v: v };
@@ -504,6 +508,6 @@ Object.assign(TEAMS, {"Abha": "أبها", "Al Faisaly": "الفيصلي", "Al Di
   return {
     COMPS: COMPS, TEAMS: TEAMS, loadDay: loadDay, dkey: dkey,
     team: team, teamLogo: teamLogo, UNKNOWN_LOGO: UNKNOWN_LOGO,
-    compLogo: function (id) { return COMPLOGO[id] || null; }
+    compLogo: function (id) { return COMPLOGO[id] || SEENLOGO[id] || null; }
   };
 })();
