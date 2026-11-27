@@ -504,3 +504,9 @@ body{background:var(--bg)!important;background-image:none!important}
 .pd-rank{font-family:var(--display);color:var(--gold);font-size:18px}
 .pd-lb-name{flex:1}
 @media(max-width:900px){#predictRoot{padding-bottom:70px}}
+
+/* ---------- الأهداف / الملخصات ---------- */
+#hlRoot{max-width:760px}
+.hl-links{display:flex;flex-wrap:wrap;gap:8px}
+.hl-btn{flex:1 1 140px;text-align:center;font-family:var(--font);font-size:13px;font-weight:800;color:#04120a;background:var(--green);border-radius:12px;padding:10px 8px;text-decoration:none}
+.hl-btn.alt{color:var(--text);background:var(--bg2);border:1px solid var(--line)}
