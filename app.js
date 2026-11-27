@@ -12,7 +12,10 @@
   function logoImg(src, cls) {
     if (!src) return null;
     var i = el("img", cls || "logo");
-    i.src = src; i.alt = ""; i.loading = "lazy";
+    /* لوجوهات ESPN أصلها 500px، بنطلبها بحجم الاستخدام الفعلي (أخف عشرات المرات) */
+    var mm = /^https:\/\/a\.espncdn\.com(\/i\/(?:team|league)logos\/[^?]+?\.png)$/.exec(src);
+    if (mm) src = "https://a.espncdn.com/combiner/i?img=" + mm[1] + "&w=" + (/lg-logo/.test(cls || "") ? 72 : 112) + "&h=" + (/lg-logo/.test(cls || "") ? 72 : 112);
+    i.src = src; i.alt = ""; i.loading = "lazy"; i.decoding = "async";
     i.addEventListener("error", function () {
       var ph = (window.KS_LIVE && window.KS_LIVE.UNKNOWN_LOGO) || "";
       if (ph && !i.dataset.ph && i.getAttribute("src") !== ph) { i.dataset.ph = "1"; i.src = ph; return; }
