@@ -431,6 +431,7 @@ Object.assign(TEAMS, {"Abha": "أبها", "Al Faisaly": "الفيصلي", "Al Di
   }
   var CAF_REMOTE_N = {};
   Object.keys(CAF_REMOTE).forEach(function (k) { CAF_REMOTE_N[normKey(k)] = CAF_REMOTE[k]; });
+  var FG_ID = {"cs sfaxien":428,"club sportif sfaxien":428,"الصفاقسي":428,"as real bamako":1430,"real bamako":1430,"ريال باماكو":1430,"black bulls":13065,"associacao black bulls":13065,"بلاك بولز":13065,"usm alger":1125,"usm alger fc":1125,"اتحاد العاصمة":1125,"asko kara":835,"أسكو دو كارا":835,"mc alger":0};
   var LOGO_ALIAS = {"douanes":"AS Douanes","asko kara":"ASKO de Kara","cd primeiro de agosto":"Primeiro de Agosto","club sportif sfaxien":"CS Sfaxien","associacao black bulls":"Black Bulls","real bamako":"AS Real Bamako","red arrows":"Red Arrows FC"};
   function teamLogo(n) {
     var al = LOGO_ALIAS[normKey(n)]; if (al) n = al;
@@ -446,7 +447,11 @@ Object.assign(TEAMS, {"Abha": "أبها", "Al Faisaly": "الفيصلي", "Al Di
     var v = LOGO56_AR[team(n)] || LOGO56[n] || TEAMLOGO[n] || TEAMLOGO[team(n)];
     if (!v) v = CAF_REMOTE[n] || CAF_REMOTE[team(n)] || CAF_REMOTE_N[normKey(n)] || null;
     if (v && REPATH[v]) v = REPATH[v];
-    if (!v || BAD_LOGO[v]) return UNKNOWN_LOGO;
+    if (!v || BAD_LOGO[v]) {
+      /* لوجوهات جدول الكونفدرالية (فيلجول) لنفس الفريق لو لوجو الماتش ناقص */
+      var fg = FG_ID[normKey(n)] || FG_ID[normKey(team(n))];
+      return fg ? "https://semedia.filgoal.com/Photos/Team/Medium/" + fg + ".png" : UNKNOWN_LOGO;
+    }
     return v;
   }
   function applyLogos56(all) {
