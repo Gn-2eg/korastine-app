@@ -487,9 +487,10 @@
   }
 
   /* ---------- router ---------- */
-  var views = { scores: "view-scores", analysis: "view-analysis", match: "view-match" };
+  var views = { scores: "view-scores", predict: "view-predict", match: "view-match" };
   function route() {
     var key = (location.hash.replace("#/", "") || "scores");
+    if (key === "analysis") key = "predict";
     if (!views[key]) key = "scores";
     Object.keys(views).forEach(function (k) {
       var v = document.getElementById(views[k]);
@@ -521,7 +522,7 @@
     });
   }
 
-  renderAnalysis(); renderDetail(); renderStrip(); initFilter(); load(false);
+  renderDetail(); renderStrip(); initFilter(); load(false);
 
   /* سحب الأفقي بالماوس على الديسكتوب */
   (function () {
@@ -869,4 +870,3 @@
 
   window.addEventListener("hashchange", route); route();
 })();
-
