@@ -39,11 +39,14 @@ for (const o of days) {
     if (!Array.isArray(j.data)) throw new Error('bad payload');
     ok++;
     for (const m of j.data) {
-      if (m?.league?.country !== 'Egypt' || !m.home?.name || !m.away?.name || !Number.isFinite(m.timestamp)) continue;
+      const lg = m?.league || {};
+      const keep = lg.country === 'Egypt' || /caf super cup|arab/i.test(lg.name || '');
+      if (!keep || !m.home?.name || !m.away?.name || !Number.isFinite(m.timestamp)) continue;
       out.set(m.id, {
         id: m.id, leagueId: m.league.id, league: m.league.name, round: m.league.round || null,
         date: m.timestamp * 1000,
         home: m.home.name, away: m.away.name,
+        country: lg.country || null,
         homeLogo: m.home.logo || null, awayLogo: m.away.logo || null, leagueLogo: m.league.logo || null,
         hs: m.goals?.home ?? null, as: m.goals?.away ?? null,
         status: m.status?.short || 'NS', group: m.status?.group || null, minute: m.status?.elapsed ?? null
