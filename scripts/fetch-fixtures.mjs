@@ -47,6 +47,7 @@ for (const o of days) {
         date: m.timestamp * 1000,
         home: m.home.name, away: m.away.name,
         country: lg.country || null,
+        venue: (m.venue && m.venue.name) || null,
         homeLogo: m.home.logo || null, awayLogo: m.away.logo || null, leagueLogo: m.league.logo || null,
         hs: m.goals?.home ?? null, as: m.goals?.away ?? null,
         status: m.status?.short || 'NS', group: m.status?.group || null, minute: m.status?.elapsed ?? null
