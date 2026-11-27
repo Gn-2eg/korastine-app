@@ -99,6 +99,7 @@ Object.assign(TEAMS, {"AL Masry": "المصري", "Abu Qair Semad": "أبو قي
           home: team(h.team && h.team.displayName), away: team(a.team && a.team.displayName),
           homeLogo: (h.team && h.team.logo) || null, awayLogo: (a.team && a.team.logo) || null,
           leagueLogo: (j.leagues && j.leagues[0] && j.leagues[0].logos && j.leagues[0].logos[0] && j.leagues[0].logos[0].href) || null,
+          venue: (c.venue && (c.venue.fullName || c.venue.name)) || null,
           hs: +h.score, as: +a.score, status: state,
           minute: state === "live" ? (e.status.displayClock || "") : "",
           detail: st.shortDetail || ""
@@ -162,6 +163,7 @@ Object.assign(TEAMS, {"AL Masry": "المصري", "Abu Qair Semad": "أبو قي
           var hasS = m.hs !== null && m.as !== null;
           return { comp: curvaComp(m), date: m.date, home: team(m.home), away: team(m.away),
             homeLogo: m.homeLogo || null, awayLogo: m.awayLogo || null, leagueLogo: m.leagueLogo || null,
+            venue: m.venue || null,
             hs: hasS ? +m.hs : NaN, as: hasS ? +m.as : NaN, status: state,
             minute: state === "live" ? (sh === "HT" ? "ا" : String(m.minute || "")) : "", detail: m.league || "" };
         });

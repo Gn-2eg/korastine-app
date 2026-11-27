@@ -49,7 +49,22 @@
     if (on && on.scrollIntoView) on.scrollIntoView({ inline: "center", block: "nearest" });
   }
 
+  function fullTime(ts) {
+    try {
+      return new Date(ts).toLocaleString("ar-EG", { weekday: "long", day: "numeric", month: "long", hour: "numeric", minute: "2-digit" });
+    } catch (e) { return hhmm(ts); }
+  }
+
+  function addFact(box, label, value) {
+    if (!value) return;
+    var d = el("div", "fact");
+    d.appendChild(el("span", null, label));
+    d.appendChild(el("b", null, String(value)));
+    box.appendChild(d);
+  }
+
   function matchRow(m) {
+    var wrap = el("div", "match-wrap");
     var row = el("div", "match-row" + (m.status === "live" ? " is-live" : ""));
     var home = el("div", "team");
     home.appendChild(logoImg(m.homeLogo) || el("span", "dot"));
@@ -69,8 +84,27 @@
     var away = el("div", "team away");
     away.appendChild(logoImg(m.awayLogo) || el("span", "dot"));
     away.appendChild(el("span", null, m.away));
+    var more = el("button", "more-btn", "المزيد");
+    more.type = "button";
+    more.setAttribute("aria-expanded", "false");
+    center.appendChild(more);
     row.appendChild(home); row.appendChild(center); row.appendChild(away);
-    return row;
+
+    var detail = el("div", "match-more");
+    detail.hidden = true;
+    addFact(detail, "البطولة", compName[m.comp]);
+    addFact(detail, "الجولة", m.detail);
+    addFact(detail, "الملعب", m.venue);
+    addFact(detail, "التوقيت", fullTime(m.date) + " (بتوقيتك)");
+    more.addEventListener("click", function () {
+      detail.hidden = !detail.hidden;
+      more.textContent = detail.hidden ? "المزيد" : "أقل";
+      more.setAttribute("aria-expanded", detail.hidden ? "false" : "true");
+    });
+
+    wrap.appendChild(row);
+    wrap.appendChild(detail);
+    return wrap;
   }
 
   var COL_CAP = 6;

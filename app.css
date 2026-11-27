@@ -103,6 +103,17 @@ a{color:inherit;text-decoration:none}
 .league-blocks.anim .lg-group{animation:ksIn .38s cubic-bezier(.2,.7,.3,1) both}
 .lg-group{transition:border-color .22s ease,box-shadow .22s ease}
 .lg-group:hover{border-color:rgba(53,224,125,.32);box-shadow:0 8px 24px rgba(0,0,0,.28)}
+.match-wrap{border-bottom:1px solid rgba(255,255,255,.04)}
+.match-wrap:last-child{border-bottom:0}
+.match-wrap .match-row{border-bottom:0}
+.more-btn{background:transparent;border:0;color:var(--muted);font:inherit;font-size:10px;font-weight:700;
+  cursor:pointer;padding:2px 0 0;text-decoration:underline;opacity:.85}
+.more-btn:hover{color:var(--text)}
+.match-more{padding:2px 14px 10px;background:rgba(255,255,255,.025);font-size:12px;color:var(--muted);
+  display:flex;flex-direction:column;gap:3px}
+.match-more .fact{display:flex;gap:8px;justify-content:space-between}
+.match-more .fact span{opacity:.75}
+.match-more .fact b{color:var(--text);font-weight:700;text-align:start}
 .match-row{transition:background .16s ease}
 .match-row:hover{background:rgba(255,255,255,.035)}
 .featured-tag{animation:ksPulse 2.6s ease-in-out infinite}
