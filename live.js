@@ -259,28 +259,78 @@ Object.assign(TEAMS, {"AL Masry": "المصري", "Abu Qair Semad": "أبو قي
       return all;
     }).catch(function () { return all; });
   }
-  /* لوجوهات الـ56 فريق: ملف واحد logos56.json بدل 56 صورة */
-  var logo56Ready = null;
-  function logos56() {
-    if (!logo56Ready) logo56Ready = fetch("logos56.json", { cache: "force-cache" }).then(function (r) {
-      if (!r.ok) throw new Error("logos " + r.status);
-      return r.json();
-    }).catch(function () { return {}; });
-    return logo56Ready;
-  }
+  /* لوجوهات الـ56 فريق: ملفات محلية في logos/ بخلفية شفافة */
+  var LOGO56 = {
+    "AFAD Plateau": "logos/caf-afad-plateau.png",
+    "AS Douanes": "logos/caf-as-douanes.png",
+    "AS FAR": "logos/caf-as-far.png",
+    "AS Maniema Union": "logos/caf-as-maniema-union.png",
+    "AS PSI": "logos/caf-as-psi.png",
+    "AS Port Louis 2000": "logos/caf-as-port-louis-2000.png",
+    "AS Real Bamako": "logos/caf-as-real-bamako.png",
+    "AS ZAM": "logos/caf-as-zam.png",
+    "ASAS Djibouti Telecom": "logos/caf-asas-djibouti-telecom.png",
+    "ASKO de Kara": "logos/caf-asko-de-kara.png",
+    "ASPAC FC": "logos/caf-aspac-fc.png",
+    "Al Ahli Wad Madani": "logos/caf-al-ahli-wad-madani.png",
+    "Al Ahly FC": "logos/caf-al-ahly-fc.png",
+    "Al Ahly Tripoli": "logos/caf-al-ahly-tripoli.png",
+    "Al Ghazala Wau SC": "logos/caf-al-ghazala-wau-sc.png",
+    "Al Hilal Alsahil": "logos/caf-al-hilal-alsahil.png",
+    "Atomic Ngome": "logos/caf-atomic-ngome.png",
+    "Azam FC": "logos/caf-azam-fc.png",
+    "Black Bulls": "logos/caf-black-bulls.png",
+    "CO Korhogo": "logos/caf-co-korhogo.png",
+    "CR Belouizdad": "logos/caf-cr-belouizdad.png",
+    "CS Sfaxien": "logos/caf-cs-sfaxien.png",
+    "DC Virunga": "logos/caf-dc-virunga.png",
+    "Diambars FC": "logos/caf-diambars-fc.png",
+    "Durban City FC": "logos/caf-durban-city-fc.png",
+    "ES Zarzis": "logos/caf-es-zarzis.png",
+    "East End Lions FC": "logos/caf-east-end-lions-fc.png",
+    "El Kanemi Warriors": "logos/caf-el-kanemi-warriors.png",
+    "FC Diarra": "logos/caf-fc-diarra.png",
+    "FC Rouge": "logos/caf-fc-rouge.png",
+    "Green Mamba FC": "logos/caf-green-mamba-fc.png",
+    "Hafia FC": "logos/caf-hafia-fc.png",
+    "Jwaneng Galaxy FC": "logos/caf-jwaneng-galaxy-fc.png",
+    "KMKM SC": "logos/caf-kmkm-sc.png",
+    "Kabuscorp de Palanca": "logos/caf-kabuscorp-de-palanca.png",
+    "Kaizer Chiefs FC": "logos/caf-kaizer-chiefs-fc.png",
+    "Kitara FC": "logos/caf-kitara-fc.png",
+    "Mogadishu City Club": "logos/caf-mogadishu-city-club.png",
+    "Nations FC": "logos/caf-nations-fc.png",
+    "PTL Bazar Brothers": "logos/caf-ptl-bazar-brothers.png",
+    "Panthere Sportive du Nde": "logos/caf-panthere-sportive-du-nde.png",
+    "Primeiro de Agosto": "logos/caf-primeiro-de-agosto.png",
+    "Raja Club Athletic": "logos/caf-raja-club-athletic.png",
+    "Rayon Sports FC": "logos/caf-rayon-sports-fc.png",
+    "Red Arrows FC": "logos/caf-red-arrows-fc.png",
+    "Rukinzo FC": "logos/caf-rukinzo-fc.png",
+    "Shooting Stars SC": "logos/caf-shooting-stars-sc.png",
+    "Singida Black Stars FC": "logos/caf-singida-black-stars-fc.png",
+    "The Panthers FC": "logos/caf-the-panthers-fc.png",
+    "Tusker FC": "logos/caf-tusker-fc.png",
+    "UDIB": "logos/caf-udib.png",
+    "UNAM FC": "logos/caf-unam-fc.png",
+    "USM Alger": "logos/caf-usm-alger.png",
+    "Vitesse FC": "logos/caf-vitesse-fc.png",
+    "Welwalo Adigrat University FC": "logos/caf-welwalo-adigrat-university-fc.png",
+    "ZED FC": "logos/caf-zed-fc.png"
+  };
+  var LOGO56_AR = null;
   function applyLogos56(all) {
-    return logos56().then(function (map) {
-      if (!map || !Object.keys(map).length) return all;
-      var byAr = {};
-      Object.keys(map).forEach(function (k) { byAr[team(k)] = map[k]; });
-      all.forEach(function (m) {
-        var h = TEAMLOGO[m.home] || byAr[m.home];
-        var a = TEAMLOGO[m.away] || byAr[m.away];
-        if (h) m.homeLogo = h;
-        if (a) m.awayLogo = a;
-      });
-      return all;
-    }).catch(function () { return all; });
+    if (!LOGO56_AR) {
+      LOGO56_AR = {};
+      Object.keys(LOGO56).forEach(function (k) { LOGO56_AR[team(k)] = LOGO56[k]; });
+    }
+    all.forEach(function (m) {
+      var h = LOGO56_AR[m.home] || TEAMLOGO[m.home];
+      var a = LOGO56_AR[m.away] || TEAMLOGO[m.away];
+      if (h) m.homeLogo = h;
+      if (a) m.awayLogo = a;
+    });
+    return all;
   }
   var cache = {};
   function loadDay(date, force) {
@@ -308,7 +358,7 @@ Object.assign(TEAMS, {"AL Masry": "المصري", "Abu Qair Semad": "أبو قي
         if (TEAMLOGO[m.home]) m.homeLogo = TEAMLOGO[m.home];
         if (TEAMLOGO[m.away]) m.awayLogo = TEAMLOGO[m.away];
       });
-      return applyProxy(all).then(function () { return applyLogos56(all); }).then(function () {
+      return applyProxy(all).then(function () { applyLogos56(all); }).then(function () {
         var v = { matches: all, errors: errors, at: Date.now() };
         if (errors < COMPS.length) cache[day] = { t: Date.now(), v: v };
         return v;
