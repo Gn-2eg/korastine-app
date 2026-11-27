@@ -561,3 +561,9 @@ body.lk-open{overflow:hidden}
 .fl-prog i{position:absolute;inset-block:0;inset-inline-start:0;background:#35e07d;border-radius:3px}
 .fl-prog b{position:absolute;inset-block:0;inset-inline-start:50%;width:2px;background:#0a1219}
 @media (max-width:900px){.featured{padding-left:calc(27% + 14px)}.fl-wrap{width:27%;max-width:none}.matchup{gap:8px}.matchup .team-name{font-size:13px}.matchup .score{font-size:32px}}
+
+/* hero v2: Palestine flag ribbon, 3 wave loops, rising above the card's top-left (hand drawing 26419307) */
+.featured{overflow:visible;padding-left:calc(200px + 10px)}
+.fl-wrap{left:4px;top:-26px;bottom:auto;width:200px;height:176px;max-width:none;filter:none;overflow:visible}
+.fl-svg{overflow:visible}
+@media (max-width:900px){.featured{padding-left:calc(124px + 8px)}.fl-wrap{left:0;top:-20px;width:128px;height:112px}}
