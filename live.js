@@ -363,7 +363,7 @@ Object.assign(TEAMS, {"AL Masry": "المصري", "Abu Qair Semad": "أبو قي
   /* مسارات محدّثة (الرفع على GitHub بيزوّد رقم قبل الاسم) */
   var REPATH = {
     "logos/caf-al-ahly-fc.png": "logos/9-caf-al-ahly-fc.png",
-    "logos/caf-confederation-cup.png": "logos/10-caf-confederation-cup.png"
+    "logos/caf-confederation-cup.png": "logos/1-caf-confederation-cup.png"
   };
   function teamLogo(n) {
     if (!LOGO56_AR) {
