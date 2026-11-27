@@ -99,7 +99,7 @@ Object.assign(TEAMS, {"AL Masry": "المصري", "Abu Qair Semad": "أبو قي
  "ZED FC": "logos/zed-fc.png",
  "زد": "logos/zed-fc.png"
 };
-  var COMPLOGO = { "caf.confed": "logos/caf-confederation-cup.png" };
+  var COMPLOGO = { "caf.confed": "logos/1-caf-confederation-cup.png?v=36" };
   var STAMP = "ks_cache_v1_";
 
   function pad(n) { return (n < 10 ? "0" : "") + n; }
@@ -463,6 +463,6 @@ Object.assign(TEAMS, {"AL Masry": "المصري", "Abu Qair Semad": "أبو قي
   return {
     COMPS: COMPS, loadDay: loadDay, dkey: dkey,
     team: team, teamLogo: teamLogo, UNKNOWN_LOGO: UNKNOWN_LOGO,
-    compLogo: function (id) { var v = COMPLOGO[id]; return v ? (REPATH[v] || v) : null; }
+    compLogo: function (id) { return COMPLOGO[id] || null; }
   };
 })();
