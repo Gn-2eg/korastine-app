@@ -487,7 +487,7 @@
   }
 
   /* ---------- router ---------- */
-  var views = { scores: "view-scores", predict: "view-predict", highlights: "view-highlights" };
+  var views = { scores: "view-scores", predict: "view-predict", highlights: "view-highlights", lockers: "view-lockers" };
   function route() {
     var key = (location.hash.replace("#/", "") || "scores");
     if (key === "analysis") key = "predict";
