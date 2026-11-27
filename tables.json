@@ -1,1 +1,816 @@
-{"leagues":{"egy":{"standings":[{"name":"Premier League","rows":[{"rank":1,"team":"Pyramids FC","logo":"https://media.api-sports.io/football/teams/1036.png","points":27,"played":9,"win":9,"draw":0,"lose":0,"gf":21,"ga":4,"gd":17,"form":"WWWWW"},{"rank":2,"team":"Zamalek SC","logo":"https://media.api-sports.io/football/teams/1040.png","points":22,"played":9,"win":7,"draw":1,"lose":1,"gf":13,"ga":5,"gd":8,"form":"WWWLW"},{"rank":3,"team":"Al Ahly","logo":"https://media.api-sports.io/football/teams/1577.png","points":20,"played":9,"win":6,"draw":2,"lose":1,"gf":15,"ga":8,"gd":7,"form":"LWDWW"},{"rank":4,"team":"Ceramica Cleopatra","logo":"https://media.api-sports.io/football/teams/14651.png","points":18,"played":9,"win":6,"draw":0,"lose":3,"gf":15,"ga":9,"gd":6,"form":"LWWLW"},{"rank":5,"team":"Al Ittihad","logo":"https://media.api-sports.io/football/teams/1572.png","points":15,"played":9,"win":4,"draw":3,"lose":2,"gf":10,"ga":7,"gd":3,"form":"DDLWW"},{"rank":6,"team":"El Mokawloon","logo":"https://media.api-sports.io/football/teams/1575.png","points":14,"played":9,"win":4,"draw":2,"lose":3,"gf":13,"ga":9,"gd":4,"form":"WLWDW"},{"rank":7,"team":"Future FC","logo":"https://media.api-sports.io/football/teams/16431.png","points":14,"played":9,"win":4,"draw":2,"lose":3,"gf":12,"ga":10,"gd":2,"form":"DLLWW"},{"rank":8,"team":"AL Masry","logo":"https://media.api-sports.io/football/teams/1031.png","points":12,"played":9,"win":3,"draw":3,"lose":3,"gf":10,"ga":10,"gd":0,"form":"WDDDL"},{"rank":9,"team":"National Bank of Egypt","logo":"https://media.api-sports.io/football/teams/15570.png","points":12,"played":9,"win":3,"draw":3,"lose":3,"gf":10,"ga":10,"gd":0,"form":"DDDWL"},{"rank":10,"team":"Smouha SC","logo":"https://media.api-sports.io/football/teams/1044.png","points":12,"played":9,"win":3,"draw":3,"lose":3,"gf":6,"ga":6,"gd":0,"form":"DDWWW"},{"rank":11,"team":"Masr","logo":"https://media.api-sports.io/football/teams/7520.png","points":12,"played":9,"win":3,"draw":3,"lose":3,"gf":9,"ga":10,"gd":-1,"form":"DLWDW"},{"rank":12,"team":"Enppi","logo":"https://media.api-sports.io/football/teams/1037.png","points":10,"played":9,"win":3,"draw":1,"lose":5,"gf":12,"ga":16,"gd":-4,"form":"WWLLL"},{"rank":13,"team":"Ghazl El Mehalla","logo":"https://media.api-sports.io/football/teams/13819.png","points":10,"played":9,"win":3,"draw":1,"lose":5,"gf":6,"ga":11,"gd":-5,"form":"WWWLL"},{"rank":14,"team":"Petrojet","logo":"https://media.api-sports.io/football/teams/1041.png","points":9,"played":9,"win":2,"draw":3,"lose":4,"gf":11,"ga":15,"gd":-4,"form":"LDLDW"},{"rank":15,"team":"El Geish","logo":"https://media.api-sports.io/football/teams/1039.png","points":9,"played":9,"win":2,"draw":3,"lose":4,"gf":6,"ga":12,"gd":-6,"form":"DDLLL"},{"rank":16,"team":"Wadi Degla","logo":"https://media.api-sports.io/football/teams/1046.png","points":8,"played":9,"win":1,"draw":5,"lose":3,"gf":9,"ga":11,"gd":-2,"form":"DLDDL"},{"rank":17,"team":"Olympic El Qanah","logo":"https://media.api-sports.io/football/teams/13822.png","points":8,"played":9,"win":1,"draw":5,"lose":3,"gf":11,"ga":14,"gd":-3,"form":"LLDDL"},{"rank":18,"team":"Asyut Petrol","logo":"https://media.api-sports.io/football/teams/18021.png","points":6,"played":9,"win":1,"draw":3,"lose":5,"gf":4,"ga":10,"gd":-6,"form":"LDLWL"},{"rank":19,"team":"Abu Qair Semad","logo":"https://media.api-sports.io/football/teams/15731.png","points":5,"played":9,"win":1,"draw":2,"lose":6,"gf":3,"ga":12,"gd":-9,"form":"DLDLL"},{"rank":20,"team":"El Gouna FC","logo":"https://media.api-sports.io/football/teams/1574.png","points":3,"played":9,"win":0,"draw":3,"lose":6,"gf":6,"ga":13,"gd":-7,"form":"LDLLL"}]}],"scorers":[{"rank":1,"player":"Mahmoud Mamdouh","photo":"https://media.api-sports.io/football/players/395073.png","team":"Future FC","goals":8,"assists":1,"appearances":9},{"rank":2,"player":"Salah Mohsen","photo":"https://media.api-sports.io/football/players/2666.png","team":"AL Masry","goals":5,"assists":0,"appearances":9},{"rank":3,"player":"M. Wayo","photo":"https://media.api-sports.io/football/players/558995.png","team":"Olympic El Qanah","goals":4,"assists":0,"appearances":9},{"rank":4,"player":"Hossam Hassan","photo":"https://media.api-sports.io/football/players/17083.png","team":"Al Ittihad","goals":4,"assists":0,"appearances":9},{"rank":5,"player":"Mohamed Reda","photo":"https://media.api-sports.io/football/players/17145.png","team":"Ceramica Cleopatra","goals":3,"assists":2,"appearances":9},{"rank":6,"player":"Mostafa Zico","photo":"https://media.api-sports.io/football/players/395075.png","team":"Pyramids FC","goals":3,"assists":2,"appearances":6},{"rank":7,"player":"Ahmed Bahbah","photo":"https://media.api-sports.io/football/players/17313.png","team":"Petrojet","goals":3,"assists":1,"appearances":9},{"rank":8,"player":"Mostafa El Badry","photo":"https://media.api-sports.io/football/players/16810.png","team":"Petrojet","goals":3,"assists":1,"appearances":8},{"rank":9,"player":"Ahmed Sherif","photo":"https://media.api-sports.io/football/players/269951.png","team":"Zamalek SC","goals":3,"assists":0,"appearances":8},{"rank":10,"player":"Zizo","photo":"https://media.api-sports.io/football/players/16871.png","team":"Al Ahly","goals":3,"assists":2,"appearances":9},{"rank":11,"player":"Oday Dabbagh","photo":"https://media.api-sports.io/football/players/53918.png","team":"Zamalek SC","goals":2,"assists":3,"appearances":9},{"rank":12,"player":"Mohanad Lasheen","photo":"https://media.api-sports.io/football/players/16841.png","team":"Pyramids FC","goals":2,"assists":3,"appearances":9},{"rank":13,"player":"Ahmed Belhadji","photo":"https://media.api-sports.io/football/players/159169.png","team":"Ceramica Cleopatra","goals":2,"assists":3,"appearances":2},{"rank":14,"player":"Chico Banza","photo":"https://media.api-sports.io/football/players/3328.png","team":"Zamalek SC","goals":2,"assists":1,"appearances":9},{"rank":15,"player":"Youssef Obama","photo":"https://media.api-sports.io/football/players/16869.png","team":"Pyramids FC","goals":2,"assists":1,"appearances":8},{"rank":16,"player":"P. Badji","photo":"https://media.api-sports.io/football/players/391253.png","team":"Smouha SC","goals":2,"assists":1,"appearances":7},{"rank":17,"player":"Ahmed Atef","photo":"https://media.api-sports.io/football/players/196832.png","team":"Masr","goals":2,"assists":1,"appearances":6},{"rank":18,"player":"Hamed Abdallah","photo":"https://media.api-sports.io/football/players/522183.png","team":"Enppi","goals":2,"assists":1,"appearances":5},{"rank":19,"player":"Islam Mohareb","photo":"https://media.api-sports.io/football/players/16817.png","team":"El Geish","goals":2,"assists":1,"appearances":3},{"rank":20,"player":"Hazem Abou Sena","photo":"https://media.api-sports.io/football/players/474970.png","team":"Olympic El Qanah","goals":2,"assists":1,"appearances":3}]}},"updatedAt":"2026-11-27T12:30:25.070Z"}
+{
+ "leagues": {
+  "egy": {
+   "standings": [
+    {
+     "name": "Premier League",
+     "rows": [
+      {
+       "rank": 1,
+       "team": "Pyramids FC",
+       "logo": "https://media.api-sports.io/football/teams/1036.png",
+       "points": 27,
+       "played": 9,
+       "win": 9,
+       "draw": 0,
+       "lose": 0,
+       "gf": 21,
+       "ga": 4,
+       "gd": 17,
+       "form": "WWWWW"
+      },
+      {
+       "rank": 2,
+       "team": "Zamalek SC",
+       "logo": "https://media.api-sports.io/football/teams/1040.png",
+       "points": 22,
+       "played": 9,
+       "win": 7,
+       "draw": 1,
+       "lose": 1,
+       "gf": 13,
+       "ga": 5,
+       "gd": 8,
+       "form": "WWWLW"
+      },
+      {
+       "rank": 3,
+       "team": "Al Ahly",
+       "logo": "https://media.api-sports.io/football/teams/1577.png",
+       "points": 20,
+       "played": 9,
+       "win": 6,
+       "draw": 2,
+       "lose": 1,
+       "gf": 15,
+       "ga": 8,
+       "gd": 7,
+       "form": "LWDWW"
+      },
+      {
+       "rank": 4,
+       "team": "Ceramica Cleopatra",
+       "logo": "https://media.api-sports.io/football/teams/14651.png",
+       "points": 18,
+       "played": 9,
+       "win": 6,
+       "draw": 0,
+       "lose": 3,
+       "gf": 15,
+       "ga": 9,
+       "gd": 6,
+       "form": "LWWLW"
+      },
+      {
+       "rank": 5,
+       "team": "Al Ittihad",
+       "logo": "https://media.api-sports.io/football/teams/1572.png",
+       "points": 15,
+       "played": 9,
+       "win": 4,
+       "draw": 3,
+       "lose": 2,
+       "gf": 10,
+       "ga": 7,
+       "gd": 3,
+       "form": "DDLWW"
+      },
+      {
+       "rank": 6,
+       "team": "El Mokawloon",
+       "logo": "https://media.api-sports.io/football/teams/1575.png",
+       "points": 14,
+       "played": 9,
+       "win": 4,
+       "draw": 2,
+       "lose": 3,
+       "gf": 13,
+       "ga": 9,
+       "gd": 4,
+       "form": "WLWDW"
+      },
+      {
+       "rank": 7,
+       "team": "Future FC",
+       "logo": "https://media.api-sports.io/football/teams/16431.png",
+       "points": 14,
+       "played": 9,
+       "win": 4,
+       "draw": 2,
+       "lose": 3,
+       "gf": 12,
+       "ga": 10,
+       "gd": 2,
+       "form": "DLLWW"
+      },
+      {
+       "rank": 8,
+       "team": "AL Masry",
+       "logo": "https://media.api-sports.io/football/teams/1031.png",
+       "points": 12,
+       "played": 9,
+       "win": 3,
+       "draw": 3,
+       "lose": 3,
+       "gf": 10,
+       "ga": 10,
+       "gd": 0,
+       "form": "WDDDL"
+      },
+      {
+       "rank": 9,
+       "team": "National Bank of Egypt",
+       "logo": "https://media.api-sports.io/football/teams/15570.png",
+       "points": 12,
+       "played": 9,
+       "win": 3,
+       "draw": 3,
+       "lose": 3,
+       "gf": 10,
+       "ga": 10,
+       "gd": 0,
+       "form": "DDDWL"
+      },
+      {
+       "rank": 10,
+       "team": "Smouha SC",
+       "logo": "https://media.api-sports.io/football/teams/1044.png",
+       "points": 12,
+       "played": 9,
+       "win": 3,
+       "draw": 3,
+       "lose": 3,
+       "gf": 6,
+       "ga": 6,
+       "gd": 0,
+       "form": "DDWWW"
+      },
+      {
+       "rank": 11,
+       "team": "Masr",
+       "logo": "https://media.api-sports.io/football/teams/7520.png",
+       "points": 12,
+       "played": 9,
+       "win": 3,
+       "draw": 3,
+       "lose": 3,
+       "gf": 9,
+       "ga": 10,
+       "gd": -1,
+       "form": "DLWDW"
+      },
+      {
+       "rank": 12,
+       "team": "Enppi",
+       "logo": "https://media.api-sports.io/football/teams/1037.png",
+       "points": 10,
+       "played": 9,
+       "win": 3,
+       "draw": 1,
+       "lose": 5,
+       "gf": 12,
+       "ga": 16,
+       "gd": -4,
+       "form": "WWLLL"
+      },
+      {
+       "rank": 13,
+       "team": "Ghazl El Mehalla",
+       "logo": "https://media.api-sports.io/football/teams/13819.png",
+       "points": 10,
+       "played": 9,
+       "win": 3,
+       "draw": 1,
+       "lose": 5,
+       "gf": 6,
+       "ga": 11,
+       "gd": -5,
+       "form": "WWWLL"
+      },
+      {
+       "rank": 14,
+       "team": "Petrojet",
+       "logo": "https://media.api-sports.io/football/teams/1041.png",
+       "points": 9,
+       "played": 9,
+       "win": 2,
+       "draw": 3,
+       "lose": 4,
+       "gf": 11,
+       "ga": 15,
+       "gd": -4,
+       "form": "LDLDW"
+      },
+      {
+       "rank": 15,
+       "team": "El Geish",
+       "logo": "https://media.api-sports.io/football/teams/1039.png",
+       "points": 9,
+       "played": 9,
+       "win": 2,
+       "draw": 3,
+       "lose": 4,
+       "gf": 6,
+       "ga": 12,
+       "gd": -6,
+       "form": "DDLLL"
+      },
+      {
+       "rank": 16,
+       "team": "Wadi Degla",
+       "logo": "https://media.api-sports.io/football/teams/1046.png",
+       "points": 8,
+       "played": 9,
+       "win": 1,
+       "draw": 5,
+       "lose": 3,
+       "gf": 9,
+       "ga": 11,
+       "gd": -2,
+       "form": "DLDDL"
+      },
+      {
+       "rank": 17,
+       "team": "Olympic El Qanah",
+       "logo": "https://media.api-sports.io/football/teams/13822.png",
+       "points": 8,
+       "played": 9,
+       "win": 1,
+       "draw": 5,
+       "lose": 3,
+       "gf": 11,
+       "ga": 14,
+       "gd": -3,
+       "form": "LLDDL"
+      },
+      {
+       "rank": 18,
+       "team": "Asyut Petrol",
+       "logo": "https://media.api-sports.io/football/teams/18021.png",
+       "points": 6,
+       "played": 9,
+       "win": 1,
+       "draw": 3,
+       "lose": 5,
+       "gf": 4,
+       "ga": 10,
+       "gd": -6,
+       "form": "LDLWL"
+      },
+      {
+       "rank": 19,
+       "team": "Abu Qair Semad",
+       "logo": "https://media.api-sports.io/football/teams/15731.png",
+       "points": 5,
+       "played": 9,
+       "win": 1,
+       "draw": 2,
+       "lose": 6,
+       "gf": 3,
+       "ga": 12,
+       "gd": -9,
+       "form": "DLDLL"
+      },
+      {
+       "rank": 20,
+       "team": "El Gouna FC",
+       "logo": "https://media.api-sports.io/football/teams/1574.png",
+       "points": 3,
+       "played": 9,
+       "win": 0,
+       "draw": 3,
+       "lose": 6,
+       "gf": 6,
+       "ga": 13,
+       "gd": -7,
+       "form": "LDLLL"
+      }
+     ]
+    }
+   ],
+   "scorers": [
+    {
+     "rank": 1,
+     "player": "Mahmoud Mamdouh",
+     "photo": "https://media.api-sports.io/football/players/395073.png",
+     "team": "Future FC",
+     "goals": 8,
+     "assists": 1,
+     "appearances": 9
+    },
+    {
+     "rank": 2,
+     "player": "Salah Mohsen",
+     "photo": "https://media.api-sports.io/football/players/2666.png",
+     "team": "AL Masry",
+     "goals": 5,
+     "assists": 0,
+     "appearances": 9
+    },
+    {
+     "rank": 3,
+     "player": "M. Wayo",
+     "photo": "https://media.api-sports.io/football/players/558995.png",
+     "team": "Olympic El Qanah",
+     "goals": 4,
+     "assists": 0,
+     "appearances": 9
+    },
+    {
+     "rank": 4,
+     "player": "Hossam Hassan",
+     "photo": "https://media.api-sports.io/football/players/17083.png",
+     "team": "Al Ittihad",
+     "goals": 4,
+     "assists": 0,
+     "appearances": 9
+    },
+    {
+     "rank": 5,
+     "player": "Mohamed Reda",
+     "photo": "https://media.api-sports.io/football/players/17145.png",
+     "team": "Ceramica Cleopatra",
+     "goals": 3,
+     "assists": 2,
+     "appearances": 9
+    },
+    {
+     "rank": 6,
+     "player": "Mostafa Zico",
+     "photo": "https://media.api-sports.io/football/players/395075.png",
+     "team": "Pyramids FC",
+     "goals": 3,
+     "assists": 2,
+     "appearances": 6
+    },
+    {
+     "rank": 7,
+     "player": "Ahmed Bahbah",
+     "photo": "https://media.api-sports.io/football/players/17313.png",
+     "team": "Petrojet",
+     "goals": 3,
+     "assists": 1,
+     "appearances": 9
+    },
+    {
+     "rank": 8,
+     "player": "Mostafa El Badry",
+     "photo": "https://media.api-sports.io/football/players/16810.png",
+     "team": "Petrojet",
+     "goals": 3,
+     "assists": 1,
+     "appearances": 8
+    },
+    {
+     "rank": 9,
+     "player": "Ahmed Sherif",
+     "photo": "https://media.api-sports.io/football/players/269951.png",
+     "team": "Zamalek SC",
+     "goals": 3,
+     "assists": 0,
+     "appearances": 8
+    },
+    {
+     "rank": 10,
+     "player": "Zizo",
+     "photo": "https://media.api-sports.io/football/players/16871.png",
+     "team": "Al Ahly",
+     "goals": 3,
+     "assists": 2,
+     "appearances": 9
+    },
+    {
+     "rank": 11,
+     "player": "Oday Dabbagh",
+     "photo": "https://media.api-sports.io/football/players/53918.png",
+     "team": "Zamalek SC",
+     "goals": 2,
+     "assists": 3,
+     "appearances": 9
+    },
+    {
+     "rank": 12,
+     "player": "Mohanad Lasheen",
+     "photo": "https://media.api-sports.io/football/players/16841.png",
+     "team": "Pyramids FC",
+     "goals": 2,
+     "assists": 3,
+     "appearances": 9
+    },
+    {
+     "rank": 13,
+     "player": "Ahmed Belhadji",
+     "photo": "https://media.api-sports.io/football/players/159169.png",
+     "team": "Ceramica Cleopatra",
+     "goals": 2,
+     "assists": 3,
+     "appearances": 2
+    },
+    {
+     "rank": 14,
+     "player": "Chico Banza",
+     "photo": "https://media.api-sports.io/football/players/3328.png",
+     "team": "Zamalek SC",
+     "goals": 2,
+     "assists": 1,
+     "appearances": 9
+    },
+    {
+     "rank": 15,
+     "player": "Youssef Obama",
+     "photo": "https://media.api-sports.io/football/players/16869.png",
+     "team": "Pyramids FC",
+     "goals": 2,
+     "assists": 1,
+     "appearances": 8
+    },
+    {
+     "rank": 16,
+     "player": "P. Badji",
+     "photo": "https://media.api-sports.io/football/players/391253.png",
+     "team": "Smouha SC",
+     "goals": 2,
+     "assists": 1,
+     "appearances": 7
+    },
+    {
+     "rank": 17,
+     "player": "Ahmed Atef",
+     "photo": "https://media.api-sports.io/football/players/196832.png",
+     "team": "Masr",
+     "goals": 2,
+     "assists": 1,
+     "appearances": 6
+    },
+    {
+     "rank": 18,
+     "player": "Hamed Abdallah",
+     "photo": "https://media.api-sports.io/football/players/522183.png",
+     "team": "Enppi",
+     "goals": 2,
+     "assists": 1,
+     "appearances": 5
+    },
+    {
+     "rank": 19,
+     "player": "Islam Mohareb",
+     "photo": "https://media.api-sports.io/football/players/16817.png",
+     "team": "El Geish",
+     "goals": 2,
+     "assists": 1,
+     "appearances": 3
+    },
+    {
+     "rank": 20,
+     "player": "Hazem Abou Sena",
+     "photo": "https://media.api-sports.io/football/players/474970.png",
+     "team": "Olympic El Qanah",
+     "goals": 2,
+     "assists": 1,
+     "appearances": 3
+    }
+   ]
+  },
+  "caf.confed": {
+   "source": "filgoal",
+   "season": "2026-27",
+   "standings": [
+    {
+     "name": "المجموعة الأولى",
+     "rows": [
+      {
+       "rank": 1,
+       "team": "أسكو دو كارا",
+       "logo": "https://semedia.filgoal.com/Photos/Team/Medium/835.png",
+       "played": 0,
+       "win": 0,
+       "lose": 0,
+       "draw": 0,
+       "gf": 0,
+       "ga": 0,
+       "gd": 0,
+       "points": 0
+      },
+      {
+       "rank": 2,
+       "team": "الرجاء البيضاوي",
+       "logo": "https://semedia.filgoal.com/Photos/Team/Medium/451.png",
+       "played": 0,
+       "win": 0,
+       "lose": 0,
+       "draw": 0,
+       "gf": 0,
+       "ga": 0,
+       "gd": 0,
+       "points": 0
+      },
+      {
+       "rank": 3,
+       "team": "الأهلي",
+       "logo": "https://semedia.filgoal.com/Photos/Team/Medium/1.png",
+       "played": 0,
+       "win": 0,
+       "lose": 0,
+       "draw": 0,
+       "gf": 0,
+       "ga": 0,
+       "gd": 0,
+       "points": 0
+      },
+      {
+       "rank": 4,
+       "team": "بريميرو دي أجوستو",
+       "logo": "https://semedia.filgoal.com/Photos/Team/Medium/833.png",
+       "played": 0,
+       "win": 0,
+       "lose": 0,
+       "draw": 0,
+       "gf": 0,
+       "ga": 0,
+       "gd": 0,
+       "points": 0
+      }
+     ]
+    },
+    {
+     "name": "المجموعة الثانية",
+     "rows": [
+      {
+       "rank": 1,
+       "team": "الأهلي طرابلس",
+       "logo": "https://semedia.filgoal.com/Photos/Team/Medium/863.png",
+       "played": 0,
+       "win": 0,
+       "lose": 0,
+       "draw": 0,
+       "gf": 0,
+       "ga": 0,
+       "gd": 0,
+       "points": 0
+      },
+      {
+       "rank": 2,
+       "team": "عزام",
+       "logo": "https://semedia.filgoal.com/Photos/Team/Medium/1697.png",
+       "played": 0,
+       "win": 0,
+       "lose": 0,
+       "draw": 0,
+       "gf": 0,
+       "ga": 0,
+       "gd": 0,
+       "points": 0
+      },
+      {
+       "rank": 3,
+       "team": "الجيش الملكي",
+       "logo": "https://semedia.filgoal.com/Photos/Team/Medium/440.png",
+       "played": 0,
+       "win": 0,
+       "lose": 0,
+       "draw": 0,
+       "gf": 0,
+       "ga": 0,
+       "gd": 0,
+       "points": 0
+      },
+      {
+       "rank": 4,
+       "team": "ديربان سيتي",
+       "logo": "https://semedia.filgoal.com/Photos/Team/Medium/14348.png",
+       "played": 0,
+       "win": 0,
+       "lose": 0,
+       "draw": 0,
+       "gf": 0,
+       "ga": 0,
+       "gd": 0,
+       "points": 0
+      }
+     ]
+    },
+    {
+     "name": "المجموعة الثالثة",
+     "rows": [
+      {
+       "rank": 1,
+       "team": "سينجيدا بلاك ستارز",
+       "logo": "https://semedia.filgoal.com/Photos/Team/Medium/13428.png",
+       "played": 0,
+       "win": 0,
+       "lose": 0,
+       "draw": 0,
+       "gf": 0,
+       "ga": 0,
+       "gd": 0,
+       "points": 0
+      },
+      {
+       "rank": 2,
+       "team": "مانيما يونيون",
+       "logo": "https://semedia.filgoal.com/Photos/Team/Medium/2252.png",
+       "played": 0,
+       "win": 0,
+       "lose": 0,
+       "draw": 0,
+       "gf": 0,
+       "ga": 0,
+       "gd": 0,
+       "points": 0
+      },
+      {
+       "rank": 3,
+       "team": "شباب بلوزداد",
+       "logo": "https://semedia.filgoal.com/Photos/Team/Medium/941.png",
+       "played": 0,
+       "win": 0,
+       "lose": 0,
+       "draw": 0,
+       "gf": 0,
+       "ga": 0,
+       "gd": 0,
+       "points": 0
+      },
+      {
+       "rank": 4,
+       "team": "ريد أروز",
+       "logo": "https://semedia.filgoal.com/Photos/Team/Medium/457.png",
+       "played": 0,
+       "win": 0,
+       "lose": 0,
+       "draw": 0,
+       "gf": 0,
+       "ga": 0,
+       "gd": 0,
+       "points": 0
+      }
+     ]
+    },
+    {
+     "name": "المجموعة الرابعة",
+     "rows": [
+      {
+       "rank": 1,
+       "team": "بلاك بولز",
+       "logo": "https://semedia.filgoal.com/Photos/Team/Medium/13065.png",
+       "played": 0,
+       "win": 0,
+       "lose": 0,
+       "draw": 0,
+       "gf": 0,
+       "ga": 0,
+       "gd": 0,
+       "points": 0
+      },
+      {
+       "rank": 2,
+       "team": "الصفاقسي",
+       "logo": "https://semedia.filgoal.com/Photos/Team/Medium/428.png",
+       "played": 0,
+       "win": 0,
+       "lose": 0,
+       "draw": 0,
+       "gf": 0,
+       "ga": 0,
+       "gd": 0,
+       "points": 0
+      },
+      {
+       "rank": 3,
+       "team": "اتحاد العاصمة",
+       "logo": "https://semedia.filgoal.com/Photos/Team/Medium/1125.png",
+       "played": 0,
+       "win": 0,
+       "lose": 0,
+       "draw": 0,
+       "gf": 0,
+       "ga": 0,
+       "gd": 0,
+       "points": 0
+      },
+      {
+       "rank": 4,
+       "team": "ريال باماكو",
+       "logo": "https://semedia.filgoal.com/Photos/Team/Medium/1430.png",
+       "played": 0,
+       "win": 0,
+       "lose": 0,
+       "draw": 0,
+       "gf": 0,
+       "ga": 0,
+       "gd": 0,
+       "points": 0
+      }
+     ]
+    }
+   ],
+   "scorers": [
+    {
+     "player": "حسين الشحات",
+     "team": "الأهلي",
+     "goals": 2,
+     "assists": null,
+     "photo": null,
+     "logo": null
+    },
+    {
+     "player": "عبد الرحمن البانوبي",
+     "team": "زد",
+     "goals": 2,
+     "assists": null,
+     "photo": null,
+     "logo": null
+    },
+    {
+     "player": "إيدي سليماني علي",
+     "team": "عزام",
+     "goals": 1,
+     "assists": null,
+     "photo": null,
+     "logo": null
+    },
+    {
+     "player": "عمر الساعي",
+     "team": "الأهلي",
+     "goals": 1,
+     "assists": null,
+     "photo": null,
+     "logo": null
+    },
+    {
+     "player": "لوساجو موايكيندا",
+     "team": "عزام",
+     "goals": 1,
+     "assists": null,
+     "photo": null,
+     "logo": null
+    },
+    {
+     "player": "قذافي وهاب",
+     "team": "كيتارا",
+     "goals": 1,
+     "assists": null,
+     "photo": null,
+     "logo": null
+    },
+    {
+     "player": "محمد مجدي أفشة",
+     "team": "الأهلي",
+     "goals": 1,
+     "assists": null,
+     "photo": null,
+     "logo": null
+    },
+    {
+     "player": "أحمد سيد زيزو",
+     "team": "الأهلي",
+     "goals": 1,
+     "assists": null,
+     "photo": null,
+     "logo": null
+    },
+    {
+     "player": "أحمد عادل",
+     "team": "زد",
+     "goals": 1,
+     "assists": null,
+     "photo": null,
+     "logo": null
+    },
+    {
+     "player": "أحمد الصغيري",
+     "team": "زد",
+     "goals": 1,
+     "assists": null,
+     "photo": null,
+     "logo": null
+    },
+    {
+     "player": "محمود نبيل",
+     "team": "زد",
+     "goals": 1,
+     "assists": null,
+     "photo": null,
+     "logo": null
+    },
+    {
+     "player": "أحمد عاطف",
+     "team": "زد",
+     "goals": 1,
+     "assists": null,
+     "photo": null,
+     "logo": null
+    },
+    {
+     "player": "طاهر محمد طاهر",
+     "team": "الأهلي",
+     "goals": 1,
+     "assists": null,
+     "photo": null,
+     "logo": null
+    }
+   ]
+  }
+ },
+ "updatedAt": "2026-11-27T12:30:25.070Z"
+}
