@@ -46,6 +46,7 @@ window.KS_LIVE = (function () {
 Object.assign(TEAMS, {"AL Masry": "المصري", "Abu Qair Semad": "أبو قير للأسمدة", "Asyut Petrol": "بترول أسيوط", "Asyut Petroleum": "بترول أسيوط", "Olympic El Qanah": "القناة", "El Qanah": "القناة", "Al Ittihad": "الاتحاد السكندري", "El Gouna FC": "الجونة", "El Geish": "طلائع الجيش", "Enppi": "إنبي", "Future FC": "فيوتشر", "Zamalek SC": "الزمالك", "Al Ahly": "الأهلي", "Al Ahly SC": "الأهلي", "Pyramids FC": "بيراميدز", "Ismaily SC": "الإسماعيلي", "El Mokawloon": "المقاولون العرب", "Haras El Hodood": "حرس الحدود", "Ittihad Alexandria": "الاتحاد السكندري", "Al Ittihad": "الاتحاد السكندري", "El Masry": "المصري", "Smouha SC": "سموحة", "Pharco FC": "فاركو", "Pharco": "فاركو", "Kahrabaa Ismailia": "كهرباء الإسماعيلية", "National Bank Of Egypt": "البنك الأهلي", "Zed FC": "زد", "ZED FC": "زد", "Modern Sport FC": "مودرن سبورت", "Modern Future": "مودرن سبورت", "Ghazl El Mehalla": "غزل المحلة", "El Entag El Harby": "الإنتاج الحربي", "Tanta": "طنطا", "Telecom Egypt": "المصرية للاتصالات", "Baladiyat Al Mahalla": "بلدية المحلة", "Bank Alahly": "البنك الأهلي"});
   Object.assign(TEAMS, {"Al Ahly FC": "الأهلي", "Al Ahli Wad Madani": "الأهلي ودمدني", "AFAD Plateau": "أفاد بلاتو", "ASKO de Kara": "أسكو كارا", "AS FAR": "الجيش الملكي", "AS Real Bamako": "ريال باماكو", "ASPAC FC": "أسباك", "Azam FC": "أزام", "Black Bulls": "بلاك بولز", "CR Belouizdad": "شباب بلوزداد", "CS Sfaxien": "الصفاقسي", "Diambars FC": "ديامبار", "Durban City FC": "ديربان سيتي", "ES Zarzis": "الترجي الجرجيسي", "Hafia FC": "هافيا", "Kaizer Chiefs FC": "كايزر تشيفز", "Kitara FC": "كيتارا", "Panthere Sportive du Nde": "بانثر دو ندي", "Primeiro de Agosto": "بريميرو دي أجوستو", "Raja Club Athletic": "الرجاء", "Rayon Sports FC": "رايون سبورتس", "Red Arrows FC": "ريد أروز", "Shooting Stars SC": "شوتنج ستارز", "Singida Black Stars FC": "سينجيدا بلاك ستارز", "USM Alger": "اتحاد الجزائر", "ZED FC": "زد"});
   var TEAMLOGO = {
+ "Rochdale": "logos/rochdale.svg",
  "San Pedro": "logos/san-pedro.svg",
  "سان بيدرو": "logos/san-pedro.svg",
  "Maghreb As De Fes": "logos/mas.svg",
@@ -434,6 +435,7 @@ Object.assign(TEAMS, {"Abha": "أبها", "Al Faisaly": "الفيصلي", "Al Di
   function teamLogo(n) {
     var al = LOGO_ALIAS[normKey(n)]; if (al) n = al;
     if (normKey(n) === "mc alger" || n === "MC Alger" || n === "مولودية الجزائر") return "logos/mc-alger.svg";
+    if (n === "Rochdale") return "logos/rochdale.svg";
     if (n === "ASKO de Kara" || n === "أسكو كارا" || n === "ASKO Kara") return "logos/asko-kara.svg";
     if (!LOGO56_AR) {
       LOGO56_AR = {};
