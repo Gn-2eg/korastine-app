@@ -350,6 +350,7 @@ Object.assign(TEAMS, {"AL Masry": "المصري", "Abu Qair Semad": "أبو قي
     "ZED": "logos/caf-zed-fc.png",
     "ZED FC": "logos/caf-zed-fc.png"
   };
+  LOGO56["الأهلي طرابلس"] = "logos/caf-al-ahly-tripoli.png";
   var LOGO56_AR = null;
   function applyLogos56(all) {
     if (!LOGO56_AR) {
