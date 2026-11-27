@@ -43,12 +43,48 @@
       (tvHome[h] = tvHome[h] || []).push(t);
       (tvAway[a] = tvAway[a] || []).push(t);
     });
+    buildCompIndex();
   }
   function nearKick(t, ts, mins) { return !!(t && t.kick && Math.abs(t.kick - ts) <= mins * 60000); }
   function oneIn(list, ts, mins) {
     if (!list) return null;
     var hit = list.filter(function (t) { return nearKick(t, ts, mins); });
     return hit.length === 1 ? hit[0] : null;
+  }
+  /* أسماء البطولات في FilGoal مقابل معرّف البطولة عندنا (للمطابقة لما اسم الفريق مختلف) */
+  var FGL = {
+    "egy": ["الدوري المصري", "الدوري المصري الممتاز"],
+    "egycup": ["كأس مصر"], "egycap": ["كأس عاصمة مصر", "كأس العاصمة"],
+    "egylc": ["كأس الرابطة المصرية", "كأس الرابطة"], "egysuper": ["كأس السوبر المصري"],
+    "ksa.1": ["الدوري السعودي للمحترفين", "دوري روشن السعودي", "دوري روشن"],
+    "ksa.kings.cup": ["كأس خادم الحرمين الشريفين"],
+    "esp.1": ["الدوري الإسباني"], "ita.1": ["الدوري الإيطالي"], "ger.1": ["الدوري الألماني"],
+    "fra.1": ["الدوري الفرنسي"], "eng.1": ["الدوري الإنجليزي الممتاز", "الدوري الإنجليزي"],
+    "uefa.champions": ["دوري أبطال أوروبا"], "uefa.europa": ["الدوري الأوروبي"],
+    "uefa.europa.conf": ["دوري المؤتمر الأوروبي", "دوري المؤتمر"],
+    "caf.champions": ["دوري أبطال إفريقيا", "دوري أبطال أفريقيا"],
+    "caf.confed": ["كأس الكونفدرالية", "كأس الكونفدرالية الأفريقية"],
+    "caf.supercup": ["كأس السوبر الأفريقي"],
+    "afc.champions": ["دوري أبطال آسيا للنخبة"], "fifa.world": ["كأس العالم"],
+    "caf.nations": ["كأس الأمم الأفريقية"], "uefa.euro": ["كأس الأمم الأوروبية"],
+    "conmebol.america": ["كوبا أمريكا"], "afc.asian.cup": ["كأس آسيا"],
+    "uefa.nations": ["دوري الأمم الأوروبية"], "fifa.friendly": ["مباريات ودية", "ودية"],
+    "eng.fa": ["كأس الاتحاد الإنجليزي"], "eng.league_cup": ["كأس الرابطة الإنجليزية"],
+    "esp.copa_del_rey": ["كأس ملك إسبانيا"], "ita.coppa_italia": ["كأس إيطاليا"],
+    "usa.1": ["الدوري الأمريكي"], "uae": ["الدوري الإماراتي"], "arab.cup": ["كأس العرب"]
+  };
+  var tvComp = {};
+  function buildCompIndex() {
+    tvComp = {};
+    var byLg = {};
+    Object.keys(FGL).forEach(function (c) {
+      FGL[c].forEach(function (n) { byLg[normAr(n)] = c; });
+    });
+    ((TV && TV.matches) || []).forEach(function (t) {
+      var c = byLg[normAr(t.lg)];
+      if (!c) return;
+      (tvComp[c] = tvComp[c] || []).push(t);
+    });
   }
   /* مطابقة الفريقين + الميعاد، وبعدها فريق واحد لو الميعاد قريب ومفيش غير ماتش واحد */
   function findTV(m) {
@@ -58,7 +94,10 @@
     if (nearKick(e, m.date, 20)) return e;
     e = tvPair[a + "|" + h];
     if (nearKick(e, m.date, 20)) return e;
-    return oneIn(tvHome[h], m.date, 10) || oneIn(tvAway[a], m.date, 10);
+    var byName = oneIn(tvHome[h], m.date, 10) || oneIn(tvAway[a], m.date, 10);
+    if (byName) return byName;
+    /* آخر حل: نفس البطولة ونفس الميعاد بالظبط ومفيش غير ماتش واحد */
+    return oneIn(tvComp[m.comp], m.date, 6);
   }
   function ensureTV() {
     if (tvPromise && Date.now() - tvAt < 300000) return tvPromise;
