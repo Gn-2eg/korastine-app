@@ -567,3 +567,7 @@ body.lk-open{overflow:hidden}
 .fl-wrap{left:4px;top:-26px;bottom:auto;width:200px;height:176px;max-width:none;filter:none;overflow:visible}
 .fl-svg{overflow:visible}
 @media (max-width:900px){.featured{padding-left:calc(96px + 8px)}.fl-wrap{left:2px;top:-18px;width:100px;height:88px}}
+
+/* hero v3: ribbon wraps over the card's top edge (loops straddle the border) */
+.fl-wrap{top:-24px;height:176px;z-index:3!important}
+@media (max-width:900px){.fl-wrap{top:-12px;width:100px;height:80px}}
