@@ -9,6 +9,14 @@
     return e;
   }
 
+  function logoImg(src, cls) {
+    if (!src) return null;
+    var i = el("img", cls || "logo");
+    i.src = src; i.alt = ""; i.loading = "lazy";
+    i.addEventListener("error", function () { if (i.parentNode) i.parentNode.removeChild(i); });
+    return i;
+  }
+
   /* ---------- real data ---------- */
   var L = window.KS_LIVE, compName = {};
   L.COMPS.forEach(function (c) { compName[c.id] = c.name; });
@@ -44,7 +52,7 @@
   function matchRow(m) {
     var row = el("div", "match-row" + (m.status === "live" ? " is-live" : ""));
     var home = el("div", "team");
-    home.appendChild(el("span", "dot"));
+    home.appendChild(logoImg(m.homeLogo) || el("span", "dot"));
     home.appendChild(el("span", null, m.home));
     var center = el("div", "center");
     var hasScore = !isNaN(m.hs) && !isNaN(m.as);
@@ -59,7 +67,7 @@
       center.appendChild(el("span", "minute" + (m.status === "ft" ? " ft" : ""), m.status === "live" ? "مباشر " + ar(m.minute || "") : "انتهت"));
     }
     var away = el("div", "team away");
-    away.appendChild(el("span", "dot"));
+    away.appendChild(logoImg(m.awayLogo) || el("span", "dot"));
     away.appendChild(el("span", null, m.away));
     row.appendChild(home); row.appendChild(center); row.appendChild(away);
     return row;
@@ -80,7 +88,13 @@
       var block = el("section", "league-block");
       block.id = "lg-" + id.replace(/\W/g, "_");
       var head = el("div", "league-head");
-      head.appendChild(el("h3", null, compName[id]));
+      var h3 = el("h3");
+      var lg = null;
+      for (var q = 0; q < list.length; q++) if (list[q].leagueLogo) { lg = list[q].leagueLogo; break; }
+      var lgi = logoImg(lg, "logo lg-logo");
+      if (lgi) h3.appendChild(lgi);
+      h3.appendChild(el("span", "lg-name", compName[id]));
+      head.appendChild(h3);
       head.appendChild(el("span", null, ar(list.length) + " ماتش"));
       
       block.appendChild(head);
@@ -105,11 +119,29 @@
     renderFeatured(res.matches);
   }
 
+  function heroRank(m) {
+    for (var i = 0; i < L.COMPS.length; i++) if (L.COMPS[i].id === m.comp) return L.COMPS[i].big ? i : 100 + i;
+    return 999;
+  }
+  /* الماتش الرئيسي: لايف الأول (والمصري قبل غيره)، وبعدين أهم ماتش جاي، وبعدين اللي انتهى */
+  function pickHero(matches) {
+    var live = matches.filter(function (m) { return m.status === "live"; });
+    var up = matches.filter(function (m) { return m.status === "upcoming"; });
+    var ft = matches.filter(function (m) { return m.status === "ft"; });
+    var byRank = function (a, b) { return heroRank(a) - heroRank(b) || a.date - b.date; };
+    if (live.length) return live.slice().sort(byRank)[0];
+    if (up.length) {
+      var big = up.filter(function (m) { return heroRank(m) < 100; });
+      return (big.length ? big : up).slice().sort(byRank)[0];
+    }
+    if (ft.length) return ft.slice().sort(function (a, b) { return heroRank(a) - heroRank(b) || b.date - a.date; })[0];
+    return matches[0];
+  }
+
   function renderFeatured(matches) {
     var box = document.getElementById("featured");
     box.innerHTML = "";
-    var pick = matches.filter(function (m) { return m.status === "live"; })[0] ||
-      matches.filter(function (m) { return m.status === "upcoming"; })[0] || matches[0];
+    var pick = pickHero(matches);
     box.hidden = !pick;
     if (!pick) return;
     var wm = el("img", "wm"); wm.src = "assets-brand.svg"; wm.alt = "";
@@ -117,13 +149,17 @@
     var tag = el("span", "featured-tag", pick.status === "live" ? "● مباشر دلوقتي" : "⭐ ماتش اليوم");
     var league = el("p", "featured-league", compName[pick.comp] + " · " + hhmm(pick.date));
     var matchup = el("div", "matchup");
-    var home = el("div", "side"); home.appendChild(el("span", "team-name", pick.home));
+    var home = el("div", "side");
+    var hl = logoImg(pick.homeLogo, "logo hero-logo"); if (hl) home.appendChild(hl);
+    home.appendChild(el("span", "team-name", pick.home));
     var num = el("div", "score score-nums");
     var hasScore = !isNaN(pick.hs) && !isNaN(pick.as) && pick.status !== "upcoming";
     num.appendChild(el("span", null, hasScore ? String(pick.hs) : "–"));
     num.appendChild(el("span", "sep", ":"));
     num.appendChild(el("span", null, hasScore ? String(pick.as) : "–"));
-    var away = el("div", "side away"); away.appendChild(el("span", "team-name", pick.away));
+    var away = el("div", "side away");
+    var al = logoImg(pick.awayLogo, "logo hero-logo"); if (al) away.appendChild(al);
+    away.appendChild(el("span", "team-name", pick.away));
     matchup.appendChild(home); matchup.appendChild(num); matchup.appendChild(away);
     var meta = el("div", "featured-meta");
     meta.appendChild(el("span", "chip" + (pick.status === "live" ? " live" : ""),
