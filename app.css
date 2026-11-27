@@ -592,10 +592,3 @@ input, textarea, select, [contenteditable="true"] { -webkit-user-select: text; u
 .featured-meta .chip{border:1px solid rgba(255,255,255,.15)}
 .mcard .lg-label .lg-name,.league-head h3{flex:0 1 auto;display:inline-flex;align-items:center;background:#f3c455;color:#0a0f14;padding:2px 11px;border-radius:8px;font-weight:800;text-shadow:none}
 @media (max-width:900px){.featured{padding-left:calc(96px + 12px)}.fl-wrap{width:96px}.featured .score{font-size:34px}}
-
-/* v83: جدول الترتيب - الخلية ترجع table-cell عشان الخطوط ماتتقطعش، والاسم يتقص من الآخر */
-.dash-table td.d-team{display:table-cell;max-width:0;width:100%;overflow:hidden;white-space:nowrap}
-.dash-table td.d-team .logo{display:inline-block;vertical-align:middle;margin-inline-end:8px}
-.dash-table td.d-team span{display:inline-block;vertical-align:middle;max-width:calc(100% - 30px);unicode-bidi:plaintext;text-align:start;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.dash-table td.d-team:last-child,.dash-table td.d-team:nth-child(3){width:auto;max-width:none}
-.dash-table th.d-team{width:100%}
