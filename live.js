@@ -259,6 +259,29 @@ Object.assign(TEAMS, {"AL Masry": "المصري", "Abu Qair Semad": "أبو قي
       return all;
     }).catch(function () { return all; });
   }
+  /* لوجوهات الـ56 فريق: ملف واحد logos56.json بدل 56 صورة */
+  var logo56Ready = null;
+  function logos56() {
+    if (!logo56Ready) logo56Ready = fetch("logos56.json", { cache: "force-cache" }).then(function (r) {
+      if (!r.ok) throw new Error("logos " + r.status);
+      return r.json();
+    }).catch(function () { return {}; });
+    return logo56Ready;
+  }
+  function applyLogos56(all) {
+    return logos56().then(function (map) {
+      if (!map || !Object.keys(map).length) return all;
+      var byAr = {};
+      Object.keys(map).forEach(function (k) { byAr[team(k)] = map[k]; });
+      all.forEach(function (m) {
+        var h = TEAMLOGO[m.home] || byAr[m.home];
+        var a = TEAMLOGO[m.away] || byAr[m.away];
+        if (h) m.homeLogo = h;
+        if (a) m.awayLogo = a;
+      });
+      return all;
+    }).catch(function () { return all; });
+  }
   var cache = {};
   function loadDay(date, force) {
     var day = dkey(date), hit = cache[day];
@@ -285,7 +308,7 @@ Object.assign(TEAMS, {"AL Masry": "المصري", "Abu Qair Semad": "أبو قي
         if (TEAMLOGO[m.home]) m.homeLogo = TEAMLOGO[m.home];
         if (TEAMLOGO[m.away]) m.awayLogo = TEAMLOGO[m.away];
       });
-      return applyProxy(all).then(function () {
+      return applyProxy(all).then(function () { return applyLogos56(all); }).then(function () {
         var v = { matches: all, errors: errors, at: Date.now() };
         if (errors < COMPS.length) cache[day] = { t: Date.now(), v: v };
         return v;
