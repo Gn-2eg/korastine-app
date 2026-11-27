@@ -322,7 +322,9 @@
     /* كل ماتش في كارت لوحده (الدوري ظاهر في راس الكارت) */
     var cards = [];
     gs.forEach(function (g) { g.list.forEach(function (m, i) { cards.push({ id: g.id, list: [m], n: 1, first: i === 0, card: true }); }); });
-    cols = [{ items: cards, n: cards.length }];
+    /* ٤ كروت في كل عمود (على الموبايل بتتسحب الأعمدة يمين وشمال) */
+    cols = [];
+    for (var ci = 0; ci < cards.length; ci += 4) cols.push({ items: cards.slice(ci, ci + 4), n: 4 });
 
     var gi = 0;
     cols.forEach(function (b) {
