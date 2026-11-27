@@ -226,8 +226,16 @@
     var lg = null;
     for (var q = 0; q < g.list.length; q++) if (g.list[q].leagueLogo) { lg = g.list[q].leagueLogo; break; }
     var lgi = logoImg(lg, "logo lg-logo");
-    if (lgi) label.appendChild(lgi);
-    label.appendChild(el("span", "lg-name", compName[g.id] + (g.more ? " (تكملة)" : "")));
+    var lgn = el("span", "lg-name", compName[g.id] + (g.more ? " (تكملة)" : ""));
+    if (document.documentElement.className.indexOf("hl-") >= 0) {
+      var unit = el("span", "lg-unit");
+      if (lgi) unit.appendChild(lgi);
+      unit.appendChild(lgn);
+      label.appendChild(unit);
+    } else {
+      if (lgi) label.appendChild(lgi);
+      label.appendChild(lgn);
+    }
     if (g.card) {
       var md = g.list[0].date, dtxt = "";
       try { dtxt = new Date(md).toLocaleDateString("ar-EG", { day: "numeric", month: "long" }) + " · " + hhmm(md); } catch (e) { dtxt = hhmm(md); }
