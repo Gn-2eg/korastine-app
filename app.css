@@ -633,3 +633,8 @@ body.fx-open{overflow:hidden}
 .fx-row.on{border-color:var(--green);background:#0f2a22}
 .fx-row.dim{opacity:.5}
 .fx-row.dim .fx-n{background:#1b2a36;color:var(--muted)}
+
+/* v91: معاينة لشكل اسم الدوري (?hl=a / b / c) - مش الافتراضي */
+html.hl-a .mcard .lg-label .lg-name,html.hl-a .league-head h3{background:#123a2d;color:#35e07d;border:1px solid rgba(53,224,125,.35);padding:2px 11px}
+html.hl-b .mcard .lg-label .lg-name,html.hl-b .league-head h3{background:transparent;color:var(--text);border:1px solid rgba(255,255,255,.4);border-radius:999px;padding:2px 12px;font-weight:700}
+html.hl-c .mcard .lg-label .lg-name,html.hl-c .league-head h3{background:transparent;color:var(--text);border-radius:0;border:0;border-inline-start:4px solid var(--green);padding:1px 0;padding-inline-start:10px;font-weight:800}
