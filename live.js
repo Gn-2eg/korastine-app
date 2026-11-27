@@ -352,16 +352,27 @@ Object.assign(TEAMS, {"AL Masry": "المصري", "Abu Qair Semad": "أبو قي
   };
   LOGO56["الأهلي طرابلس"] = "logos/caf-al-ahly-tripoli.png";
   var LOGO56_AR = null;
-  function applyLogos56(all) {
+  /* لوجو مجهول: لأي فريق مالوش لوجو، أو لوجو طلع مش مقروء على الخلفية الغامقة */
+  var UNKNOWN_LOGO = "logos/unknown-club.png";
+  var BAD_LOGO = {
+    "logos/caf-afad-plateau.png": 1,
+    "logos/caf-as-real-bamako.png": 1,
+    "logos/caf-black-bulls.png": 1,
+    "logos/caf-cs-sfaxien.png": 1
+  };
+  function teamLogo(n) {
     if (!LOGO56_AR) {
       LOGO56_AR = {};
       Object.keys(LOGO56).forEach(function (k) { LOGO56_AR[team(k)] = LOGO56[k]; });
     }
+    var v = LOGO56_AR[team(n)] || LOGO56[n] || TEAMLOGO[n] || TEAMLOGO[team(n)];
+    if (!v || BAD_LOGO[v]) return UNKNOWN_LOGO;
+    return v;
+  }
+  function applyLogos56(all) {
     all.forEach(function (m) {
-      var h = LOGO56_AR[m.home] || TEAMLOGO[m.home];
-      var a = LOGO56_AR[m.away] || TEAMLOGO[m.away];
-      if (h) m.homeLogo = h;
-      if (a) m.awayLogo = a;
+      m.homeLogo = teamLogo(m.home);
+      m.awayLogo = teamLogo(m.away);
     });
     return all;
   }
@@ -388,8 +399,8 @@ Object.assign(TEAMS, {"AL Masry": "المصري", "Abu Qair Semad": "أبو قي
       /* لوجوهات محلية: كأس الكونفدرالية والفرق اللي جورج بعت لوجوهاتها */
       all.forEach(function (m) {
         if (COMPLOGO[m.comp]) m.leagueLogo = COMPLOGO[m.comp];
-        if (TEAMLOGO[m.home]) m.homeLogo = TEAMLOGO[m.home];
-        if (TEAMLOGO[m.away]) m.awayLogo = TEAMLOGO[m.away];
+        m.homeLogo = teamLogo(m.home);
+        m.awayLogo = teamLogo(m.away);
       });
       return applyProxy(all).then(function () { applyLogos56(all); }).then(function () {
         var v = { matches: all, errors: errors, at: Date.now() };
@@ -398,5 +409,9 @@ Object.assign(TEAMS, {"AL Masry": "المصري", "Abu Qair Semad": "أبو قي
       });
     });
   }
-  return { COMPS: COMPS, loadDay: loadDay, dkey: dkey };
+  return {
+    COMPS: COMPS, loadDay: loadDay, dkey: dkey,
+    team: team, teamLogo: teamLogo, UNKNOWN_LOGO: UNKNOWN_LOGO,
+    compLogo: function (id) { return COMPLOGO[id] || null; }
+  };
 })();
