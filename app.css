@@ -459,3 +459,48 @@ body{background:var(--bg)!important;background-image:none!important}
     -webkit-overflow-scrolling:touch;gap:10px;padding:2px 2px 12px;cursor:auto;align-items:flex-start}
   .league-blocks .col{flex:0 0 100%;max-width:100%;width:100%;scroll-snap-align:center;scroll-snap-stop:always;gap:12px;display:flex;flex-direction:column}
 }
+
+/* ---------- التوقعات ---------- */
+#predictRoot{max-width:760px}
+.pd-join,.pd-profile,.pd-board,.pd-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;margin:0 0 12px}
+.pd-join h3,.pd-board h3{margin:0 0 6px;font-size:18px;font-weight:900}
+.pd-join p{margin:0 0 12px;color:var(--muted);font-size:14px}
+.pd-name{display:block;width:100%;font-family:var(--font);font-size:16px;color:var(--text);background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:11px 12px;margin:0 0 10px}
+.pd-btn{font-family:var(--font);font-size:15px;font-weight:800;color:#04120a;background:var(--green);border:0;border-radius:12px;padding:11px 18px;cursor:pointer;width:100%}
+.pd-btn:disabled{background:var(--surface2);color:var(--muted);cursor:default}
+.pd-link{font-family:var(--font);font-size:12px;font-weight:700;color:var(--gold);background:none;border:0;padding:4px;cursor:pointer}
+.pd-ptop{display:flex;align-items:center;justify-content:space-between;margin:0 0 10px}
+.pd-pname{font-size:17px;font-weight:900}
+.pd-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.pd-stat{background:var(--bg2);border-radius:12px;padding:10px 4px;text-align:center}
+.pd-stat b{display:block;font-family:var(--display);font-size:22px;color:var(--green)}
+.pd-stat span{font-size:11px;color:var(--muted);font-weight:700}
+.pd-days{display:flex;gap:8px;margin:0 0 8px}
+.pd-day{font-family:var(--font);font-size:14px;font-weight:800;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:7px 18px;cursor:pointer}
+.pd-day.on{color:#04120a;background:var(--green);border-color:var(--green)}
+.pd-rule,.pd-note{font-size:12px;color:var(--muted);margin:0 0 12px;line-height:1.7}
+.pd-note{margin:8px 0 0}
+.pd-card.live{border-color:var(--red)}
+.pd-head{display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:var(--muted);margin:0 0 10px}
+.pd-card.live .pd-time{color:var(--red)}
+.pd-teams{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;margin:0 0 12px}
+.pd-side{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;font-size:14px;font-weight:800;line-height:1.35;overflow-wrap:break-word;word-break:normal;min-width:0}
+.pd-logo{width:40px;height:40px;object-fit:contain}
+.pd-mid{font-family:var(--display);font-size:20px;font-weight:800;color:var(--text);min-width:52px;text-align:center}
+.pd-opts{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin:0 0 10px}
+.pd-opt{font-family:var(--font);font-size:13px;font-weight:800;color:var(--text);background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:10px 4px;cursor:pointer;line-height:1.35;overflow-wrap:break-word}
+.pd-opt.on{background:var(--green);color:#04120a;border-color:var(--green)}
+.pd-score{display:flex;align-items:center;justify-content:center;gap:8px;margin:0 0 12px;font-size:13px}
+.pd-num{width:56px;font-family:var(--display);font-size:20px;text-align:center;color:var(--text);background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:6px 0}
+.pd-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:14px;font-weight:700}
+.pd-muted{color:var(--muted);font-size:13px;font-weight:600}
+.pd-res{font-size:13px;border-radius:999px;padding:3px 10px}
+.pd-res.ok{background:var(--surface2);color:var(--green)}
+.pd-res.x{background:var(--green);color:#04120a}
+.pd-res.no{background:var(--surface2);color:var(--red)}
+.pd-empty{color:var(--muted);text-align:center;padding:24px 0}
+.pd-lb-row{display:flex;align-items:center;gap:10px;background:var(--bg2);border-radius:12px;padding:10px 12px;font-weight:800}
+.pd-lb-row.me{border:1px solid var(--green)}
+.pd-rank{font-family:var(--display);color:var(--gold);font-size:18px}
+.pd-lb-name{flex:1}
+@media(max-width:900px){#predictRoot{padding-bottom:70px}}
