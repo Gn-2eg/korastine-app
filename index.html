@@ -7,8 +7,10 @@
 <title>كورهسطين — نتايج وتحليل الكورة</title>
 <meta name="description" content="كورهسطين: نتايج الماتشات، تحليل، وترتيب الدوريات — عربي أول.">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="favicon.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+<link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -16,13 +18,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Changa:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="app.css?v=31">
+<link rel="stylesheet" href="app.css?v=32">
 </head>
 <body>
 <svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
-  <symbol id="i-ball" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.2l4.2 3-1.6 5h-5.2l-1.6-5z"/><path d="M12 3v4.2M4.2 9.6l4 1.6M19.8 9.6l-4 1.6M8.1 20.1l1.3-4.9M15.9 20.1l-1.3-4.9"/></symbol>
-  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
-  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/></symbol>
+  <symbol id="i-ball" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6"/><path d="M12 7.9l3.8 2.7-1.5 4.4H9.7L8.2 10.6z"/><path d="M12 3.4v4.5M4.4 10l3.8.6M19.6 10l-3.8.6M9 20.3l.7-5.3M15 20.3l-.7-5.3"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3.5 20.2h17"/><rect x="5" y="11.5" width="3.6" height="6.2" rx="1.3"/><rect x="10.2" y="7.4" width="3.6" height="10.3" rx="1.3"/><rect x="15.4" y="4" width="3.6" height="13.7" rx="1.3"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24"><rect x="2.8" y="5" width="18.4" height="14" rx="2.6"/><path d="M12 5v14"/><circle cx="12" cy="12" r="3.1"/><path d="M2.8 9.4h2.6v5.2H2.8M21.2 9.4h-2.6v5.2h2.6"/></symbol>
 </svg>
 
 <header class="topbar">
@@ -39,9 +41,9 @@
 <div class="shell">
   <aside class="sidebar" aria-label="التنقل">
     <nav class="side-nav">
-      <a href="#/scores" data-nav="scores"><svg class="ico"><use href="#i-ball"/></svg> النتائج</a>
-      <a href="#/analysis" data-nav="analysis"><svg class="ico"><use href="#i-chart"/></svg> التحليلات</a>
-      <a href="#/match" data-nav="match"><svg class="ico"><use href="#i-target"/></svg> مباراة اليوم</a>
+      <a href="#/scores" data-nav="scores" title="النتائج"><svg class="ico"><use href="#i-ball"/></svg><span class="nav-label">النتائج</span></a>
+      <a href="#/analysis" data-nav="analysis" title="التحليلات"><svg class="ico"><use href="#i-chart"/></svg><span class="nav-label">التحليلات</span></a>
+      <a href="#/match" data-nav="match" title="مباراة اليوم"><svg class="ico"><use href="#i-target"/></svg><span class="nav-label">مباراة اليوم</span></a>
     </nav>
     <div class="rail-title">الدوريات</div>
     <ul class="league-rail" id="leagueRail"></ul>
@@ -84,9 +86,9 @@
   <b>كورهسطين · KORASTINE</b>
 </footer>
 
-<script src="data.js?v=31"></script>
-<script src="live.js?v=31"></script>
-<script src="app.js?v=31"></script>
+<script src="data.js?v=32"></script>
+<script src="live.js?v=32"></script>
+<script src="app.js?v=32"></script>
 <script>
 /* منع الكليك يمين واختصارات المطور (بيوقف المستخدم العادي بس) */
 (function () {
