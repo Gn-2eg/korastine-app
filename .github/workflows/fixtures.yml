@@ -1,37 +1,45 @@
 name: Update Egyptian fixtures
 on:
   schedule:
-    # كل 5 دقايق من 08:00 لحد 23:55 بتوقيت القاهرة (UTC+2)
-    - cron: '*/5 6-21 * * *'
-    # بالليل كل نص ساعة
-    - cron: '*/30 22-23,0-5 * * *'
+    - cron: '3-58/5 6-21 * * *'
+    - cron: '13,43 22-23,0-5 * * *'
   workflow_dispatch:
 permissions:
   contents: write
   pages: write
+  actions: write
 concurrency:
   group: fixtures
   cancel-in-progress: false
 jobs:
   update:
     runs-on: ubuntu-latest
+    timeout-minutes: 350
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: node scripts/fetch-fixtures.mjs
-      - name: Fetch TV data (FilGoal)
-        run: node scripts/fetch-tv.mjs
-        continue-on-error: true
-      - name: Commit if changed
+      - name: Start next run
         run: |
-          if [ -n "$(git status --porcelain fixtures.json tv.json)" ]; then
-            git config user.name "korastine-bot"
-            git config user.email "korastine-bot@users.noreply.github.com"
-            git add fixtures.json
-            git add tv.json 2>/dev/null || true
-            git commit -m "Update fixtures + TV data"
-            git push
-            curl -s -X POST -H "Authorization: Bearer ${{ github.token }}" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/${{ github.repository }}/pages/builds" || true
-          fi
+          curl -s -X POST -H "Authorization: Bearer ${{ github.token }}" -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/actions/workflows/fixtures.yml/dispatches" \
+            -d '{"ref":"main"}' -w '\nHTTP %{http_code}\n'
+      - name: Refresh loop
+        run: |
+          git config user.name "korastine-bot"
+          git config user.email "korastine-bot@users.noreply.github.com"
+          for i in $(seq 1 5); do
+            node scripts/fetch-fixtures.mjs || true
+            node scripts/fetch-tv.mjs || true
+            if [ -n "$(git status --porcelain fixtures.json tv.json)" ]; then
+              git add fixtures.json
+              git add tv.json 2>/dev/null || true
+              git commit -m "Update fixtures + TV data" || true
+              git push || (git pull --rebase && git push) || true
+              curl -s -X POST -H "Authorization: Bearer ${{ github.token }}" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/${{ github.repository }}/pages/builds" || true
+            fi
+            WAIT=$(node -e 'const d=new Date();const p=Object.fromEntries(new Intl.DateTimeFormat("en-GB",{timeZone:"Africa/Cairo",hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).formatToParts(d).map(x=>[x.type,x.value]));const h=+p.hour,m=+p.minute;const step=(h>=8)?5:30;const w=(step-(m%step))*60-d.getUTCSeconds();console.log(Math.max(45,w));')
+            echo "cycle $i wait ${WAIT}s"
+            sleep "$WAIT"
+          done
