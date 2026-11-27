@@ -452,6 +452,8 @@ Object.assign(TEAMS, {"Abha": "أبها", "Al Faisaly": "الفيصلي", "Al Di
       var fg = FG_ID[normKey(n)] || FG_ID[normKey(team(n))];
       return fg ? "https://semedia.filgoal.com/Photos/Team/Medium/" + fg + ".png" : UNKNOWN_LOGO;
     }
+    /* لوجوهات ويكيميديا: نص الحجم كفاية للعرض (120px بدل 250px) */
+    if (v.indexOf("thumb.wikimedia.org") > -1) v = v.replace("/250px-", "/120px-");
     return v;
   }
   function applyLogos56(all) {
