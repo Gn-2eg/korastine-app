@@ -1,5 +1,5 @@
 /* كورهسطين app shell */
-const CACHE = "korastine-app-v30";
+const CACHE = "korastine-app-v31";
 const SHELL = ["./", "./index.html", "./app.css", "./app.js", "./data.js", "./live.js",
   "./manifest.webmanifest", "./assets-brand.svg", "./favicon.png",
   "./icon-192.png", "./icon-512.png"];
@@ -14,19 +14,39 @@ self.addEventListener("activate", (e) => {
     .then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))))
     .then(() => self.clients.claim()));
 });
+
+/* الملفات اللي بتتغير (html/js/css): من الشبكة الأول عشان أي نشر غلط ما يعلقش في المتصفح.
+   الصور واللوجوهات: من الكاش الأول عشان السرعة. */
+const NET_FIRST = /\.(?:html|js|css|webmanifest)$/i;
+
 self.addEventListener("fetch", (e) => {
   const req = e.request;
   if (req.method !== "GET") return;
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
   if (url.pathname.endsWith("/fixtures.json") || url.pathname.endsWith("/tv.json") || url.pathname.endsWith("/tables.json")) return;
-  e.respondWith(
-    caches.match(req, { ignoreSearch: true }).then((hit) => {
-      const net = fetch(req).then((res) => {
-        if (res && res.ok) { const copy = res.clone(); caches.open(CACHE).then((c) => c.put(req, copy)); }
+
+  const netFirst = NET_FIRST.test(url.pathname) || url.pathname.endsWith("/");
+  if (netFirst) {
+    e.respondWith(
+      fetch(req).then((res) => {
+        if (res && res.ok) {
+          const copy = res.clone();
+          caches.open(CACHE).then((c) => c.put(req, copy)).catch(() => null);
+        }
         return res;
-      }).catch(() => hit || caches.match("./index.html"));
-      return hit || net;
-    })
+      }).catch(() => caches.match(req, { ignoreSearch: true }).then((hit) => hit || caches.match("./index.html")))
+    );
+    return;
+  }
+
+  e.respondWith(
+    caches.match(req, { ignoreSearch: true }).then((hit) => hit || fetch(req).then((res) => {
+      if (res && res.ok) {
+        const copy = res.clone();
+        caches.open(CACHE).then((c) => c.put(req, copy)).catch(() => null);
+      }
+      return res;
+    }).catch(() => null))
   );
 });
