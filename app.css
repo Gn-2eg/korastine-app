@@ -453,20 +453,9 @@ body{background:var(--bg)!important;background-image:none!important}
   .mcard .match-row .team .logo,.mcard .match-row .team .dot{width:48px;height:48px}
 }
 
-/* ---- v46: موبايل: ٤ كروت صغيرة في العمود، وسحب أفقي بين الأعمدة ---- */
+/* ---- v46: موبايل: ٤ كروت بالحجم الكامل في العمود، وسحب أفقي بين الأعمدة ---- */
 @media (max-width:900px){
   .league-blocks{flex-direction:row;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;
     -webkit-overflow-scrolling:touch;gap:10px;padding:2px 2px 12px;cursor:auto;align-items:flex-start}
-  .league-blocks .col{flex:0 0 100%;max-width:100%;width:100%;scroll-snap-align:center;scroll-snap-stop:always;gap:8px;display:flex;flex-direction:column}
-  .mcard{border-radius:16px}
-  .mcard .lg-label{padding:8px 12px;font-size:12.5px;gap:6px}
-  .mcard .lg-label .lg-date{font-size:11px}
-  .mcard .match-row,.mcard .match-row.is-live{padding:10px 8px 2px;gap:4px}
-  .mcard .match-row .team,.mcard .match-row .team.away{gap:5px;font-size:12.5px;line-height:1.25}
-  .mcard .match-row .team .logo,.mcard .match-row .team .dot{width:36px;height:36px}
-  .mcard .match-row .center{min-width:80px;gap:4px}
-  .mcard .match-row .score{font-size:24px}
-  .mcard .match-row .time{font-size:17px}
-  .mcard .match-row .minute{font-size:11px;padding:2px 10px}
-  .mcard .more-btn{font-size:11px;margin:0 0 6px}
+  .league-blocks .col{flex:0 0 100%;max-width:100%;width:100%;scroll-snap-align:center;scroll-snap-stop:always;gap:12px;display:flex;flex-direction:column}
 }
