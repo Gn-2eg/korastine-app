@@ -487,10 +487,11 @@
   }
 
   /* ---------- router ---------- */
-  var views = { scores: "view-scores", predict: "view-predict", match: "view-match" };
+  var views = { scores: "view-scores", predict: "view-predict", highlights: "view-highlights" };
   function route() {
     var key = (location.hash.replace("#/", "") || "scores");
     if (key === "analysis") key = "predict";
+    if (key === "match") key = "highlights";
     if (!views[key]) key = "scores";
     Object.keys(views).forEach(function (k) {
       var v = document.getElementById(views[k]);
@@ -522,7 +523,7 @@
     });
   }
 
-  renderDetail(); renderStrip(); initFilter(); load(false);
+  renderStrip(); initFilter(); load(false);
 
   /* سحب الأفقي بالماوس على الديسكتوب */
   (function () {
