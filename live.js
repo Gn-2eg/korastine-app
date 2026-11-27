@@ -44,6 +44,62 @@ window.KS_LIVE = (function () {
   var TEAMS = { "Al Ahly":"الأهلي","Zamalek":"الزمالك","Pyramids":"بيراميدز","Al Masry":"المصري","Smouha":"سموحة","ENPPI":"إنبي","Petrojet":"بتروجت","Ceramica Cleopatra":"سيراميكا كليوباترا","Real Madrid":"ريال مدريد","Barcelona":"برشلونة","Liverpool":"ليفربول","Arsenal":"آرسنال","Manchester City":"مانشستر سيتي","Manchester United":"مانشستر يونايتد","Chelsea":"تشيلسي","Tottenham Hotspur":"توتنهام","Newcastle United":"نيوكاسل","Aston Villa":"أستون فيلا","Bayern Munich":"بايرن ميونخ","Paris Saint-Germain":"باريس سان جيرمان","Juventus":"يوفنتوس","Inter Milan":"إنتر","Internazionale":"إنتر","AC Milan":"ميلان","Napoli":"نابولي","Atlético Madrid":"أتلتيكو مدريد","Borussia Dortmund":"دورتموند","Al Hilal":"الهلال","Al Nassr":"النصر","Al-Hilal":"الهلال","Al-Nassr":"النصر","Al-Ittihad":"الاتحاد","Al-Ahli":"الأهلي السعودي" };
     Object.assign(TEAMS, {"Wadi Degla": "وادي دجلة", "ZED": "زد", "Al Ittihad Alexandria": "الاتحاد السكندري", "Al Ittihad": "الاتحاد", "Abou Qir Fertilizers": "أبو قير للأسمدة", "National Bank of Egypt": "البنك الأهلي", "Tala'ea El Gaish": "طلائع الجيش", "Al-Mokawloon al-Arab": "المقاولون العرب", "Al Mokawloon Al Arab": "المقاولون العرب", "Asyut Petroleum": "بترول أسيوط", "Ghazl El Mahalla": "غزل المحلة", "El Gouna": "الجونة", "Modern Sport": "مودرن سبورت", "El Qanah": "القناة", "Future FC": "فيوتشر", "Al Ahly Cairo": "الأهلي", "Pharco": "فاركو", "Haras El Hodoud": "حرس الحدود", "Ismaily": "الإسماعيلي", "Al Ismaily": "الإسماعيلي", "Ittihad Alexandria": "الاتحاد السكندري", "Tottenham": "توتنهام", "Nottingham Forest": "نوتنجهام فورست", "West Ham United": "وست هام", "Everton": "إيفرتون", "Brighton & Hove Albion": "برايتون", "Fulham": "فولهام", "Brentford": "برينتفورد", "Crystal Palace": "كريستال بالاس", "Wolverhampton Wanderers": "وولفرهامبتون", "Leeds United": "ليدز", "Burnley": "بيرنلي", "Bournemouth": "بورنموث", "AFC Bournemouth": "بورنموث", "Sunderland": "سندرلاند", "Sevilla": "إشبيلية", "Valencia": "فالنسيا", "Villarreal": "فياريال", "Real Sociedad": "ريال سوسيداد", "Athletic Club": "أتلتيك بيلباو", "Real Betis": "ريال بيتيس", "Girona": "جيرونا", "Celta Vigo": "سيلتا فيجو", "Roma": "روما", "AS Roma": "روما", "Lazio": "لاتسيو", "Atalanta": "أتالانتا", "Fiorentina": "فيورنتينا", "Bologna": "بولونيا", "Torino": "تورينو", "Genoa": "جنوى", "Bayer Leverkusen": "باير ليفركوزن", "RB Leipzig": "لايبزيج", "Eintracht Frankfurt": "آينتراخت فرانكفورت", "VfB Stuttgart": "شتوتجارت", "Werder Bremen": "فيردر بريمن", "Borussia Mönchengladbach": "مونشنجلادباخ", "Wolfsburg": "فولفسبورج", "Marseille": "مارسيليا", "Olympique Marseille": "مارسيليا", "Lyon": "ليون", "Olympique Lyonnais": "ليون", "Monaco": "موناكو", "AS Monaco": "موناكو", "Lille": "ليل", "Nice": "نيس", "Lens": "لانس", "Brest": "بريست", "Benfica": "بنفيكا", "Porto": "بورتو", "FC Porto": "بورتو", "Sporting CP": "سبورتينج لشبونة", "Ajax": "أياكس", "PSV Eindhoven": "آيندهوفن", "Galatasaray": "جالطة سراي", "Fenerbahce": "فنربخشة", "Celtic": "سلتيك", "Club Brugge": "كلوب بروج", "Mamelodi Sundowns": "صنداونز", "Wydad AC": "الوداد", "Wydad Casablanca": "الوداد", "Raja Casablanca": "الرجاء", "Raja CA": "الرجاء", "Esperance de Tunis": "الترجي", "ES Tunis": "الترجي", "CR Belouizdad": "شباب بلوزداد", "Al Ahli Tripoli": "الأهلي طرابلس", "Azam FC": "أزام", "Al Qadsiah": "القادسية", "Al Qadsiyah": "القادسية", "Al Ettifaq": "الاتفاق", "Al Fayha": "الفيحاء", "Al Khaleej": "الخليج", "Al Kholood": "الخلود", "Neom SC": "نيوم", "Al Taawoun": "التعاون", "Al Shabab": "الشباب", "Al Fateh": "الفتح", "Damac": "ضمك", "Al Raed": "الرائد", "Al Riyadh": "الرياض", "Al Okhdood": "الأخدود", "Al Wehda": "الوحدة", "Al Ain": "العين", "Shabab Al Ahli": "شباب الأهلي", "Al Wahda": "الوحدة", "Al Jazira": "الجزيرة", "Al Wasl": "الوصل", "Sharjah": "الشارقة", "Al Nasr": "النصر", "Bani Yas": "بني ياس", "Khor Fakkan": "خورفكان", "Ajman": "عجمان", "Al Dhafra": "الظفرة", "Kalba": "كلباء", "Colombia U17": "كولومبيا تحت ١٧", "Serbia U17": "صربيا تحت ١٧", "Japan U17": "اليابان تحت ١٧", "Honduras U17": "هندوراس تحت ١٧", "Brazil U17": "البرازيل تحت ١٧", "Costa Rica U17": "كوستاريكا تحت ١٧", "Tanzania U17": "تنزانيا تحت ١٧", "Republic of Ireland U17": "أيرلندا تحت ١٧", "Egypt U17": "مصر تحت ١٧", "Morocco U17": "المغرب تحت ١٧", "Argentina U17": "الأرجنتين تحت ١٧", "England U17": "إنجلترا تحت ١٧", "France U17": "فرنسا تحت ١٧", "Germany U17": "ألمانيا تحت ١٧", "Spain U17": "إسبانيا تحت ١٧", "Italy U17": "إيطاليا تحت ١٧", "Portugal U17": "البرتغال تحت ١٧", "Mali U17": "مالي تحت ١٧", "Senegal U17": "السنغال تحت ١٧", "USA U17": "أمريكا تحت ١٧", "Mexico U17": "المكسيك تحت ١٧", "Saudi Arabia U17": "السعودية تحت ١٧"});
 Object.assign(TEAMS, {"AL Masry": "المصري", "Abu Qair Semad": "أبو قير للأسمدة", "Asyut Petrol": "بترول أسيوط", "Asyut Petroleum": "بترول أسيوط", "Olympic El Qanah": "القناة", "El Qanah": "القناة", "Al Ittihad": "الاتحاد السكندري", "El Gouna FC": "الجونة", "El Geish": "طلائع الجيش", "Enppi": "إنبي", "Future FC": "فيوتشر", "Zamalek SC": "الزمالك", "Al Ahly": "الأهلي", "Al Ahly SC": "الأهلي", "Pyramids FC": "بيراميدز", "Ismaily SC": "الإسماعيلي", "El Mokawloon": "المقاولون العرب", "Haras El Hodood": "حرس الحدود", "Ittihad Alexandria": "الاتحاد السكندري", "Al Ittihad": "الاتحاد السكندري", "El Masry": "المصري", "Smouha SC": "سموحة", "Pharco FC": "فاركو", "Pharco": "فاركو", "Kahrabaa Ismailia": "كهرباء الإسماعيلية", "National Bank Of Egypt": "البنك الأهلي", "Zed FC": "زد", "ZED FC": "زد", "Modern Sport FC": "مودرن سبورت", "Modern Future": "مودرن سبورت", "Ghazl El Mehalla": "غزل المحلة", "El Entag El Harby": "الإنتاج الحربي", "Tanta": "طنطا", "Telecom Egypt": "المصرية للاتصالات", "Baladiyat Al Mahalla": "بلدية المحلة", "Bank Alahly": "البنك الأهلي"});
+  Object.assign(TEAMS, {"Al Ahly FC": "الأهلي", "Al Ahli Wad Madani": "الأهلي ودمدني", "AFAD Plateau": "أفاد بلاتو", "ASKO de Kara": "أسكو كارا", "AS FAR": "الجيش الملكي", "AS Real Bamako": "ريال باماكو", "ASPAC FC": "أسباك", "Azam FC": "أزام", "Black Bulls": "بلاك بولز", "CR Belouizdad": "شباب بلوزداد", "CS Sfaxien": "الصفاقسي", "Diambars FC": "ديامبار", "Durban City FC": "ديربان سيتي", "ES Zarzis": "الترجي الجرجيسي", "Hafia FC": "هافيا", "Kaizer Chiefs FC": "كايزر تشيفز", "Kitara FC": "كيتارا", "Panthere Sportive du Nde": "بانثر دو ندي", "Primeiro de Agosto": "بريميرو دي أجوستو", "Raja Club Athletic": "الرجاء", "Rayon Sports FC": "رايون سبورتس", "Red Arrows FC": "ريد أروز", "Shooting Stars SC": "شوتنج ستارز", "Singida Black Stars FC": "سينجيدا بلاك ستارز", "USM Alger": "اتحاد الجزائر", "ZED FC": "زد"});
+  var TEAMLOGO = {
+ "Al Ahly FC": "logos/al-ahly-fc.png",
+ "الأهلي": "logos/al-ahly-fc.png",
+ "Al Ahli Wad Madani": "logos/al-ahli-wad-madani.png",
+ "الأهلي ودمدني": "logos/al-ahli-wad-madani.png",
+ "AFAD Plateau": "logos/afad-plateau.png",
+ "أفاد بلاتو": "logos/afad-plateau.png",
+ "ASKO de Kara": "logos/asko-de-kara.png",
+ "أسكو كارا": "logos/asko-de-kara.png",
+ "AS FAR": "logos/as-far.png",
+ "الجيش الملكي": "logos/as-far.png",
+ "AS Real Bamako": "logos/as-real-bamako.png",
+ "ريال باماكو": "logos/as-real-bamako.png",
+ "ASPAC FC": "logos/aspac-fc.png",
+ "أسباك": "logos/aspac-fc.png",
+ "Azam FC": "logos/azam-fc.png",
+ "أزام": "logos/azam-fc.png",
+ "Black Bulls": "logos/black-bulls.png",
+ "بلاك بولز": "logos/black-bulls.png",
+ "CR Belouizdad": "logos/cr-belouizdad.png",
+ "شباب بلوزداد": "logos/cr-belouizdad.png",
+ "CS Sfaxien": "logos/cs-sfaxien.png",
+ "الصفاقسي": "logos/cs-sfaxien.png",
+ "Diambars FC": "logos/diambars-fc.png",
+ "ديامبار": "logos/diambars-fc.png",
+ "Durban City FC": "logos/durban-city-fc.png",
+ "ديربان سيتي": "logos/durban-city-fc.png",
+ "ES Zarzis": "logos/es-zarzis.png",
+ "الترجي الجرجيسي": "logos/es-zarzis.png",
+ "Hafia FC": "logos/hafia-fc.png",
+ "هافيا": "logos/hafia-fc.png",
+ "Kaizer Chiefs FC": "logos/kaizer-chiefs-fc.png",
+ "كايزر تشيفز": "logos/kaizer-chiefs-fc.png",
+ "Kitara FC": "logos/kitara-fc.png",
+ "كيتارا": "logos/kitara-fc.png",
+ "Panthere Sportive du Nde": "logos/panthere-sportive-du-nde.png",
+ "بانثر دو ندي": "logos/panthere-sportive-du-nde.png",
+ "Primeiro de Agosto": "logos/primeiro-de-agosto.png",
+ "بريميرو دي أجوستو": "logos/primeiro-de-agosto.png",
+ "Raja Club Athletic": "logos/raja-club-athletic.png",
+ "الرجاء": "logos/raja-club-athletic.png",
+ "Rayon Sports FC": "logos/rayon-sports-fc.png",
+ "رايون سبورتس": "logos/rayon-sports-fc.png",
+ "Red Arrows FC": "logos/red-arrows-fc.png",
+ "ريد أروز": "logos/red-arrows-fc.png",
+ "Shooting Stars SC": "logos/shooting-stars-sc.png",
+ "شوتنج ستارز": "logos/shooting-stars-sc.png",
+ "Singida Black Stars FC": "logos/singida-black-stars-fc.png",
+ "سينجيدا بلاك ستارز": "logos/singida-black-stars-fc.png",
+ "USM Alger": "logos/usm-alger.png",
+ "اتحاد الجزائر": "logos/usm-alger.png",
+ "ZED FC": "logos/zed-fc.png",
+ "زد": "logos/zed-fc.png"
+};
+  var COMPLOGO = { "caf.confed": "logos/caf-confederation-cup.png" };
   var STAMP = "ks_cache_v1_";
 
   function pad(n) { return (n < 10 ? "0" : "") + n; }
@@ -191,6 +247,12 @@ Object.assign(TEAMS, {"AL Masry": "المصري", "Abu Qair Semad": "أبو قي
     });
     return pool(jobs, 8, function (j) { return j(); }).then(function (parts) {
       var all = [].concat.apply([], parts).sort(function (a, b) { return a.date - b.date; });
+      /* لوجوهات محلية: كأس الكونفدرالية والفرق اللي جورج بعت لوجوهاتها */
+      all.forEach(function (m) {
+        if (COMPLOGO[m.comp]) m.leagueLogo = COMPLOGO[m.comp];
+        if (TEAMLOGO[m.home]) m.homeLogo = TEAMLOGO[m.home];
+        if (TEAMLOGO[m.away]) m.awayLogo = TEAMLOGO[m.away];
+      });
       var v = { matches: all, errors: errors, at: Date.now() };
       if (errors < COMPS.length) cache[day] = { t: Date.now(), v: v };
       return v;
