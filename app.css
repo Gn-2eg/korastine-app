@@ -634,7 +634,14 @@ body.fx-open{overflow:hidden}
 .fx-row.dim{opacity:.5}
 .fx-row.dim .fx-n{background:#1b2a36;color:var(--muted)}
 
-/* v91: معاينة لشكل اسم الدوري (?hl=a / b / c) - مش الافتراضي */
-html.hl-a .mcard .lg-label .lg-name,html.hl-a .league-head h3{background:#123a2d;color:#35e07d;border:1px solid rgba(53,224,125,.35);padding:2px 11px}
-html.hl-b .mcard .lg-label .lg-name,html.hl-b .league-head h3{background:transparent;color:var(--text);border:1px solid rgba(255,255,255,.4);border-radius:999px;padding:2px 12px;font-weight:700}
-html.hl-c .mcard .lg-label .lg-name,html.hl-c .league-head h3{background:transparent;color:var(--text);border-radius:0;border:0;border-inline-start:4px solid var(--green);padding:1px 0;padding-inline-start:10px;font-weight:800}
+/* v92: معاينة - اللوجو + الاسم وحدة واحدة (?hl=a / b / c) - مش الافتراضي */
+html[class*="hl-"] .mcard .lg-label .lg-name{background:transparent;color:inherit;padding:0;border:0;border-radius:0;font-weight:inherit;display:inline;flex:none}
+html[class*="hl-"] .lg-unit{display:inline-flex;align-items:center;gap:8px;flex:0 1 auto;min-width:0;font-weight:800}
+html[class*="hl-"] .lg-unit .logo{width:22px;height:22px;flex:0 0 auto}
+html.hl-a .lg-unit{background:#123a2d;color:#35e07d;border:1px solid rgba(53,224,125,.35);border-radius:8px;padding:3px 11px 3px 12px}
+html.hl-b .lg-unit{background:transparent;color:var(--text);border:1px solid rgba(255,255,255,.4);border-radius:999px;padding:3px 14px 3px 12px;font-weight:700}
+html.hl-c .lg-unit{background:transparent;color:var(--text);border:0;border-inline-start:4px solid var(--green);border-radius:0;padding:2px 0;padding-inline-start:10px}
+html.hl-d .mcard .lg-label{background:#0f2a22!important}
+html.hl-d .lg-unit{color:#fff;gap:10px}
+html.hl-d .lg-unit .logo{width:26px;height:26px;padding:3px;background:#f2f5f7;border-radius:50%;box-sizing:border-box}
+html.hl-e .lg-unit{background:#16222d;color:var(--text);border-radius:12px;border-bottom:2px solid var(--green);padding:5px 12px 4px}
