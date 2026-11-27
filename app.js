@@ -392,10 +392,10 @@
     if (document.hidden || sel !== 0) return;
     var box = document.getElementById("leagueBlocks");
     var hasLive = !!box && /مباشر/.test(box.textContent || "");
-    if (!hasLive && (skip = (skip + 1) % 4) !== 0) return; // no live match: refresh every ~60s
+    if (!hasLive && (skip = (skip + 1) % 15) !== 0) return; // no live match: refresh every ~60s
     load(true);
   }
-  setInterval(tick, 15000);
+  setInterval(tick, 4000);
   document.addEventListener("visibilitychange", function () { if (!document.hidden && sel === 0) load(true); });
 
   /* ---------- analysis ---------- */

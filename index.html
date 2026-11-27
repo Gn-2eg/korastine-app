@@ -84,8 +84,20 @@
   <b>كورهسطين · KORASTINE</b>
 </footer>
 
-<script src="data.js?v=23"></script>
-<script src="live.js?v=23"></script>
-<script src="app.js?v=23"></script>
+<script src="data.js?v=24"></script>
+<script src="live.js?v=24"></script>
+<script src="app.js?v=24"></script>
+<script>
+/* منع الكليك يمين واختصارات المطور (بيوقف المستخدم العادي بس) */
+(function () {
+  document.addEventListener("contextmenu", function (e) { e.preventDefault(); }, true);
+  document.addEventListener("keydown", function (e) {
+    var k = (e.key || "").toLowerCase();
+    if (k === "f12") { e.preventDefault(); e.stopPropagation(); return false; }
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && (k === "i" || k === "j" || k === "c")) { e.preventDefault(); e.stopPropagation(); return false; }
+    if ((e.ctrlKey || e.metaKey) && k === "u") { e.preventDefault(); e.stopPropagation(); return false; }
+  }, true);
+})();
+</script>
 </body>
 </html>

@@ -227,6 +227,38 @@ Object.assign(TEAMS, {"AL Masry": "المصري", "Abu Qair Semad": "أبو قي
       });
     });
   }
+  /* بروكسي مباشر: كورفا كل 5 ثواني عبر Cloudflare Worker (بديل: fixtures.json) */
+  var PROXY = "https://korastine-live-proxy.gn-acc.workers.dev/";
+  function normN(x) { return String(x || "").toLowerCase().replace(/[^a-z0-9\u0600-\u06FF ]/g, " ").replace(/\b(fc|sc|cf|club|ac|ca|cd)\b/g, " ").replace(/\s+/g, " ").trim(); }
+  function proxyLive() {
+    return cached("proxy", 3000, function () {
+      return fetch(PROXY, { cache: "no-store" }).then(function (r) {
+        if (!r.ok) throw new Error("proxy " + r.status);
+        return r.json();
+      }).then(function (j) {
+        var byName = {};
+        (j.matches || []).forEach(function (x) {
+          byName[normN(team(x.home)) + "|" + normN(team(x.away))] = x;
+        });
+        return { byName: byName, at: j.updatedAt, n: (j.matches || []).length };
+      });
+    });
+  }
+  function applyProxy(all) {
+    return proxyLive().then(function (p) {
+      all.forEach(function (m) {
+        var x = p.byName[normN(m.home) + "|" + normN(m.away)];
+        if (!x) return;
+        if (Math.abs((x.date || 0) - (m.date || 0)) > 6 * 3600 * 1000) return;
+        if (x.hs !== null && x.hs !== undefined && x.as !== null && x.as !== undefined) { m.hs = +x.hs; m.as = +x.as; }
+        var sh = x.status || "NS";
+        if (/^(FT|AET|PEN)$/.test(sh)) m.status = "ft";
+        else if (/^(1H|HT|2H|ET|BT|P|LIVE|INT)$/.test(sh)) { m.status = "live"; m.minute = (sh === "HT") ? "ا" : String(x.minute || ""); }
+        else if (/^(PST|CANC|ABD|AWD|WO|SUSP)$/.test(sh)) m.status = "pp";
+      });
+      return all;
+    }).catch(function () { return all; });
+  }
   var cache = {};
   function loadDay(date, force) {
     var day = dkey(date), hit = cache[day];
@@ -253,9 +285,11 @@ Object.assign(TEAMS, {"AL Masry": "المصري", "Abu Qair Semad": "أبو قي
         if (TEAMLOGO[m.home]) m.homeLogo = TEAMLOGO[m.home];
         if (TEAMLOGO[m.away]) m.awayLogo = TEAMLOGO[m.away];
       });
-      var v = { matches: all, errors: errors, at: Date.now() };
-      if (errors < COMPS.length) cache[day] = { t: Date.now(), v: v };
-      return v;
+      return applyProxy(all).then(function () {
+        var v = { matches: all, errors: errors, at: Date.now() };
+        if (errors < COMPS.length) cache[day] = { t: Date.now(), v: v };
+        return v;
+      });
     });
   }
   return { COMPS: COMPS, loadDay: loadDay, dkey: dkey };
