@@ -276,3 +276,57 @@ p{line-height:1.8}
 .side-foot{display:none}
 
 .src-note{margin:8px 0 0;font-size:11px;color:var(--muted);opacity:.85}
+
+/* ---------- لوحة البطولة: ترتيب + هدافين ---------- */
+body.dash-open{overflow:hidden}
+.dash-ov{position:fixed;inset:0;z-index:60;background:rgba(4,8,12,.72);backdrop-filter:blur(6px);
+  display:flex;align-items:flex-end;justify-content:center;padding:0}
+.dash-ov[hidden]{display:none}
+@media(min-width:760px){.dash-ov{align-items:center;padding:24px}}
+.dash{width:100%;max-width:720px;max-height:88vh;display:flex;flex-direction:column;
+  background:linear-gradient(180deg,var(--surface),var(--bg2));border:1px solid var(--line);
+  border-radius:20px 20px 0 0;box-shadow:var(--shadow);overflow:hidden;animation:ksUp .26s cubic-bezier(.2,.7,.3,1) both}
+@media(min-width:760px){.dash{border-radius:20px;max-height:82vh}}
+@keyframes ksUp{from{transform:translateY(18px);opacity:.4}to{transform:none;opacity:1}}
+.dash-head{display:flex;align-items:center;gap:10px;padding:14px 16px 10px;border-bottom:1px solid var(--line)}
+.dash-logo{width:30px;height:30px}
+.dash-title{margin:0;font-size:16px;font-weight:800;flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dash-x{flex:0 0 auto;width:32px;height:32px;border-radius:50%;border:1px solid var(--line);background:var(--surface2);
+  color:var(--muted);font-size:14px;font-family:var(--font);cursor:pointer;line-height:1}
+.dash-x:hover{color:var(--text);border-color:rgba(53,224,125,.4)}
+.dash-tabs{display:flex;gap:6px;padding:10px 16px 0}
+.dash-tab{font-family:var(--font);font-size:13px;font-weight:800;color:var(--muted);background:transparent;
+  border:1px solid var(--line);border-radius:999px;padding:7px 16px;cursor:pointer}
+.dash-tab.on{color:#04120a;background:var(--green);border-color:var(--green)}
+.dash-body{padding:12px 12px 20px;overflow:auto;-webkit-overflow-scrolling:touch}
+.dash-load,.dash-empty,.dash-note{margin:14px 6px;color:var(--muted);font-size:14px}
+.dash-note{color:var(--gold);font-size:13px}
+.dash-gname{margin:14px 6px 8px;font-size:12px;font-weight:800;color:var(--muted);letter-spacing:.2px}
+.dash-tables{display:flex;flex-direction:column}
+.dash-table{width:100%;border-collapse:collapse;font-size:13px}
+.dash-table th{position:sticky;top:0;background:var(--bg2);color:var(--muted);font-weight:700;font-size:11px;
+  text-align:center;padding:6px 4px;border-bottom:1px solid var(--line);z-index:1}
+.dash-table td{text-align:center;padding:8px 4px;border-bottom:1px solid rgba(255,255,255,.04);white-space:nowrap}
+.dash-table tbody tr:hover{background:rgba(53,224,125,.05)}
+.dash-table th.d-team,.dash-table td.d-team{text-align:start}
+.dash-table td.d-team{display:flex;align-items:center;gap:8px;min-width:0;max-width:44vw}
+.dash-table td.d-team span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dash-table .logo{width:20px;height:20px}
+.dash-table .d-rank{color:var(--muted);font-weight:700;width:26px}
+.dash-table .d-pts{font-family:var(--display);font-weight:800;color:var(--green)}
+.dash-table .d-gf{color:var(--muted);font-size:12px}
+.dash-table tbody tr:nth-child(-n+1) .d-rank{color:var(--gold)}
+.dash-scorers td.d-team span{font-weight:600}
+@media(max-width:520px){
+  .dash-table{font-size:12px}
+  .dash-table td{padding:7px 3px}
+  .dash-table th:nth-child(3),.dash-table td:nth-child(3),
+  .dash-table th:nth-child(4),.dash-table td:nth-child(4),
+  .dash-table th:nth-child(5),.dash-table td:nth-child(5),
+  .dash-table th:nth-child(6),.dash-table td:nth-child(6){display:none}
+}
+.lg-tap{cursor:pointer}
+.lg-tap:hover{background:rgba(53,224,125,.07)}
+.lg-tap:focus-visible{outline:2px solid var(--green);outline-offset:-2px}
+.lg-chev{flex:0 0 auto;color:var(--muted);font-size:16px;line-height:1;font-weight:700}
+.lg-tap:hover .lg-chev{color:var(--green)}
