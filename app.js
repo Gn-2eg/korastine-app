@@ -216,15 +216,19 @@
   var COL_CAP = 6;
 
   function groupEl(g, gi) {
-    var sec = el("section", "lg-group");
-    sec.id = "lg-" + g.id.replace(/\W/g, "_");
+    var sec = el("section", "lg-group" + (g.card ? " mcard" + (g.list[0].status === "live" ? " is-live-card" : "") : ""));
+    if (!g.card || g.first) sec.id = "lg-" + g.id.replace(/\W/g, "_");
     var label = el("div", "lg-label");
     var lg = null;
     for (var q = 0; q < g.list.length; q++) if (g.list[q].leagueLogo) { lg = g.list[q].leagueLogo; break; }
     var lgi = logoImg(lg, "logo lg-logo");
     if (lgi) label.appendChild(lgi);
     label.appendChild(el("span", "lg-name", compName[g.id] + (g.more ? " (تكملة)" : "")));
-    label.appendChild(el("b", null, ar(g.n) + " ماتش"));
+    if (g.card) {
+      var md = g.list[0].date, dtxt = "";
+      try { dtxt = new Date(md).toLocaleDateString("ar-EG", { day: "numeric", month: "long" }) + " · " + hhmm(md); } catch (e) { dtxt = hhmm(md); }
+      label.appendChild(el("b", "lg-date", dtxt));
+    } else label.appendChild(el("b", null, ar(g.n) + " ماتش"));
     /* دوس على اسم/لوجو الدوري تفتح لوحة الترتيب والهدافين */
     label.appendChild(el("span", "lg-chev", "‹"));
     label.setAttribute("role", "button");
@@ -311,6 +315,11 @@
       }
     });
     if (cur.items.length) cols.push(cur);
+
+    /* كل ماتش في كارت لوحده (الدوري ظاهر في راس الكارت) */
+    var cards = [];
+    gs.forEach(function (g) { g.list.forEach(function (m, i) { cards.push({ id: g.id, list: [m], n: 1, first: i === 0, card: true }); }); });
+    cols = [{ items: cards, n: cards.length }];
 
     var gi = 0;
     cols.forEach(function (b) {
