@@ -627,15 +627,18 @@
           })
         };
       }).filter(function (g) { return g.rows.length; });
+      var seasonLabel = e.source === "wikipedia"
+        ? ((e.season ? e.season + " · " : "") + "المصدر: ويكيبيديا (CC BY-SA)")
+        : (e.season || "");
       var goals = (e.scorers || []).map(function (s) {
         return { name: s.player, team: L.team(s.team), logo: logoFor(s.team, s.logo), photo: s.photo || null, value: s.goals, assists: s.assists };
       });
-      return { groups: groups, goals: goals, assists: [] };
-    }).catch(function () { return { groups: [], goals: [], assists: [] }; });
+      return { groups: groups, season: seasonLabel, goals: goals, assists: [] };
+    }).catch(function () { return { groups: [], season: "", goals: [], assists: [] }; });
   }
   function dashData(compId) {
     var c = compById(compId);
-    if (compId === "egy") return curvaData("egy");
+    if (compId === "egy" || compId === "caf.confed") return curvaData(compId);
     if (c && c.src) return Promise.resolve({ groups: [], goals: [], assists: [] });
     return Promise.all([espnGroups(compId), espnScorers(compId)]).then(function (a) {
       return { groups: a[0].groups, season: a[0].season, goals: a[1].goals, assists: a[1].assists };
