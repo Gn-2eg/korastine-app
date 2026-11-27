@@ -1,5 +1,5 @@
 /* كورهسطين app shell */
-const CACHE = "korastine-app-v35";
+const CACHE = "korastine-app-v36";
 const SHELL = ["./", "./index.html", "./app.css", "./app.js", "./data.js", "./live.js",
   "./manifest.webmanifest", "./assets-brand.svg", "./favicon.png",
   "./app-192.png", "./app-256.png", "./app-512.png", "./favicon.svg", "./favicon-48.png", "./apple-touch-icon.png"];
@@ -35,7 +35,7 @@ self.addEventListener("fetch", (e) => {
           caches.open(CACHE).then((c) => c.put(req, copy)).catch(() => null);
         }
         return res;
-      }).catch(() => caches.match(req, { ignoreSearch: true }).then((hit) => hit || caches.match("./index.html")))
+      }).catch(() => caches.match(req, { ignoreSearch: true }).then((hit) => hit || (req.mode === "navigate" ? caches.match("./index.html") : Response.error())))
     );
     return;
   }
