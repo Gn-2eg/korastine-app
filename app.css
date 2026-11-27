@@ -379,3 +379,7 @@ body.dash-open{overflow:hidden}
   .section-head h2{font-size:18px}
   .day-strip{gap:6px}
 }
+/* موبايل: كارت البطولة ياخد العرض كامل بدل ما يبان طرف الكارت اللي بعده */
+@media (max-width:900px){
+  .league-blocks .col{flex:0 0 100%;max-width:100%}
+}
