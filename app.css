@@ -510,3 +510,41 @@ body{background:var(--bg)!important;background-image:none!important}
 .hl-links{display:flex;flex-wrap:wrap;gap:8px}
 .hl-btn{flex:1 1 140px;text-align:center;font-family:var(--font);font-size:13px;font-weight:800;color:#04120a;background:var(--green);border-radius:12px;padding:10px 8px;text-decoration:none}
 .hl-btn.alt{color:var(--text);background:var(--bg2);border:1px solid var(--line)}
+
+/* ---------- غرفة الملابس ---------- */
+#lkRoot{max-width:760px}
+.lk-hero{background:#0d1a14;border:1px solid var(--line);border-radius:var(--r);padding:18px 16px;margin:0 0 12px;border-inline-start:4px solid var(--gold)}
+.lk-hero b{display:block;font-family:var(--display);font-size:24px;font-weight:800;color:var(--gold)}
+.lk-hero span{font-size:13px;color:var(--muted)}
+.lk-match{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px;margin:0 0 12px}
+.lk-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.lk-team{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;font-family:var(--font);font-size:14px;font-weight:800;color:var(--text);background:#0d1a14;border:1px solid var(--line);border-bottom:3px solid var(--gold);border-radius:12px;padding:12px 6px;cursor:pointer;line-height:1.35;overflow-wrap:break-word;min-width:0}
+.lk-team em{font-style:normal;font-size:11px;font-weight:700;color:var(--gold)}
+.lk-team.off{cursor:default;border-bottom-color:var(--line)}
+.lk-team.off em{color:var(--muted)}
+body.lk-open{overflow:hidden}
+.lk-sheet{position:fixed;inset:0;z-index:100;background:#050a0d;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.lk-room{max-width:560px;margin:0 auto;min-height:100%;padding:12px 12px calc(24px + var(--safe-b));background:repeating-linear-gradient(90deg,#0b1218 0 78px,#0e161d 78px 80px)}
+.lk-top{display:flex;align-items:center;gap:8px;margin:0 0 10px}
+.lk-x{font-size:16px;font-weight:800;color:var(--text);background:var(--surface2);border:0;border-radius:50%;width:38px;height:38px;cursor:pointer;flex:none}
+.lk-tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;flex:1;min-width:0}
+.lk-tab{display:flex;align-items:center;justify-content:center;gap:6px;font-family:var(--font);font-size:13px;font-weight:800;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px 6px;cursor:pointer;min-width:0}
+.lk-tab span{overflow-wrap:break-word;min-width:0}
+.lk-tab.on{color:#04120a;background:var(--gold);border-color:var(--gold)}
+.lk-tlogo{width:22px;height:22px;object-fit:contain;flex:none}
+.lk-sub{text-align:center;font-size:12px;color:var(--muted);font-weight:700;margin:0 0 6px}
+.lk-form{text-align:center;font-family:var(--display);font-size:18px;font-weight:800;color:var(--gold);margin:0 0 10px}
+.lk-empty{text-align:center;color:var(--muted);padding:40px 12px;line-height:1.8}
+.lk-pitch{position:relative;direction:ltr;height:560px;border-radius:16px;border:2px solid #cfe9d6;background:repeating-linear-gradient(0deg,#1b6b3a 0 56px,#1f7a43 56px 112px);overflow:hidden}
+.lk-line{position:absolute;left:0;right:0;top:50%;height:2px;background:#cfe9d6}
+.lk-circle{position:absolute;left:50%;top:50%;width:90px;height:90px;margin:-45px 0 0 -45px;border:2px solid #cfe9d6;border-radius:50%}
+.lk-row{position:absolute;left:0;right:0;display:flex;justify-content:space-around;align-items:flex-end;transform:translateY(0)}
+.lk-p{display:flex;flex-direction:column;align-items:center;width:70px}
+.lk-shirt{width:44px;height:41px}
+.lk-name{font-size:11px;font-weight:800;color:#ffffff;background:#0a1219;border-radius:6px;padding:1px 5px;margin-top:2px;text-align:center;max-width:76px;line-height:1.4;direction:auto}
+.lk-bh{margin:18px 0 8px;font-size:15px;font-weight:900;color:var(--gold)}
+.lk-bench{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.lk-b{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-size:13px;font-weight:700;min-width:0}
+.lk-b b{font-family:var(--display);color:var(--gold);font-size:16px;min-width:22px}
+.lk-b span{overflow-wrap:break-word;min-width:0}
+@media(max-width:900px){#lkRoot{padding-bottom:70px}.lk-pitch{height:520px}}
