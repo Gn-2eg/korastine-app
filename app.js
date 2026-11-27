@@ -197,7 +197,6 @@
     if (tv && (tv.ch || tv.cm)) {
       addFact(detail, "القناة الناقلة", tv.ch);
       addFact(detail, "المعلق", tv.cm);
-      detail.appendChild(el("p", "src-note", "بيانات القناة والمعلق من FilGoal"));
     }
     more.addEventListener("click", function () {
       detail.hidden = !detail.hidden;
