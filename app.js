@@ -73,12 +73,9 @@
     return row;
   }
 
-  function colCount() {
-    var w = window.innerWidth || 1200;
-    return w >= 1180 ? 3 : w >= 800 ? 2 : 1;
-  }
+  var COL_CAP = 6;
 
-  function groupEl(g) {
+  function groupEl(g, gi) {
     var sec = el("section", "lg-group");
     sec.id = "lg-" + g.id.replace(/\W/g, "_");
     var label = el("div", "lg-label");
@@ -86,15 +83,16 @@
     for (var q = 0; q < g.list.length; q++) if (g.list[q].leagueLogo) { lg = g.list[q].leagueLogo; break; }
     var lgi = logoImg(lg, "logo lg-logo");
     if (lgi) label.appendChild(lgi);
-    label.appendChild(el("span", "lg-name", compName[g.id]));
+    label.appendChild(el("span", "lg-name", compName[g.id] + (g.more ? " (تكملة)" : "")));
     label.appendChild(el("b", null, ar(g.n) + " ماتش"));
+    if (gi) sec.style.animationDelay = (gi * 45) + "ms";
     sec.appendChild(label);
     g.list.forEach(function (m) { sec.appendChild(matchRow(m)); });
     return sec;
   }
 
   var lastRes = null, lastCols = 0;
-  function render(res) {
+  function render(res, animate) {
     lastRes = res;
     var wrap = document.getElementById("leagueBlocks"), rail = document.getElementById("leagueRail");
     wrap.innerHTML = ""; rail.innerHTML = "";
@@ -107,21 +105,26 @@
     order.sort(function (a, b) { return idx[a] - idx[b]; });
     var gs = order.map(function (id) { return { id: id, list: groups[id], n: groups[id].length }; });
 
-    /* وزّع البطولات على كذا عمود بحيث الأعمدة تطلع متساوية تقريبًا حسب عدد الماتشات */
-    var cols = colCount();
-    lastCols = cols;
-    wrap.style.gridTemplateColumns = "repeat(" + cols + ",1fr)";
-    var buckets = [];
-    for (var i = 0; i < cols; i++) buckets.push({ items: [], h: 0 });
+    /* كل عمود يشيل حوالي ٦ ماتشات، والدوري ما يتقسمش غير لو أطول من كده */
+    var cols = [], cur = { items: [], n: 0 };
     gs.forEach(function (g) {
-      var b = buckets[0];
-      for (var k = 1; k < buckets.length; k++) if (buckets[k].h < b.h - 0.001) b = buckets[k];
-      b.items.push(g); b.h += g.n + 1.5;
+      var rest = g.list.slice(), done = 0;
+      while (rest.length) {
+        if (cur.n >= COL_CAP) { cols.push(cur); cur = { items: [], n: 0 }; }
+        var space = COL_CAP - cur.n;
+        var take = Math.min(space, rest.length);
+        cur.items.push({ id: g.id, list: rest.slice(0, take), n: take, more: done > 0 });
+        cur.n += take; done += take;
+        rest = rest.slice(take);
+        if (cur.n >= COL_CAP) { cols.push(cur); cur = { items: [], n: 0 }; }
+      }
     });
-    buckets.forEach(function (b) {
-      if (!b.items.length) return;
+    if (cur.items.length) cols.push(cur);
+
+    var gi = 0;
+    cols.forEach(function (b) {
       var col = el("div", "col");
-      b.items.forEach(function (g) { col.appendChild(groupEl(g)); });
+      b.items.forEach(function (g) { col.appendChild(groupEl(g, gi++)); });
       wrap.appendChild(col);
     });
 
@@ -198,10 +201,15 @@
     var my = ++reqId;
     var st = document.getElementById("dataStatus");
     if (!force) st.textContent = "بنحمّل الماتشات…";
-    L.loadDay(dayDate(sel), force).then(function (res) { if (my === reqId) render(res); })
+    L.loadDay(dayDate(sel), force).then(function (res) {
+      if (my !== reqId) return;
+      var first = paintedSel !== sel;
+      paintedSel = sel;
+      render(res, first);
+    })
       .catch(function () { if (my === reqId) st.textContent = "مقدرتش أجيب الداتا. جرّب تاني."; });
   }
-  var skip = 0;
+  var paintedSel = null, skip = 0;
   function tick() {
     if (document.hidden || sel !== 0) return;
     var box = document.getElementById("leagueBlocks");
@@ -293,13 +301,23 @@
   }
 
   renderAnalysis(); renderDetail(); renderStrip(); load(false);
-  var rzT = null;
-  window.addEventListener("resize", function () {
-    clearTimeout(rzT);
-    rzT = setTimeout(function () {
-      if (lastRes && colCount() !== lastCols) render(lastRes);
-    }, 200);
-  });
+
+  /* سحب الأفقي بالماوس على الديسكتوب */
+  (function () {
+    var box = document.getElementById("leagueBlocks");
+    if (!box) return;
+    var down = false, x0 = 0, l0 = 0, moved = false;
+    box.addEventListener("mousedown", function (e) { down = true; moved = false; x0 = e.pageX; l0 = box.scrollLeft; box.classList.add("grab"); });
+    window.addEventListener("mouseup", function () { down = false; box.classList.remove("grab"); });
+    window.addEventListener("mousemove", function (e) {
+      if (!down) return;
+      var dx = e.pageX - x0;
+      if (Math.abs(dx) > 4) moved = true;
+      box.scrollLeft = l0 - dx;
+    });
+    box.addEventListener("click", function (e) { if (moved) { e.preventDefault(); e.stopPropagation(); } }, true);
+  })();
+
   window.addEventListener("hashchange", route); route();
 })();
 

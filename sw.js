@@ -1,5 +1,5 @@
 /* كورهسطين app shell */
-const CACHE = "korastine-app-v13";
+const CACHE = "korastine-app-v15";
 const SHELL = ["./", "./index.html", "./app.css", "./app.js", "./data.js", "./live.js",
   "./manifest.webmanifest", "./assets-brand.svg", "./favicon.png",
   "./icon-192.png", "./icon-512.png"];
