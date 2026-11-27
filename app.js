@@ -13,7 +13,11 @@
     if (!src) return null;
     var i = el("img", cls || "logo");
     i.src = src; i.alt = ""; i.loading = "lazy";
-    i.addEventListener("error", function () { if (i.parentNode) i.parentNode.removeChild(i); });
+    i.addEventListener("error", function () {
+      var ph = (window.KS_LIVE && window.KS_LIVE.UNKNOWN_LOGO) || "";
+      if (ph && !i.dataset.ph && i.getAttribute("src") !== ph) { i.dataset.ph = "1"; i.src = ph; return; }
+      if (i.parentNode) i.parentNode.removeChild(i);
+    });
     return i;
   }
 
