@@ -611,8 +611,16 @@
       .catch(function () { return { goals: [], assists: [] }; });
     return DASH.s[id];
   }
+  var CONFED_URL = "https://korastine-live-proxy.gn-acc.workers.dev/confed";
+  function confedLive() {
+    return fetchJSON(CONFED_URL).then(function (j) {
+      if (!j || !j.standings || !j.standings.length) throw new Error("empty");
+      return { leagues: { "caf.confed": j } };
+    });
+  }
   function curvaData(compId) {
-    return tablesFile().then(function (j) {
+    var src = compId === "caf.confed" ? confedLive().catch(function () { return tablesFile(); }) : tablesFile();
+    return src.then(function (j) {
       var e = j && j.leagues && j.leagues[compId];
       if (!e) return { groups: [], goals: [], assists: [] };
       var groups = (e.standings || []).map(function (g) {
@@ -668,7 +676,21 @@
     ov.hidden = false;
     document.body.classList.add("dash-open");
     renderDash();
+    clearInterval(dashPoll);
+    if (compId === "caf.confed") {
+      var last = "";
+      dashPoll = setInterval(function () {
+        var o = document.getElementById("ksDash");
+        if (!o || o.hidden || dashComp !== "caf.confed") { clearInterval(dashPoll); return; }
+        confedLive().then(function (j) {
+          var sig = JSON.stringify(j.leagues["caf.confed"].standings) + JSON.stringify(j.leagues["caf.confed"].scorers);
+          if (last && sig !== last) renderDash();
+          last = sig;
+        }).catch(function () {});
+      }, 5000);
+    }
   }
+  var dashPoll = null;
 
   function dnum(v) { return v == null ? "—" : String(Math.round(Number(v))); }
   function teamCell(r) {
