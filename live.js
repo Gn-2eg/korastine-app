@@ -377,8 +377,12 @@ Object.assign(TEAMS, {"AL Masry": "المصري", "Abu Qair Semad": "أبو قي
   }
   function applyLogos56(all) {
     all.forEach(function (m) {
-      m.homeLogo = teamLogo(m.home);
-      m.awayLogo = teamLogo(m.away);
+      var h = teamLogo(m.home), a = teamLogo(m.away);
+      /* اللوجو المحلي بيكسب، وبعده لوجو المصدر، والـ placeholder آخر حل */
+      if (h && h !== UNKNOWN_LOGO) m.homeLogo = h;
+      else if (!m.homeLogo) m.homeLogo = UNKNOWN_LOGO;
+      if (a && a !== UNKNOWN_LOGO) m.awayLogo = a;
+      else if (!m.awayLogo) m.awayLogo = UNKNOWN_LOGO;
     });
     return all;
   }
@@ -405,8 +409,9 @@ Object.assign(TEAMS, {"AL Masry": "المصري", "Abu Qair Semad": "أبو قي
       /* لوجوهات محلية: كأس الكونفدرالية والفرق اللي جورج بعت لوجوهاتها */
       all.forEach(function (m) {
         if (COMPLOGO[m.comp]) m.leagueLogo = COMPLOGO[m.comp];
-        m.homeLogo = teamLogo(m.home);
-        m.awayLogo = teamLogo(m.away);
+        var h = teamLogo(m.home), a = teamLogo(m.away);
+        if (h && h !== UNKNOWN_LOGO) m.homeLogo = h;
+        if (a && a !== UNKNOWN_LOGO) m.awayLogo = a;
       });
       return applyProxy(all).then(function () { applyLogos56(all); }).then(function () {
         var v = { matches: all, errors: errors, at: Date.now() };
