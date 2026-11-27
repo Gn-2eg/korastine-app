@@ -104,6 +104,7 @@ Object.assign(TEAMS, {"AL Masry": "المصري", "Abu Qair Semad": "أبو قي
 
   function pad(n) { return (n < 10 ? "0" : "") + n; }
   function dkey(d) { return d.getFullYear() + "" + pad(d.getMonth() + 1) + pad(d.getDate()); }
+Object.assign(TEAMS, {"Abha": "أبها", "Al Faisaly": "الفيصلي", "Al Diriyah": "الدرعية", "Diriyah Club": "الدرعية", "Al Orobah": "العروبة", "Al-Orobah": "العروبة", "Al Hazem": "الحزم", "Al Tai": "الطائي", "Al Adalah": "العدالة", "Al Najma": "النجمة", "Al Akhdoud": "الأخدود", "Al-Faisaly": "الفيصلي", "Al Ettifaq": "الاتفاق", "Al Ahli Jeddah": "الأهلي السعودي", "Al-Ahli Saudi": "الأهلي السعودي", "Al Ahli": "الأهلي السعودي", "Al Fayha": "الفيحاء", "Al Taawon": "التعاون", "Damac FC": "ضمك", "Al Riyadh": "الرياض", "Bayern Munich": "بايرن ميونخ", "FC Bayern Munich": "بايرن ميونخ", "Hamburg SV": "هامبورج", "Hamburger SV": "هامبورج", "Mainz": "ماينز", "Mainz 05": "ماينز", "Augsburg": "أوجسبورج", "FC Augsburg": "أوجسبورج", "Schalke 04": "شالكه", "Union Berlin": "يونيون برلين", "1. FC Köln": "كولن", "FC Koln": "كولن", "Köln": "كولن", "Hoffenheim": "هوفنهايم", "TSG Hoffenheim": "هوفنهايم", "Freiburg": "فرايبورج", "SC Freiburg": "فرايبورج", "Paderborn": "بادربورن", "SC Paderborn": "بادربورن", "Elversberg": "إلفرسبرج", "SV Elversberg": "إلفرسبرج", "Genoa": "جنوى", "Como": "كومو", "Monza": "مونزا", "Frosinone": "فروزينوني", "Sassuolo": "ساسوولو", "Cagliari": "كالياري", "Udinese": "أودينيزي", "Verona": "هيلاس فيرونا", "Lecce": "ليتشي", "Parma": "بارما", "Pisa": "بيزا", "Cremonese": "كريمونيزي", "Stuttgart": "شتوتجارت", "Lille OSC": "ليل", "Sporting CP": "سبورتينج لشبونة", "Sporting Lisbon": "سبورتينج لشبونة", "Shakhtar Donetsk": "شاختار دونيتسك", "Fenerbahce": "فنربخشة", "Viking FK": "فايكينج", "Sabah FK": "سباح", "Slavia Prague": "سلافيا براج", "Club Brugge": "كلوب بروج", "Omonia Nicosia": "أومونيا", "Heart of Midlothian": "هارتس", "CSKA Sofia": "سسكا صوفيا", "Trabzonspor": "طرابزون سبور", "Olympiacos": "أولمبياكوس", "Atletico Madrid": "أتلتيكو مدريد", "Atlético Madrid": "أتلتيكو مدريد"});
   function team(n) { return TEAMS[n] || n; }
 
   /* memo: نفس الطلب ما يتكررش قبل ما الـ ttl يخلص */
@@ -461,7 +462,7 @@ Object.assign(TEAMS, {"AL Masry": "المصري", "Abu Qair Semad": "أبو قي
     });
   }
   return {
-    COMPS: COMPS, loadDay: loadDay, dkey: dkey,
+    COMPS: COMPS, TEAMS: TEAMS, loadDay: loadDay, dkey: dkey,
     team: team, teamLogo: teamLogo, UNKNOWN_LOGO: UNKNOWN_LOGO,
     compLogo: function (id) { return COMPLOGO[id] || null; }
   };
