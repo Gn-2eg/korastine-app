@@ -599,3 +599,11 @@ input, textarea, select, [contenteditable="true"] { -webkit-user-select: text; u
 .dash-table td.d-team .logo{display:inline-block;vertical-align:middle;margin-inline-end:8px}
 .dash-table td.d-team span{display:inline-block;vertical-align:middle;max-width:calc(100% - 30px);unicode-bidi:plaintext;text-align:start;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .dash-scorers td.d-team:nth-child(3){width:auto;max-width:none}
+
+/* v87: زرار القفل ثابت دايماً + الجدول يتحرك جوه الصندوق بس (iOS) */
+.dash-ov{overflow:hidden;overscroll-behavior:contain}
+.dash{max-height:90vh;max-height:90dvh;min-height:0}
+@media(min-width:760px){.dash{max-height:82vh}}
+.dash-head,.dash-tabs{flex:0 0 auto}
+.dash-head{position:relative;z-index:2;background:var(--surface)}
+.dash-body{flex:1 1 auto;min-height:0;overscroll-behavior:contain}
