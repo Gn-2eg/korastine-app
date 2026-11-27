@@ -138,11 +138,15 @@
     L.loadDay(dayDate(sel), force).then(function (res) { if (my === reqId) render(res); })
       .catch(function () { if (my === reqId) st.textContent = "مقدرتش أجيب الداتا. جرّب تاني."; });
   }
+  var skip = 0;
   function tick() {
     if (document.hidden || sel !== 0) return;
+    var box = document.getElementById("leagueBlocks");
+    var hasLive = !!box && /مباشر/.test(box.textContent || "");
+    if (!hasLive && (skip = (skip + 1) % 4) !== 0) return; // no live match: refresh every ~60s
     load(true);
   }
-  setInterval(tick, 45000);
+  setInterval(tick, 15000);
   document.addEventListener("visibilitychange", function () { if (!document.hidden && sel === 0) load(true); });
 
   /* ---------- analysis ---------- */
