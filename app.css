@@ -560,4 +560,4 @@ body.lk-open{overflow:hidden}
 .fl-prog{position:relative;height:6px;border-radius:3px;background:#17303a;margin-top:12px;overflow:hidden;direction:rtl}
 .fl-prog i{position:absolute;inset-block:0;inset-inline-start:0;background:#35e07d;border-radius:3px}
 .fl-prog b{position:absolute;inset-block:0;inset-inline-start:50%;width:2px;background:#0a1219}
-@media (max-width:900px){.featured{padding-left:calc(30% + 8px)}.fl-wrap{width:32%;max-width:none}.matchup{gap:8px}.matchup .team-name{font-size:13px}.matchup .score{font-size:32px}}
+@media (max-width:900px){.featured{padding-left:calc(27% + 14px)}.fl-wrap{width:27%;max-width:none}.matchup{gap:8px}.matchup .team-name{font-size:13px}.matchup .score{font-size:32px}}
