@@ -566,4 +566,4 @@ body.lk-open{overflow:hidden}
 .featured{overflow:visible;padding-left:calc(200px + 10px)}
 .fl-wrap{left:4px;top:-26px;bottom:auto;width:200px;height:176px;max-width:none;filter:none;overflow:visible}
 .fl-svg{overflow:visible}
-@media (max-width:900px){.featured{padding-left:calc(124px + 8px)}.fl-wrap{left:0;top:-20px;width:128px;height:112px}}
+@media (max-width:900px){.featured{padding-left:calc(96px + 8px)}.fl-wrap{left:2px;top:-18px;width:100px;height:88px}}
