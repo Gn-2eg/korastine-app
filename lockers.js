@@ -140,7 +140,7 @@
       var t = data && data.teams[side];
       if (!data) { box.appendChild(el("p", "lk-empty", "بنجيب التشكيلة…")); return; }
       if (!t) {
-        box.appendChild(el("p", "lk-empty", data.err ? "مقدرتش أجيب التشكيلة. جرّب تاني." : "التشكيلة لسه ما اتعلنتش. بتظهر هنا لما المصدر ينشرها (عادةً قبل الماتش بساعة تقريباً)."));
+        box.appendChild(el("p", "lk-empty", data.err ? "مقدرتش أجيب التشكيلة. جرّب تاني." : "التشكيلة لسه ما اتعلنتش."));
         return;
       }
       var fm = el("div", "lk-form", "التشكيلة الأساسية"); if (t.formation) { var fb = el("b", null, " " + ar(t.formation)); fb.setAttribute("dir", "ltr"); fb.style.unicodeBidi = "isolate"; fm.appendChild(fb); } box.appendChild(fm);
@@ -181,7 +181,6 @@
       strip.appendChild(b);
     });
     root.appendChild(strip);
-    root.appendChild(el("p", "pd-rule", "التشكيلات بتظهر لما تتنشر (قبل الماتش بحوالي ساعة أو بعد ما يبدأ). الدوري والكؤوس المصرية من فيلجول، والباقي من ESPN. ألوان القمصان في الماتشات المصرية رمادية موحدة لأن مفيش مصدر لألوان الأطقم."));
     root.appendChild(el("div", "lk-list", ""));
     paintList("بنحمّل الماتشات…");
   }
