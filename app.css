@@ -274,3 +274,5 @@ p{line-height:1.8}
 .page-foot{align-items:center;text-align:center;justify-content:center;margin-inline:auto}
 .page-foot span,.page-foot b{text-align:center;width:100%}
 .side-foot{display:none}
+
+.src-note{margin:8px 0 0;font-size:11px;color:var(--muted);opacity:.85}

@@ -24,6 +24,52 @@
   var MONTHS = ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"];
   var sel = 0, lastLive = [], timer = null, reqId = 0;
 
+  /* ---------- القناة الناقلة والمعلق (بيانات FilGoal) ---------- */
+  var TV = null, tvPair = null, tvHome = null, tvAway = null, tvAt = 0, tvPromise = null;
+  function normAr(s) {
+    return String(s == null ? "" : s)
+      .replace(/[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED\u0640]/g, "")
+      .replace(/[\u0623\u0625\u0622\u0671]/g, "\u0627")
+      .replace(/\u0649/g, "\u064A").replace(/\u0629/g, "\u0647")
+      .replace(/[|\u060C,.()\-\u2013\u2014]/g, " ")
+      .replace(/\s+/g, " ").trim();
+  }
+  function buildTVIndex() {
+    tvPair = {}; tvHome = {}; tvAway = {};
+    ((TV && TV.matches) || []).forEach(function (t) {
+      var h = normAr(t.home), a = normAr(t.away);
+      if (!h || !a || !t.kick) return;
+      tvPair[h + "|" + a] = t;
+      (tvHome[h] = tvHome[h] || []).push(t);
+      (tvAway[a] = tvAway[a] || []).push(t);
+    });
+  }
+  function nearKick(t, ts, mins) { return !!(t && t.kick && Math.abs(t.kick - ts) <= mins * 60000); }
+  function oneIn(list, ts, mins) {
+    if (!list) return null;
+    var hit = list.filter(function (t) { return nearKick(t, ts, mins); });
+    return hit.length === 1 ? hit[0] : null;
+  }
+  /* مطابقة الفريقين + الميعاد، وبعدها فريق واحد لو الميعاد قريب ومفيش غير ماتش واحد */
+  function findTV(m) {
+    if (!tvPair) return null;
+    var h = normAr(m.home), a = normAr(m.away);
+    var e = tvPair[h + "|" + a];
+    if (nearKick(e, m.date, 20)) return e;
+    e = tvPair[a + "|" + h];
+    if (nearKick(e, m.date, 20)) return e;
+    return oneIn(tvHome[h], m.date, 10) || oneIn(tvAway[a], m.date, 10);
+  }
+  function ensureTV() {
+    if (tvPromise && Date.now() - tvAt < 300000) return tvPromise;
+    tvAt = Date.now();
+    tvPromise = fetch("tv.json?ts=" + tvAt, { cache: "no-store" })
+      .then(function (r) { if (!r.ok) throw new Error("http " + r.status); return r.json(); })
+      .then(function (j) { TV = j; buildTVIndex(); })
+      .catch(function () { /* مفيش داتا قنوات: البطاقة تفضل زي ما هي */ });
+    return tvPromise;
+  }
+
   function hhmm(ts) {
     return new Date(ts).toLocaleTimeString("ar-EG", { hour: "numeric", minute: "2-digit", hour12: true });
   }
@@ -108,6 +154,12 @@
     addFact(detail, "الحالة", detailText(m.detail));
     addFact(detail, "الملعب", m.venue);
     addFact(detail, "التوقيت", fullTime(m.date) + " (بتوقيتك)");
+    var tv = findTV(m);
+    if (tv && (tv.ch || tv.cm)) {
+      addFact(detail, "القناة الناقلة", tv.ch);
+      addFact(detail, "المعلق", tv.cm);
+      detail.appendChild(el("p", "src-note", "بيانات القناة والمعلق من FilGoal"));
+    }
     more.addEventListener("click", function () {
       detail.hidden = !detail.hidden;
       more.textContent = detail.hidden ? "المزيد" : "أقل";
@@ -289,11 +341,11 @@
     var my = ++reqId;
     var st = document.getElementById("dataStatus");
     if (!force) st.textContent = "بنحمّل الماتشات…";
-    L.loadDay(dayDate(sel), force).then(function (res) {
+    Promise.all([L.loadDay(dayDate(sel), force), ensureTV()]).then(function (out) {
       if (my !== reqId) return;
       var first = paintedSel !== sel;
       paintedSel = sel;
-      render(res, first);
+      render(out[0], first);
     })
       .catch(function () { if (my === reqId) st.textContent = "مقدرتش أجيب الداتا. جرّب تاني."; });
   }
