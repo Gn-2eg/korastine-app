@@ -431,9 +431,9 @@ body{background:var(--bg)!important;background-image:none!important}
 }
 
 /* ---- v44: كارت لكل ماتش (شكل كروت كبيرة) في أعمدة، وتمرير عمودي ---- */
-.mcard{border-radius:22px;background:#0d1a1f;background-image:none;border:1px solid rgba(53,224,125,.22)}
+.mcard{border-radius:22px;background:linear-gradient(180deg,var(--surface),var(--bg2));border:1px solid rgba(53,224,125,.22)}
 .mcard.is-live-card{border-color:rgba(53,224,125,.65)}
-.mcard .lg-label{background:transparent!important;background-image:none!important;padding:14px 18px;font-size:14px;border-bottom:1px solid rgba(255,255,255,.06)}
+.mcard .lg-label{background:linear-gradient(90deg,rgba(53,224,125,.16),rgba(53,224,125,.02))!important;padding:14px 18px;font-size:14px;border-bottom:1px solid rgba(255,255,255,.06)}
 .mcard .lg-label .lg-chev{display:none}
 .mcard .lg-label .lg-date{margin-inline-start:auto;font-size:12px;color:var(--muted)}
 .mcard .match-wrap{border-bottom:0}
