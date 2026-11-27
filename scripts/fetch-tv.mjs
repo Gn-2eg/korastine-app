@@ -150,7 +150,7 @@ const out = [];
 for (const r of byId.values()) {
   const p = prevMap.get(r.id);
   const f = fresh.get(r.id);
-  const kick = (f && f.startAt) || r.kick;
+  const kick = r.kick; // وقت القاهرة من جدول المباريات هو الصح؛ StartAt في صفحة الماتش بييجي متأخر ساعتين
   if (kick < now - 3 * 86400000 || kick > now + 10 * 86400000) continue;
   const ch = (f && f.ch) || (p && p.ch) || null;
   const cm = (f && f.cm) || (p && p.cm) || null;
