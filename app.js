@@ -571,9 +571,19 @@
           if (dash > 0) nm = nm.slice(dash + 3);
           return { name: nm, rows: rows };
         });
-        return out.filter(function (g) { return g.rows.length; });
+        out = out.filter(function (g) { return g.rows.length; });
+        out.forEach(function (g) {
+          g.rows.sort(function (a, b) {
+            var ra = a.rank == null ? 999 : a.rank, rb = b.rank == null ? 999 : b.rank;
+            if (ra !== rb) return ra - rb;
+            var pa = a.points == null ? -1 : a.points, pb = b.points == null ? -1 : b.points;
+            if (pa !== pb) return pb - pa;
+            return (b.gd == null ? 0 : b.gd) - (a.gd == null ? 0 : a.gd);
+          });
+        });
+        return { groups: out, season: (j.season && (j.season.displayName || j.season.year)) || "" };
       })
-      .catch(function () { return []; });
+      .catch(function () { return { groups: [], season: "" }; });
     return DASH.t[id];
   }
   function espnScorers(id) {
@@ -628,7 +638,7 @@
     if (compId === "egy") return curvaData("egy");
     if (c && c.src) return Promise.resolve({ groups: [], goals: [], assists: [] });
     return Promise.all([espnGroups(compId), espnScorers(compId)]).then(function (a) {
-      return { groups: a[0], goals: a[1].goals, assists: a[1].assists };
+      return { groups: a[0].groups, season: a[0].season, goals: a[1].goals, assists: a[1].assists };
     });
   }
 
@@ -657,7 +667,7 @@
     renderDash();
   }
 
-  function dnum(v) { return v == null ? "—" : ar(v); }
+  function dnum(v) { return v == null ? "—" : String(Math.round(Number(v))); }
   function teamCell(r) {
     var td = el("td", "d-team");
     var i = logoImg(r.logo, "logo");
@@ -706,7 +716,7 @@
     var tb = el("tbody");
     list.forEach(function (p, i) {
       var row = el("tr");
-      row.appendChild(el("td", "d-rank", ar(i + 1)));
+      row.appendChild(el("td", "d-rank", String(i + 1)));
       var td = el("td", "d-team");
       var img = logoImg(p.photo || p.logo, "logo");
       if (img) td.appendChild(img);
@@ -721,6 +731,17 @@
     return t;
   }
   function emptyNote(text) { return el("p", "dash-empty", text); }
+  /* فرق البطولة الظاهرة في ماتشات اليوم — عشان نعرف لو جدول المصدر من موسم تاني */
+  function compTeams(compId) {
+    var set = {};
+    if (!lastRes || !lastRes.matches) return set;
+    lastRes.matches.forEach(function (m) {
+      if (m.comp !== compId) return;
+      if (m.home) set[m.home] = 1;
+      if (m.away) set[m.away] = 1;
+    });
+    return set;
+  }
 
   function renderDash() {
     var ov = dashOverlay();
@@ -762,11 +783,18 @@
       if (my !== dashReq) return;
       body.innerHTML = "";
       if (dashTab === "table") {
+        if (d.season) body.appendChild(el("p", "dash-season", d.season));
         if (d.groups.length) {
+          var fx = compTeams(dashComp), names = [], known = 0;
+          d.groups.forEach(function (g) { g.rows.forEach(function (r) { names.push(r.name); if (fx[r.name]) known++; }); });
+          if (Object.keys(fx).length >= 2 && names.length && known === 0) {
+            body.appendChild(el("p", "dash-note", "المصدر لسه بيعرض جدول الموسم اللي فات، والأرقام دي مش بتاعة الموسم الحالي — مش هنعرضها."));
+          } else {
           var played = 0;
           d.groups.forEach(function (g) { g.rows.forEach(function (r) { played += Number(r.played) || 0; }); });
           if (!played) body.appendChild(el("p", "dash-note", "الموسم لسه ما بدأش، الترتيب فاضي."));
           body.appendChild(tableEl(d.groups));
+          }
         } else {
           body.appendChild(emptyNote("المصدر مش بيوفر ترتيب للبطولة دي."));
         }
