@@ -321,7 +321,11 @@
 
     /* كل ماتش في كارت لوحده (الدوري ظاهر في راس الكارت) */
     var cards = [];
-    gs.forEach(function (g) { g.list.forEach(function (m, i) { cards.push({ id: g.id, list: [m], n: 1, first: i === 0, card: true }); }); });
+    gs.forEach(function (g) { g.list.forEach(function (m) { cards.push({ id: g.id, list: [m], n: 1, card: true }); }); });
+    /* ترتيب بالوقت: الأبكر الأول، ولو نفس الوقت بترتيب أهمية الدوري */
+    cards.sort(function (a, b) { return (a.list[0].date - b.list[0].date) || (idx[a.id] - idx[b.id]); });
+    var seenComp = {};
+    cards.forEach(function (c) { c.first = !seenComp[c.id]; seenComp[c.id] = 1; });
     /* ٤ كروت في كل عمود (على الموبايل بتتسحب الأعمدة يمين وشمال) */
     cols = [];
     for (var ci = 0; ci < cards.length; ci += 4) cols.push({ items: cards.slice(ci, ci + 4), n: 4 });
