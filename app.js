@@ -55,6 +55,18 @@
     } catch (e) { return hhmm(ts); }
   }
 
+  function detailText(v) {
+    if (!v) return "";
+    var t = String(v).trim();
+    if (/^scheduled$/i.test(t)) return "لسه ما بدأتش";
+    if (/^(ft|full time|full-time)$/i.test(t)) return "انتهت";
+    if (/^(ht|half time)$/i.test(t)) return "بين الشوطين";
+    if (/^(postponed|pst)$/i.test(t)) return "مؤجلة";
+    if (/^(1h|2h|et|bt|live)$/i.test(t)) return "شغالة دلوقتي";
+    if (/[\u0600-\u06FF]/.test(t)) return t;
+    return "";
+  }
+
   function addFact(box, label, value) {
     if (!value) return;
     var d = el("div", "fact");
@@ -93,7 +105,7 @@
     var detail = el("div", "match-more");
     detail.hidden = true;
     addFact(detail, "البطولة", compName[m.comp]);
-    addFact(detail, "الجولة", m.detail);
+    addFact(detail, "الحالة", detailText(m.detail));
     addFact(detail, "الملعب", m.venue);
     addFact(detail, "التوقيت", fullTime(m.date) + " (بتوقيتك)");
     more.addEventListener("click", function () {
