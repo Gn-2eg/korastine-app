@@ -1,8 +1,8 @@
 /* كورهسطين app shell */
-const CACHE = "korastine-app-v34";
+const CACHE = "korastine-app-v35";
 const SHELL = ["./", "./index.html", "./app.css", "./app.js", "./data.js", "./live.js",
   "./manifest.webmanifest", "./assets-brand.svg", "./favicon.png",
-  "./app-192.png", "./app-512.png", "./favicon.svg", "./favicon-48.png", "./apple-touch-icon.png"];
+  "./app-192.png", "./app-256.png", "./app-512.png", "./favicon.svg", "./favicon-48.png", "./apple-touch-icon.png"];
 
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open(CACHE)
