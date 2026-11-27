@@ -608,3 +608,28 @@ input, textarea, select, [contenteditable="true"] { -webkit-user-select: text; u
 .dash-head{position:relative;z-index:2;background:var(--surface)}
 .dash-body{flex:1 1 auto;min-height:0;overscroll-behavior:contain}
 .dash-body{padding-top:0}.dash-tables,.dash-scorers{padding-top:6px}.dash-table th{background:var(--surface)}
+
+/* v89: فلتر البطولات (شيت) - ألوان ثابتة، من غير أنيميشن */
+.filter-row.fx .comp-filter{display:none}
+.fx-btn{display:flex;align-items:center;gap:10px;min-height:46px;min-width:230px;max-width:100%;padding:6px 14px;background:#0e1822;color:var(--text);border:1px solid rgba(53,224,125,.35);border-radius:14px;font:inherit;font-size:14px;font-weight:800;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.fx-btn .fx-nm{flex:1 1 auto;text-align:start;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fx-btn .fx-chev{color:var(--green);font-size:13px}
+.fx-ic{flex:0 0 auto;width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;font-size:15px;color:var(--muted)}
+.fx-ic .logo{width:26px;height:26px}
+.fx-ic.live{color:var(--green)}
+.fx-n{flex:0 0 auto;min-width:26px;text-align:center;padding:2px 9px;border-radius:999px;background:#f3c455;color:#0a0f14;font-size:12px;font-weight:800}
+.fx-ov{position:fixed;inset:0;z-index:70;background:rgba(4,8,12,.78);display:flex;align-items:flex-end;justify-content:center}
+.fx-ov[hidden]{display:none}
+body.fx-open{overflow:hidden}
+.fx-panel{width:100%;max-width:520px;max-height:82vh;max-height:82dvh;display:flex;flex-direction:column;background:#0b141c;border:1px solid var(--line);border-radius:20px 20px 0 0;overflow:hidden}
+@media(min-width:760px){.fx-ov{align-items:center}.fx-panel{border-radius:20px;max-height:80vh}}
+.fx-head{flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--line);background:linear-gradient(90deg,rgba(53,224,125,.16),rgba(53,224,125,.02))}
+.fx-head h3{margin:0;font-size:16px;font-weight:800}
+.fx-x{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:#0e1822;color:var(--text);font-size:14px;cursor:pointer}
+.fx-list{flex:1 1 auto;min-height:0;overflow:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:8px 10px calc(14px + var(--safe-b,0px))}
+.fx-sec{margin:12px 6px 6px;font-size:12px;font-weight:800;color:var(--muted)}
+.fx-row{display:flex;align-items:center;gap:12px;width:100%;min-height:52px;margin:0 0 6px;padding:6px 12px;background:#0e1822;color:var(--text);border:1px solid transparent;border-radius:12px;font:inherit;font-size:15px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.fx-row .fx-nm{flex:1 1 auto;text-align:start;min-width:0}
+.fx-row.on{border-color:var(--green);background:#0f2a22}
+.fx-row.dim{opacity:.5}
+.fx-row.dim .fx-n{background:#1b2a36;color:var(--muted)}
