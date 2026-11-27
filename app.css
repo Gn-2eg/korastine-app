@@ -420,3 +420,12 @@ body{background:var(--bg)!important;background-image:none!important}
   .match-row{padding:11px 10px;gap:6px}
   .match-row .team{font-size:13px;gap:6px}
 }
+
+/* ---- v43: masonry (CSS columns) so cards pack top to bottom with no row gaps ---- */
+@media (min-width:901px){
+  .league-blocks{display:block!important;column-width:300px;column-gap:14px;column-fill:balance;
+    max-width:1240px;margin-inline:auto;width:100%}
+  .league-blocks .col{display:contents!important}
+  .league-blocks .lg-group{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+    margin:0 0 14px;display:block}
+}
