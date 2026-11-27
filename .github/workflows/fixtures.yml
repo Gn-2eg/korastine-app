@@ -1,7 +1,10 @@
 name: Update Egyptian fixtures
 on:
   schedule:
-    - cron: '7,37 * * * *'
+    # كل 5 دقايق من 08:00 لحد 23:55 بتوقيت القاهرة (UTC+2)
+    - cron: '*/5 6-21 * * *'
+    # بالليل كل نص ساعة
+    - cron: '*/30 22-23,0-5 * * *'
   workflow_dispatch:
 permissions:
   contents: write
