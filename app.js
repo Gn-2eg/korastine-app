@@ -52,9 +52,9 @@
       center.appendChild(el("span", "time", m.status === "pp" ? "مؤجلة" : hhmm(m.date)));
     } else {
       var sc = el("span", "score score-nums");
-      sc.appendChild(el("span", null, ar(m.hs)));
+      sc.appendChild(el("span", null, String(m.hs)));
       sc.appendChild(el("span", "sep", "-"));
-      sc.appendChild(el("span", null, ar(m.as)));
+      sc.appendChild(el("span", null, String(m.as)));
       center.appendChild(sc);
       center.appendChild(el("span", "minute" + (m.status === "ft" ? " ft" : ""), m.status === "live" ? "مباشر " + ar(m.minute || "") : "انتهت"));
     }
@@ -83,6 +83,7 @@
       head.appendChild(el("h3", null, compName[id]));
       if (id === "egy" || id === "egyo") head.appendChild(el("small", "src", "المصدر: كورفا"));
       head.appendChild(el("span", null, ar(list.length) + " ماتش"));
+      head.addEventListener("click", function () { block.classList.toggle("collapsed"); });
       block.appendChild(head);
       list.forEach(function (m) { block.appendChild(matchRow(m)); });
       wrap.appendChild(block);
@@ -120,9 +121,9 @@
     var home = el("div", "side"); home.appendChild(el("span", "team-name", pick.home));
     var num = el("div", "score score-nums");
     var hasScore = !isNaN(pick.hs) && !isNaN(pick.as) && pick.status !== "upcoming";
-    num.appendChild(el("span", null, hasScore ? ar(pick.hs) : "–"));
+    num.appendChild(el("span", null, hasScore ? String(pick.hs) : "–"));
     num.appendChild(el("span", "sep", ":"));
-    num.appendChild(el("span", null, hasScore ? ar(pick.as) : "–"));
+    num.appendChild(el("span", null, hasScore ? String(pick.as) : "–"));
     var away = el("div", "side away"); away.appendChild(el("span", "team-name", pick.away));
     matchup.appendChild(home); matchup.appendChild(num); matchup.appendChild(away);
     var meta = el("div", "featured-meta");
@@ -219,7 +220,9 @@
 
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", function () {
+      var had = !!navigator.serviceWorker.controller;
       navigator.serviceWorker.register("sw.js").catch(function () {});
+      navigator.serviceWorker.addEventListener("controllerchange", function () { if (had && !window.__ksReloaded) { window.__ksReloaded = true; location.reload(); } });
     });
   }
 
