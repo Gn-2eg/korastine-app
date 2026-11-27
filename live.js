@@ -365,12 +365,47 @@ Object.assign(TEAMS, {"AL Masry": "المصري", "Abu Qair Semad": "أبو قي
     "logos/caf-al-ahly-fc.png": "logos/9-caf-al-ahly-fc.png",
     "logos/caf-confederation-cup.png": "logos/1-caf-confederation-cup.png"
   };
+  /* لوجوهات أندية أفريقيا (ملفات شعارات من ويكيبيديا) — بديل قبل الـ placeholder */
+  var CAF_REMOTE = {
+    "AS Maniema Union": "https://thumb.wikimedia.org/wikipedia/en/thumb/1/1c/AS_Maniema_Union_logo.png/250px-AS_Maniema_Union_logo.png",
+    "Al Ahly": "https://thumb.wikimedia.org/wikipedia/en/thumb/7/70/Al_Ahly_SC_logo.svg/250px-Al_Ahly_SC_logo.svg.png",
+    "Al Hilal Omdurman": "https://upload.wikimedia.org/wikipedia/en/8/83/Al-Hilal_Club_%28Omdurman%29_logo.png",
+    "Al-Masry": "https://thumb.wikimedia.org/wikipedia/en/thumb/5/54/Al_Masry_SC.png/250px-Al_Masry_SC.png",
+    "Azam FC": "https://upload.wikimedia.org/wikipedia/en/4/4a/Azam_F.C._logo.png",
+    "CR Belouizdad": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4f/CRB1.png/250px-CRB1.png",
+    "Club Africain": "https://thumb.wikimedia.org/wikipedia/en/thumb/f/fe/Club_Africain_logo.svg/250px-Club_Africain_logo.svg.png",
+    "Colombe Sportiv Du Dja Et Lobo": "https://upload.wikimedia.org/wikipedia/en/f/f6/Colombe_Sportive_logo.png",
+    "Esperance Sportive de Tunis": "https://thumb.wikimedia.org/wikipedia/en/thumb/f/fb/Esp%C3%A9rance_Sportive_de_Tunis_logo.png/250px-Esp%C3%A9rance_Sportive_de_Tunis_logo.png",
+    "FC Nouadhibou": "https://upload.wikimedia.org/wikipedia/en/f/f2/FC_Nouadhibou.png",
+    "Horoya": "https://upload.wikimedia.org/wikipedia/en/2/2e/HoroyaLogo.png",
+    "Kaizer Chiefs": "https://thumb.wikimedia.org/wikipedia/en/thumb/1/16/Kaizer_Chiefs_logo.svg/250px-Kaizer_Chiefs_logo.svg.png",
+    "MC Alger": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b3/Mouloudia_logo_2024.png/250px-Mouloudia_logo_2024.png",
+    "Maghreb As De Fes": "https://thumb.wikimedia.org/wikipedia/en/thumb/a/aa/Maghreb_Fez_logo.png/250px-Maghreb_Fez_logo.png",
+    "Olympic Safi": "https://thumb.wikimedia.org/wikipedia/en/thumb/1/14/Olympic_Club_Safi_logo.svg/250px-Olympic_Club_Safi_logo.svg.png",
+    "Orlando Pirates": "https://thumb.wikimedia.org/wikipedia/en/thumb/9/95/Orlando_Pirates_FC_logo.svg/250px-Orlando_Pirates_FC_logo.svg.png",
+    "Otoho d'Oyo": "https://thumb.wikimedia.org/wikipedia/en/thumb/0/0b/AS_Ot%C3%B4ho_%28logo%29.png/250px-AS_Ot%C3%B4ho_%28logo%29.png",
+    "Petro de Luanda": "https://thumb.wikimedia.org/wikipedia/en/thumb/1/1d/Atletico_Petroleos_Luanda.svg/250px-Atletico_Petroleos_Luanda.svg.png",
+    "Pyramids FC": "https://thumb.wikimedia.org/wikipedia/en/thumb/8/87/Pyramids_FC_%282020%29.png/250px-Pyramids_FC_%282020%29.png",
+    "RSB Berkane": "https://thumb.wikimedia.org/wikipedia/en/thumb/d/de/RS_Berkane_%28logo%29.png/250px-RS_Berkane_%28logo%29.png",
+    "San Pedro": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f4/Dep_san_pedro.jpg/250px-Dep_san_pedro.jpg",
+    "San Pédro": "https://thumb.wikimedia.org/wikipedia/en/thumb/a/a4/FCSANPedroLogo.png/250px-FCSANPedroLogo.png",
+    "Simba SC": "https://thumb.wikimedia.org/wikipedia/en/thumb/b/bf/Simba_Sports_Club.png/250px-Simba_Sports_Club.png",
+    "Singida Black Stars": "https://thumb.wikimedia.org/wikipedia/en/thumb/3/32/Singida_Black_Stars_logo.png/250px-Singida_Black_Stars_logo.png",
+    "Stellenbosch": "https://thumb.wikimedia.org/wikipedia/en/thumb/f/ff/Stellenbosch_FC_logo.png/250px-Stellenbosch_FC_logo.png",
+    "USM Alger": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/71/USMAlger4Stars.png/250px-USMAlger4Stars.png",
+    "Wiliete SC": "https://upload.wikimedia.org/wikipedia/en/0/04/Wiliete_S.C._logo.png",
+    "Wydad AC": "https://thumb.wikimedia.org/wikipedia/en/thumb/1/18/Wydad_AC_crest_%282022%29.svg/250px-Wydad_AC_crest_%282022%29.svg.png",
+    "Young Africans": "https://thumb.wikimedia.org/wikipedia/en/thumb/d/d1/Young_Africans_SC_%28logo%29.png/250px-Young_Africans_SC_%28logo%29.png",
+    "ZESCO United": "https://upload.wikimedia.org/wikipedia/en/a/a0/NewZescoUtdFClogo.png",
+    "Zamalek": "https://thumb.wikimedia.org/wikipedia/en/thumb/e/ef/Zamalek_SC_logo.svg/250px-Zamalek_SC_logo.svg.png"
+  };
   function teamLogo(n) {
     if (!LOGO56_AR) {
       LOGO56_AR = {};
       Object.keys(LOGO56).forEach(function (k) { LOGO56_AR[team(k)] = LOGO56[k]; });
     }
     var v = LOGO56_AR[team(n)] || LOGO56[n] || TEAMLOGO[n] || TEAMLOGO[team(n)];
+    if (!v) v = CAF_REMOTE[n] || CAF_REMOTE[team(n)] || null;
     if (v && REPATH[v]) v = REPATH[v];
     if (!v || BAD_LOGO[v]) return UNKNOWN_LOGO;
     return v;
