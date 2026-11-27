@@ -383,3 +383,17 @@ body.dash-open{overflow:hidden}
 @media (max-width:900px){
   .league-blocks .col{flex:0 0 100%;max-width:100%}
 }
+
+/* ---- v33: كارت ماتش اليوم على الموبايل + سطر الموسم في لوحة البطولة ---- */
+.dash-season{font-size:12px;font-weight:700;opacity:.7;margin:0 0 8px}
+@media (max-width:600px){
+  .featured::before,.featured::after{display:none}
+  .featured .wm{display:none}
+  .featured{background:linear-gradient(165deg,#0c1a24 0%,#0a1219 60%,#0b1a14 100%)}
+  .matchup{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);width:100%;gap:6px;justify-content:stretch}
+  .matchup .side{min-width:0;overflow:hidden}
+  .matchup .team-name{display:block;min-width:0;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .matchup .score{font-size:32px}
+  .featured-title{font-size:20px;overflow-wrap:anywhere}
+  html,body{overflow-x:hidden}
+}
