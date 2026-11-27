@@ -1,0 +1,35 @@
+name: tables
+
+on:
+  schedule:
+    - cron: "*/20 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: tables
+  cancel-in-progress: false
+
+jobs:
+  tables:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Fetch tables (Curva + FilGoal)
+        run: node scripts/fetch-tables.mjs
+      - name: Commit tables.json if it changed
+        run: |
+          git config user.name "korastine-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add tables.json
+          if git diff --cached --quiet; then
+            echo "no change"
+          else
+            git commit -m "tables: refresh"
+            git push
+          fi
