@@ -7,7 +7,7 @@ import fs from 'node:fs';
 const UA = 'KorastineApp/1.0 (+https://gn-2eg.github.io/korastine-app/)';
 const SITE = 'https://www.filgoal.com';
 const OUT = 'tv.json';
-const MAX_DETAIL = Number(process.env.MAX_DETAIL || 60); // أقصى عدد صفحات ماتشات في الرن الواحد
+const MAX_DETAIL = Number(process.env.MAX_DETAIL || 20); // أقصى عدد صفحات ماتشات في الدورة الواحدة
 const HOUR = 3600000;
 
 function sleep(ms) { return new Promise((r) => setTimeout(r, ms)); }
@@ -122,13 +122,14 @@ for (const r of listing) if (r.kick) byId.set(r.id, r);
 // 2) صفحات الماتشات اللي محتاجة تفاصيل
 const need = [];
 for (const r of byId.values()) {
-  if (r.kick < now - 6 * HOUR || r.kick > now + 96 * HOUR) continue;
+  if (r.kick < now - 3 * HOUR || r.kick > now + 72 * HOUR) continue;
   const p = prevMap.get(r.id);
   if (!p) { need.push(r); continue; }
   const age = now - (p.fetchedAt || 0);
   const hasCh = !!p.ch, hasCm = !!p.cm;
-  if (!hasCh && age > 45 * 60000) need.push(r);
-  else if (hasCh && !hasCm && r.kick < now + 48 * HOUR && age > 3 * HOUR) need.push(r);
+  // اللي مالوش قناة بيتعاد عليه كل ٦ ساعات بس، واللي عنده قناة ومالوش معلق كل ٤ ساعات
+  if (!hasCh && age > 6 * HOUR) need.push(r);
+  else if (hasCh && !hasCm && r.kick < now + 36 * HOUR && age > 4 * HOUR) need.push(r);
 }
 need.sort((a, b) => a.kick - b.kick);
 
