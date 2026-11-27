@@ -123,7 +123,7 @@
         box.appendChild(el("p", "lk-empty", data.err ? "مقدرتش أجيب التشكيلة. جرّب تاني." : "التشكيلة لسه ما اتعلنتش. بتظهر هنا لما المصدر ينشرها (عادةً قبل الماتش بساعة تقريباً)."));
         return;
       }
-      box.appendChild(el("div", "lk-form", "التشكيلة الأساسية · " + (t.formation ? ar(t.formation) : "")));
+      var fm = el("div", "lk-form", "التشكيلة الأساسية"); if (t.formation) { var fb = el("b", null, " " + ar(t.formation)); fb.setAttribute("dir", "ltr"); fb.style.unicodeBidi = "isolate"; fm.appendChild(fb); } box.appendChild(fm);
       var pitch = el("div", "lk-pitch"); pitch.appendChild(el("i", "lk-line")); pitch.appendChild(el("i", "lk-circle"));
       var rs = rows(t), n = rs.length;
       rs.forEach(function (r, i) {
