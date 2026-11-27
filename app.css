@@ -405,3 +405,18 @@ body{background:var(--bg)!important;background-image:none!important}
 .match-row.is-live{background:rgba(53,224,125,.06)!important;background-image:none!important;box-shadow:inset -3px 0 0 var(--green)}
 .lg-label{background:rgba(53,224,125,.08)!important;background-image:none!important}
 .side-nav a[aria-current="page"]{background:rgba(53,224,125,.12)!important;background-image:none!important}
+
+/* ---- v39: center + balance the cards grid at tablet/desktop; no mid-word breaks in club names ---- */
+@media (min-width:901px){
+  .league-blocks{display:grid!important;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;
+    overflow:visible!important;overflow-x:visible!important;cursor:auto;justify-content:center;
+    width:100%;max-width:1240px;margin-inline:auto}
+  .league-blocks .col{display:contents!important;flex:none;max-width:none}
+}
+.match-row{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr)}
+.match-row .center{min-width:56px}
+.match-row .team span:last-child{overflow-wrap:normal!important;word-break:normal!important;hyphens:manual;line-height:1.35}
+@media (min-width:901px) and (max-width:1279px){
+  .match-row{padding:11px 10px;gap:6px}
+  .match-row .team{font-size:13px;gap:6px}
+}
