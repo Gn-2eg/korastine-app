@@ -11,15 +11,22 @@
 
   /* قنوات يوتيوب رسمية اتأكدت من صفحتها (الاسم + آخر الرفعات). غير كده مفيش رابط قناة. */
   var YT = "https://www.youtube.com/channel/";
+  var CH = {
+    bein: ["beIN SPORTS", "UCJUCcJUeh0Cz2xyKwkw5Q1w"], kora: ["Kora Plus", "UCoTREVo1yJwXXDY0TbTA4EQ"], on: ["ON Sport", "UCo2TvjBHS1BtyIkeGGTMe6w"],
+    thm: ["رياضة ثمانية", "UCj-2hfXdYPPNcLqcBeW3y8g"], spl: ["SPL", "UCqXAWrjSgLb0EPa_icPt-pw"], pl: ["Premier League", "UCG5qGWdu8nIRZqJ_GgDwQ-w"],
+    laliga: ["LALIGA", "UCTv-XvfzLX3i4IGWAm4sbmA"], ad: ["AD Sports", "UCF8Fpc7bPHC8Jrflci-mUiQ"], seriea: ["Serie A", "UCBJeMCIeLQos7wacox4hmLQ"],
+    mbc: ["MBC Action", "UCNYIXeDQovRVy0TlmSta2Ow"], bl: ["Bundesliga", "UC6UL29enLNe4mqwTfAyeNuw"], l1: ["Ligue 1", "UCQsH5XtIc9hONE1BQjucM0g"],
+    uefa: ["UEFA", "UCyGa1YEx9ST66rYrJTGIKOw"], caf: ["CAF TV", "UCr5K057x3mHroPHsNk9OiwA"], afc: ["The AFC Hub", "UCnj0TjaM0wyxkAWW_nz8_1g"],
+    alkass: ["قنوات الكاس", "UCS_yHXNb5w5S74KQL_TK8Yw"], fifa: ["FIFA", "UCpcTrCXblq78GZrTUTLWeBw"], dubai: ["دبي الرياضية", "UCmJr9VRnC8Q1TCIrf2G8bcg"], mls: ["MLS", "UCSZbXT5TLLW_i-5W8FZpFsg"]
+  };
   var CHAN = {
-    "eng.1": ["Premier League", YT + "UCG5qGWdu8nIRZqJ_GgDwQ-w/videos"],
-    "esp.1": ["LALIGA", YT + "UCTv-XvfzLX3i4IGWAm4sbmA/videos"],
-    "ita.1": ["Serie A", YT + "UCBJeMCIeLQos7wacox4hmLQ/videos"],
-    "ger.1": ["Bundesliga", YT + "UC6UL29enLNe4mqwTfAyeNuw/videos"],
-    "fra.1": ["Ligue 1", YT + "UCQsH5XtIc9hONE1BQjucM0g/videos"],
-    "uefa.champions": ["UEFA", YT + "UCyGa1YEx9ST66rYrJTGIKOw/videos"],
-    "uefa.europa": ["UEFA", YT + "UCyGa1YEx9ST66rYrJTGIKOw/videos"],
-    "uefa.europa.conf": ["UEFA", YT + "UCyGa1YEx9ST66rYrJTGIKOw/videos"]
+    egy: ["kora", "on"], egycap: ["kora", "on"], egycup: ["kora", "on"], egylc: ["kora", "on"], egysuper: ["kora", "on"],
+    "ksa.1": ["thm", "spl"], "ksa.kings.cup": ["thm", "spl"],
+    "eng.1": ["bein", "pl"], "esp.1": ["bein", "laliga"], "ita.1": ["ad", "seriea"], "ger.1": ["mbc", "bl"], "fra.1": ["bein", "l1"],
+    "uefa.champions": ["bein", "uefa"], "uefa.europa": ["bein", "uefa"], "uefa.europa.conf": ["bein", "uefa"], "uefa.nations": ["bein", "uefa"],
+    "caf.champions": ["bein", "caf"], "caf.confed": ["bein", "caf"], "afc.champions": ["bein", "alkass", "afc"],
+    "fifa.worldq.caf": ["bein", "fifa"], "fifa.worldq.uefa": ["bein", "fifa"], "fifa.worldq.afc": ["bein", "fifa"], "fifa.worldq.conmebol": ["bein", "fifa"],
+    "4678": ["ad", "dubai"], "usa.1": ["mls"]
   };
   function search(q) { return "https://www.youtube.com/results?search_query=" + encodeURIComponent(q); }
   function link(href, text, cls) { var a = el("a", cls || "hl-btn", text); a.href = href; a.target = "_blank"; a.rel = "noopener noreferrer"; return a; }
@@ -51,8 +58,10 @@
     var links = el("div", "hl-links");
     links.appendChild(link(search("ملخص مباراة " + m.home + " " + m.away), "▶ ملخص الماتش"));
     links.appendChild(link(search("أهداف " + m.home + " " + m.away), "⚽ الأهداف"));
-    var ch = CHAN[m.comp];
-    if (ch) links.appendChild(link(ch[1], "القناة الرسمية: " + ch[0], "hl-btn alt"));
+    (CHAN[m.comp] || []).forEach(function (k) {
+      var ch = CH[k];
+      links.appendChild(link("https://www.youtube.com/channel/" + ch[1] + "/search?query=" + encodeURIComponent(m.home + " " + m.away), "🔎 " + ch[0], "hl-btn alt"));
+    });
     c.appendChild(links);
     return c;
   }
@@ -73,7 +82,7 @@
       strip.appendChild(b);
     });
     root.appendChild(strip);
-    root.appendChild(el("p", "pd-rule", "الماتشات اللي خلصت بس. الأزرار بتفتح يوتيوب في تاب جديد على بحث الماتش (مش فيديو محدد، لأن مفيش مصدر مجاني بيدينا رابط الملخص لكل ماتش). قنوات الدوريات الرسمية بتنزّل الملخصات بعد الماتش، ومواعيدها بتختلف من دوري للتاني."));
+    root.appendChild(el("p", "pd-rule", "الماتشات اللي خلصت بس. الأزرار بتفتح يوتيوب في تاب جديد على بحث الماتش (مش فيديو محدد، لأن مفيش مصدر مجاني بيدينا رابط الملخص لكل ماتش). زرار كل قناة بيدوّر جواها على الماتش. القنوات الرسمية بتنزّل الملخصات بعد الماتش، ومواعيدها بتختلف من دوري للتاني."));
     listBox = el("div", "pd-list"); root.appendChild(listBox);
     paint([], "بنحمّل الماتشات…");
   }
