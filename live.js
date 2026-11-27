@@ -404,6 +404,16 @@ Object.assign(TEAMS, {"Abha": "أبها", "Al Faisaly": "الفيصلي", "Al Di
   Object.keys(CAF_REMOTE).slice().forEach(function (k) { var a = TEAMS[k] || TEAMS[k.replace(/ (FC|SC)$/, "")]; if (a && !CAF_REMOTE[a]) CAF_REMOTE[a] = CAF_REMOTE[k]; });
   CAF_REMOTE["الزمالك"] = CAF_REMOTE["الزمالك"] || CAF_REMOTE["Zamalek"];
   CAF_REMOTE["بيراميدز"] = CAF_REMOTE["بيراميدز"] || CAF_REMOTE["Pyramids FC"];
+  /* لوجوهات أندية الدوري المصري (شارات TheSportsDB) */
+  CAF_REMOTE["أبو قير للأسمدة"] = "https://r2.thesportsdb.com/images/media/team/badge/i7rxde1786059556.png";
+  CAF_REMOTE["الاتحاد السكندري"] = "https://r2.thesportsdb.com/images/media/team/badge/bqnmfm1786058466.png";
+  CAF_REMOTE["المصري"] = "https://r2.thesportsdb.com/images/media/team/badge/3aw86h1589807260.png";
+  CAF_REMOTE["المقاولون العرب"] = "https://r2.thesportsdb.com/images/media/team/badge/gi170k1589807275.png";
+  CAF_REMOTE["بترول أسيوط"] = "https://r2.thesportsdb.com/images/media/team/badge/kkohuv1786057778.png";
+  CAF_REMOTE["سيراميكا كليوباترا"] = "https://r2.thesportsdb.com/images/media/team/badge/xy4shs1751422167.png";
+  CAF_REMOTE["الجونة"] = "https://r2.thesportsdb.com/images/media/team/badge/6vdj631589807310.png";
+  CAF_REMOTE["القناة"] = "https://r2.thesportsdb.com/images/media/team/badge/9amngv1786057661.png";
+  CAF_REMOTE["إنبي"] = "https://r2.thesportsdb.com/images/media/team/badge/m6p9ml1787512639.png";
   function normKey(s) {
     return String(s || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
   }
