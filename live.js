@@ -433,6 +433,7 @@ Object.assign(TEAMS, {"Abha": "أبها", "Al Faisaly": "الفيصلي", "Al Di
       LOGO56_AR = {};
       Object.keys(LOGO56).forEach(function (k) { LOGO56_AR[team(k)] = LOGO56[k]; });
     }
+    if (normKey(n) === "maghreb as de fes") return TEAMLOGO["Maghreb As De Fes"];
     var v = LOGO56_AR[team(n)] || LOGO56[n] || TEAMLOGO[n] || TEAMLOGO[team(n)];
     if (!v) v = CAF_REMOTE[n] || CAF_REMOTE[team(n)] || CAF_REMOTE_N[normKey(n)] || null;
     if (v && REPATH[v]) v = REPATH[v];
