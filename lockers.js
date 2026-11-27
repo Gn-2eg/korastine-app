@@ -23,7 +23,27 @@
   var off = 0, matches = [], loadId = 0, cache = {};
 
   /* ---------- جلب التشكيلة ---------- */
+  var EGY = { egy: 1, egycup: 1, egycap: 1, egylc: 1, egysuper: 1 };
+  var LN_URL = "https://korastine-live-proxy.gn-acc.workers.dev/lineup";
+  function hasLineup(m) { return !!m.eid || !!EGY[m.comp]; }
+  function cairoDay(d) { try { return new Intl.DateTimeFormat("en-CA", { timeZone: "Africa/Cairo", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date(d)); } catch (e) { return ""; } }
+  function getEgyLineup(m) {
+    var key = "egy:" + m.comp + ":" + m.home + ":" + m.away + ":" + cairoDay(m.date);
+    var hit = cache[key];
+    if (hit && (hit.ok || Date.now() - hit.t < 60000)) return Promise.resolve(hit);
+    var u = LN_URL + "?date=" + cairoDay(m.date) + "&home=" + encodeURIComponent(m.home) + "&away=" + encodeURIComponent(m.away);
+    return fetch(u).then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (j) {
+      var out = { t: Date.now(), ok: false, teams: {} };
+      if (j && j.ok) ["home", "away"].forEach(function (sd) {
+        var t = j[sd]; if (!t || !t.starters || t.starters.length < 11) return;
+        out.teams[sd] = { formation: t.formation || "", color: "6b7a86", starters: t.starters, bench: t.bench || [] };
+        out.ok = true;
+      });
+      cache[key] = out; return out;
+    }).catch(function () { return { t: Date.now(), ok: false, err: true, teams: {} }; });
+  }
   function getLineup(m) {
+    if (!m.eid && EGY[m.comp]) return getEgyLineup(m);
     var hit = cache[m.eid];
     if (hit && (hit.ok || Date.now() - hit.t < 60000)) return Promise.resolve(hit);
     return fetch(API + m.comp + "/summary?event=" + m.eid).then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (j) {
@@ -161,7 +181,7 @@
       strip.appendChild(b);
     });
     root.appendChild(strip);
-    root.appendChild(el("p", "pd-rule", "التشكيلات من بيانات ESPN، وبتظهر لما تتنشر (قبل الماتش بحوالي ساعة أو بعد ما يبدأ). الماتشات اللي مصدرها مش ESPN (زي الدوري المصري) مفيش ليها تشكيلة متاحة."));
+    root.appendChild(el("p", "pd-rule", "التشكيلات بتظهر لما تتنشر (قبل الماتش بحوالي ساعة أو بعد ما يبدأ). الدوري والكؤوس المصرية من فيلجول، والباقي من ESPN. ألوان القمصان في الماتشات المصرية رمادية موحدة لأن مفيش مصدر لألوان الأطقم."));
     root.appendChild(el("div", "lk-list", ""));
     paintList("بنحمّل الماتشات…");
   }
@@ -177,7 +197,7 @@
       c.appendChild(h);
       var r = el("div", "lk-pair");
       [["home", m.home, m.homeLogo], ["away", m.away, m.awayLogo]].forEach(function (x) {
-        if (!m.eid) {
+        if (!hasLineup(m)) {
           var d = el("div", "lk-team off"); var l0 = small(x[2]); if (l0) d.appendChild(l0); d.appendChild(el("span", null, x[1])); d.appendChild(el("em", null, "مفيش مصدر للتشكيلة")); r.appendChild(d); return;
         }
         var b = el("button", "lk-team"); b.type = "button";
