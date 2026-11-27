@@ -400,6 +400,10 @@ Object.assign(TEAMS, {"Abha": "أبها", "Al Faisaly": "الفيصلي", "Al Di
     "ZESCO United": "https://upload.wikimedia.org/wikipedia/en/a/a0/NewZescoUtdFClogo.png",
     "Zamalek": "https://thumb.wikimedia.org/wikipedia/en/thumb/e/ef/Zamalek_SC_logo.svg/250px-Zamalek_SC_logo.svg.png"
   };
+  /* أسماء عربي لنفس الأندية (الكروت المصرية بتيجي بالعربي) */
+  Object.keys(CAF_REMOTE).slice().forEach(function (k) { var a = TEAMS[k] || TEAMS[k.replace(/ (FC|SC)$/, "")]; if (a && !CAF_REMOTE[a]) CAF_REMOTE[a] = CAF_REMOTE[k]; });
+  CAF_REMOTE["الزمالك"] = CAF_REMOTE["الزمالك"] || CAF_REMOTE["Zamalek"];
+  CAF_REMOTE["بيراميدز"] = CAF_REMOTE["بيراميدز"] || CAF_REMOTE["Pyramids FC"];
   function normKey(s) {
     return String(s || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
   }
