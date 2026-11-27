@@ -104,7 +104,7 @@ Object.assign(TEAMS, {"AL Masry": "المصري", "Abu Qair Semad": "أبو قي
  "ZED FC": "logos/zed-fc.png",
  "زد": "logos/zed-fc.png"
 };
-  var COMPLOGO = { "caf.confed": "logos/1-caf-confederation-cup.png?v=36" };
+  var COMPLOGO = { "caf.confed": "logos/caf-confed.svg" };
   var STAMP = "ks_cache_v1_";
 
   function pad(n) { return (n < 10 ? "0" : "") + n; }
