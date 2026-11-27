@@ -876,3 +876,10 @@
 
   window.addEventListener("hashchange", route); route();
 })();
+
+/* منع قايمة الضغط المطوّل والسحب على اللوجوهات، من غير ما نلمس الخانات أو الروابط */
+(function () {
+  function typing(t) { return t && t.closest && t.closest("input,textarea,select,[contenteditable='true']"); }
+  document.addEventListener("contextmenu", function (e) { if (!typing(e.target)) e.preventDefault(); });
+  document.addEventListener("dragstart", function (e) { if (!typing(e.target)) e.preventDefault(); });
+})();
