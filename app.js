@@ -73,7 +73,29 @@
     return row;
   }
 
+  function colCount() {
+    var w = window.innerWidth || 1200;
+    return w >= 1180 ? 3 : w >= 800 ? 2 : 1;
+  }
+
+  function groupEl(g) {
+    var sec = el("section", "lg-group");
+    sec.id = "lg-" + g.id.replace(/\W/g, "_");
+    var label = el("div", "lg-label");
+    var lg = null;
+    for (var q = 0; q < g.list.length; q++) if (g.list[q].leagueLogo) { lg = g.list[q].leagueLogo; break; }
+    var lgi = logoImg(lg, "logo lg-logo");
+    if (lgi) label.appendChild(lgi);
+    label.appendChild(el("span", "lg-name", compName[g.id]));
+    label.appendChild(el("b", null, ar(g.n) + " ماتش"));
+    sec.appendChild(label);
+    g.list.forEach(function (m) { sec.appendChild(matchRow(m)); });
+    return sec;
+  }
+
+  var lastRes = null, lastCols = 0;
   function render(res) {
+    lastRes = res;
     var wrap = document.getElementById("leagueBlocks"), rail = document.getElementById("leagueRail");
     wrap.innerHTML = ""; rail.innerHTML = "";
     var groups = {}, order = [];
@@ -83,30 +105,35 @@
     });
     var idx = {}; L.COMPS.forEach(function (c, i) { idx[c.id] = i; });
     order.sort(function (a, b) { return idx[a] - idx[b]; });
-    order.forEach(function (id) {
-      var list = groups[id];
-      var block = el("section", "league-block");
-      block.id = "lg-" + id.replace(/\W/g, "_");
-      var head = el("div", "league-head");
-      var h3 = el("h3");
-      var lg = null;
-      for (var q = 0; q < list.length; q++) if (list[q].leagueLogo) { lg = list[q].leagueLogo; break; }
-      var lgi = logoImg(lg, "logo lg-logo");
-      if (lgi) h3.appendChild(lgi);
-      h3.appendChild(el("span", "lg-name", compName[id]));
-      head.appendChild(h3);
-      head.appendChild(el("span", null, ar(list.length) + " ماتش"));
-      
-      block.appendChild(head);
-      list.forEach(function (m) { block.appendChild(matchRow(m)); });
-      wrap.appendChild(block);
+    var gs = order.map(function (id) { return { id: id, list: groups[id], n: groups[id].length }; });
+
+    /* وزّع البطولات على كذا عمود بحيث الأعمدة تطلع متساوية تقريبًا حسب عدد الماتشات */
+    var cols = colCount();
+    lastCols = cols;
+    wrap.style.gridTemplateColumns = "repeat(" + cols + ",1fr)";
+    var buckets = [];
+    for (var i = 0; i < cols; i++) buckets.push({ items: [], h: 0 });
+    gs.forEach(function (g) {
+      var b = buckets[0];
+      for (var k = 1; k < buckets.length; k++) if (buckets[k].h < b.h - 0.001) b = buckets[k];
+      b.items.push(g); b.h += g.n + 1.5;
+    });
+    buckets.forEach(function (b) {
+      if (!b.items.length) return;
+      var col = el("div", "col");
+      b.items.forEach(function (g) { col.appendChild(groupEl(g)); });
+      wrap.appendChild(col);
+    });
+
+    gs.forEach(function (g) {
       var li = el("li"), a = el("a");
       a.href = "#/scores";
-      a.addEventListener("click", function (e) { e.preventDefault(); block.scrollIntoView({ behavior: "smooth", block: "start" }); });
-      a.appendChild(el("span", null, compName[id]));
-      a.appendChild(el("b", null, ar(list.length)));
+      a.addEventListener("click", function (e) { e.preventDefault(); var t = document.getElementById("lg-" + g.id.replace(/\W/g, "_")); if (t) t.scrollIntoView({ behavior: "smooth", block: "start" }); });
+      a.appendChild(el("span", null, compName[g.id]));
+      a.appendChild(el("b", null, ar(g.n)));
       li.appendChild(a); rail.appendChild(li);
     });
+
     var st = document.getElementById("dataStatus");
     if (!res.matches.length) {
       wrap.appendChild(el("p", "note", res.errors ? "مقدرتش أجيب الداتا دلوقتي. جرّب تاني." : "مفيش ماتشات في الدوريات دي اليوم ده."));
@@ -266,18 +293,14 @@
   }
 
   renderAnalysis(); renderDetail(); renderStrip(); load(false);
+  var rzT = null;
+  window.addEventListener("resize", function () {
+    clearTimeout(rzT);
+    rzT = setTimeout(function () {
+      if (lastRes && colCount() !== lastCols) render(lastRes);
+    }, 200);
+  });
   window.addEventListener("hashchange", route); route();
 })();
 
-(function(){
-  var box=document.getElementById("leagueBlocks"); if(!box||box.parentNode.classList.contains("swipe-wrap"))return;
-  var w=document.createElement("div"); w.className="swipe-wrap"; box.parentNode.insertBefore(w,box); w.appendChild(box);
-  function mk(c,t,d){var b=document.createElement("button");b.className="swipe-btn "+c;b.textContent=t;b.setAttribute("aria-label",c);
-    b.onclick=function(){box.scrollBy({left:d*(box.clientWidth*0.8),behavior:"smooth"});};w.appendChild(b);}
-  mk("next","\u2039",-1); mk("prev","\u203A",1);
-  var down=false,sx=0,sl=0,moved=false;
-  box.addEventListener("mousedown",function(e){down=true;moved=false;sx=e.pageX;sl=box.scrollLeft;});
-  window.addEventListener("mouseup",function(){down=false;box.classList.remove("dragging");});
-  window.addEventListener("mousemove",function(e){if(!down)return;var dx=e.pageX-sx;if(Math.abs(dx)>4){moved=true;box.classList.add("dragging");}box.scrollLeft=sl-dx;});
-  box.addEventListener("wheel",function(e){if(Math.abs(e.deltaY)>Math.abs(e.deltaX)&&box.scrollWidth>box.clientWidth&&e.shiftKey){box.scrollLeft+=e.deltaY;e.preventDefault();}},{passive:false});
-})();
+
