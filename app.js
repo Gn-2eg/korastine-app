@@ -668,7 +668,7 @@
       if (many) box.appendChild(el("div", "dash-gname", g.name));
       var t = el("table", "dash-table");
       var thead = el("thead"), tr = el("tr");
-      ["#", "الفريق", "لعب", "ف", "ت", "خ", "له", "عليه", "نقاط"].forEach(function (h, i) {
+      ["#", "الفريق", "لعب", "ف", "ت", "خ", "أهداف", "نقاط"].forEach(function (h, i) {
         var th = el("th", i === 1 ? "d-team" : null, h);
         tr.appendChild(th);
       });
