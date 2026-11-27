@@ -353,12 +353,17 @@ Object.assign(TEAMS, {"AL Masry": "المصري", "Abu Qair Semad": "أبو قي
   LOGO56["الأهلي طرابلس"] = "logos/caf-al-ahly-tripoli.png";
   var LOGO56_AR = null;
   /* لوجو مجهول: لأي فريق مالوش لوجو، أو لوجو طلع مش مقروء على الخلفية الغامقة */
-  var UNKNOWN_LOGO = "logos/unknown-club.png";
+  var UNKNOWN_LOGO = "logos/unknown-club.svg";
   var BAD_LOGO = {
     "logos/caf-afad-plateau.png": 1,
     "logos/caf-as-real-bamako.png": 1,
     "logos/caf-black-bulls.png": 1,
     "logos/caf-cs-sfaxien.png": 1
+  };
+  /* مسارات محدّثة (الرفع على GitHub بيزوّد رقم قبل الاسم) */
+  var REPATH = {
+    "logos/caf-al-ahly-fc.png": "logos/9-caf-al-ahly-fc.png",
+    "logos/caf-confederation-cup.png": "logos/10-caf-confederation-cup.png"
   };
   function teamLogo(n) {
     if (!LOGO56_AR) {
@@ -366,6 +371,7 @@ Object.assign(TEAMS, {"AL Masry": "المصري", "Abu Qair Semad": "أبو قي
       Object.keys(LOGO56).forEach(function (k) { LOGO56_AR[team(k)] = LOGO56[k]; });
     }
     var v = LOGO56_AR[team(n)] || LOGO56[n] || TEAMLOGO[n] || TEAMLOGO[team(n)];
+    if (v && REPATH[v]) v = REPATH[v];
     if (!v || BAD_LOGO[v]) return UNKNOWN_LOGO;
     return v;
   }
@@ -412,6 +418,6 @@ Object.assign(TEAMS, {"AL Masry": "المصري", "Abu Qair Semad": "أبو قي
   return {
     COMPS: COMPS, loadDay: loadDay, dkey: dkey,
     team: team, teamLogo: teamLogo, UNKNOWN_LOGO: UNKNOWN_LOGO,
-    compLogo: function (id) { return COMPLOGO[id] || null; }
+    compLogo: function (id) { var v = COMPLOGO[id]; return v ? (REPATH[v] || v) : null; }
   };
 })();
