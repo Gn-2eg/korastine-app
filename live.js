@@ -151,7 +151,7 @@ Object.assign(TEAMS, {"AL Masry": "المصري", "Abu Qair Semad": "أبو قي
         var state = st.state === "in" ? "live" : st.state === "post" ? "ft" : "upcoming";
         if (st.name === "STATUS_POSTPONED" || st.name === "STATUS_CANCELED") state = "pp";
         return {
-          comp: comp.id, date: new Date(e.date).getTime(),
+          comp: comp.id, eid: e.id, date: new Date(e.date).getTime(),
           home: team(h.team && h.team.displayName), away: team(a.team && a.team.displayName),
           homeLogo: (h.team && h.team.logo) || null, awayLogo: (a.team && a.team.logo) || null,
           leagueLogo: (j.leagues && j.leagues[0] && j.leagues[0].logos && j.leagues[0].logos[0] && j.leagues[0].logos[0].href) || null,
