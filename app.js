@@ -393,8 +393,8 @@
     var pick = pickHero(matches);
     box.hidden = !pick;
     if (!pick) return;
-    var wm = el("img", "wm"); wm.src = "assets-brand.svg"; wm.alt = "";
-    box.appendChild(wm);
+    var fl = el("div", "fl-wrap"); fl.innerHTML = '<svg class="fl-svg" viewBox="0 0 240 200" preserveAspectRatio="none" aria-hidden="true"><defs><clipPath id="flc"><path d="M0 0H168A72 100 0 0 1 168 200H0Z"/></clipPath></defs><g clip-path="url(#flc)"><rect width="240" height="200" fill="#0b0b0b"/><path d="M0 64Q40 52 80 64T160 64T240 64V200H0Z" fill="#fff"/><path d="M0 134Q40 122 80 134T160 134T240 134V200H0Z" fill="#007a3d"/><path d="M0 0L118 100L0 200Z" fill="#ce1126"/><rect x="150" width="90" height="200" fill="#000" opacity=".16"/><rect x="196" width="44" height="200" fill="#000" opacity=".22"/><rect x="14" width="14" height="200" fill="#fff" opacity=".14"/></g><path d="M168 0A72 100 0 0 1 168 200" fill="none" stroke="#f3c455" stroke-width="3"/></svg>';
+    box.appendChild(fl);
     var tag = el("span", "featured-tag", pick.status === "live" ? "● مباشر دلوقتي" : "⭐ ماتش اليوم");
     var league = el("p", "featured-league", compName[pick.comp] + " · " + hhmm(pick.date));
     var matchup = el("div", "matchup");
@@ -414,6 +414,11 @@
     meta.appendChild(el("span", "chip" + (pick.status === "live" ? " live" : ""),
       pick.status === "live" ? "● " + ar(pick.minute || "") : pick.status === "ft" ? "انتهت" : "لسه ما بدأتش"));
     box.appendChild(tag); box.appendChild(league); box.appendChild(matchup); box.appendChild(meta);
+    var mn = parseInt(String(pick.minute || "").replace(/[^0-9]/g, ""), 10);
+    if (pick.status === "live" && mn > 0) {
+      var pr = el("div", "fl-prog"); var fi = el("i"); fi.style.width = Math.min(100, Math.round(mn / 90 * 100)) + "%"; pr.appendChild(fi); pr.appendChild(el("b"));
+      box.appendChild(pr);
+    }
   }
 
   function sel_day() { return sel; }
