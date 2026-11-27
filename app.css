@@ -330,3 +330,52 @@ body.dash-open{overflow:hidden}
 .lg-tap:focus-visible{outline:2px solid var(--green);outline-offset:-2px}
 .lg-chev{flex:0 0 auto;color:var(--muted);font-size:16px;line-height:1;font-weight:700}
 .lg-tap:hover .lg-chev{color:var(--green)}
+
+/* ---------- v32: تنظيم الشاشات + أيقونات السايدبار ---------- */
+/* المحتوى في النص عشان مفيش فراغ ميت على الشمال */
+.main{max-width:1320px;margin-inline:auto;padding:24px 24px 48px}
+
+/* شاشات كبيرة: البلوكات تملأ العرض بدل سطر بيتسحب أفقي */
+@media (min-width:1180px){
+  .league-blocks{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px;
+    overflow:visible;overflow-x:visible;cursor:auto}
+  .league-blocks .col{display:contents}
+  .lg-group{scroll-margin-top:76px}
+}
+@media (min-width:901px) and (max-width:1179px){
+  .league-blocks .col{flex:0 0 300px;max-width:300px}
+}
+
+/* السايدبار: أزرار أوضح، وحالة نشطة باللون الأخضر */
+.side-nav a{gap:11px;padding:10px 12px;border-radius:12px;font-size:14.5px;
+  transition:background .18s ease,color .18s ease,border-color .18s ease;border:1px solid transparent}
+.side-nav a .ico{width:20px;height:20px;stroke-width:1.75}
+.side-nav a:hover{background:rgba(255,255,255,.045);color:var(--text)}
+.side-nav a[aria-current="page"]{background:linear-gradient(90deg,rgba(53,224,125,.16),rgba(53,224,125,.03));
+  color:var(--text);border-color:rgba(53,224,125,.22);box-shadow:inset -3px 0 0 var(--green)}
+.side-nav a[aria-current="page"] .ico{color:var(--green)}
+
+/* تابلت: السايدبار يتحول لشريط أيقونات رفيع بدل ما يختفي */
+@media (min-width:901px) and (max-width:1179px){
+  .shell{grid-template-columns:78px minmax(0,1fr)}
+  .sidebar{padding:16px 8px;align-items:center;gap:14px}
+  .side-nav{width:100%;gap:6px}
+  .side-nav a{justify-content:center;padding:12px 0;border-radius:14px}
+  .side-nav a .ico{width:23px;height:23px;stroke-width:1.8}
+  .side-nav a .nav-label{display:none}
+  .rail-title,.league-rail,.side-foot{display:none}
+  .side-nav a[aria-current="page"]{box-shadow:none;border-color:rgba(53,224,125,.35)}
+}
+
+/* موبايل: تاب بار أوضح ولمسات أكبر */
+@media (max-width:900px){
+  .main{padding:14px 14px calc(92px + var(--safe-b))}
+  .tabbar a{padding:6px 4px;border-radius:12px;gap:3px}
+  .tabbar a[aria-current="page"]{color:var(--green);background:rgba(53,224,125,.10)}
+  .tabbar .ico{width:23px;height:23px}
+}
+@media (max-width:420px){
+  .main{padding:12px 10px calc(92px + var(--safe-b))}
+  .section-head h2{font-size:18px}
+  .day-strip{gap:6px}
+}
