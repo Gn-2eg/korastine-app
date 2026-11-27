@@ -83,7 +83,7 @@
       head.appendChild(el("h3", null, compName[id]));
       if (id === "egy" || id === "egyo") head.appendChild(el("small", "src", "المصدر: كورفا"));
       head.appendChild(el("span", null, ar(list.length) + " ماتش"));
-      head.addEventListener("click", function () { block.classList.toggle("collapsed"); });
+      
       block.appendChild(head);
       list.forEach(function (m) { block.appendChild(matchRow(m)); });
       wrap.appendChild(block);
@@ -228,4 +228,17 @@
 
   renderAnalysis(); renderDetail(); renderStrip(); load(false);
   window.addEventListener("hashchange", route); route();
+})();
+
+(function(){
+  var box=document.getElementById("leagueBlocks"); if(!box||box.parentNode.classList.contains("swipe-wrap"))return;
+  var w=document.createElement("div"); w.className="swipe-wrap"; box.parentNode.insertBefore(w,box); w.appendChild(box);
+  function mk(c,t,d){var b=document.createElement("button");b.className="swipe-btn "+c;b.textContent=t;b.setAttribute("aria-label",c);
+    b.onclick=function(){box.scrollBy({left:d*(box.clientWidth*0.8),behavior:"smooth"});};w.appendChild(b);}
+  mk("next","\u2039",-1); mk("prev","\u203A",1);
+  var down=false,sx=0,sl=0,moved=false;
+  box.addEventListener("mousedown",function(e){down=true;moved=false;sx=e.pageX;sl=box.scrollLeft;});
+  window.addEventListener("mouseup",function(){down=false;box.classList.remove("dragging");});
+  window.addEventListener("mousemove",function(e){if(!down)return;var dx=e.pageX-sx;if(Math.abs(dx)>4){moved=true;box.classList.add("dragging");}box.scrollLeft=sl-dx;});
+  box.addEventListener("wheel",function(e){if(Math.abs(e.deltaY)>Math.abs(e.deltaX)&&box.scrollWidth>box.clientWidth&&e.shiftKey){box.scrollLeft+=e.deltaY;e.preventDefault();}},{passive:false});
 })();
