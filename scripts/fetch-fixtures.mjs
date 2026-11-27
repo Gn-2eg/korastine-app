@@ -10,10 +10,10 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const prev = fs.existsSync('fixtures.json') ? JSON.parse(fs.readFileSync('fixtures.json', 'utf8')) : null;
 const parts = Object.fromEntries(new Intl.DateTimeFormat('en-GB', { timeZone: 'Africa/Cairo', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(new Date()).map((p) => [p.type, p.value]));
 const hour = Number(parts.hour), minute = Number(parts.minute);
-// Overnight (00:00-08:00 Cairo): only the first run of each hour.
-if (hour < 8 && minute >= 30) { console.log('overnight, skipping half-hour run'); process.exit(0); }
+// Overnight (00:00-08:00 Cairo): only every 30 minutes.
+if (hour < 8 && minute % 30 >= 5) { console.log('overnight, skipping 5-min run'); process.exit(0); }
 // Near days (yesterday, today, tomorrow) every run. Far days only every 6 hours, or when there is no data yet.
-const farNow = !prev || (hour % 6 === 0 && minute < 30);
+const farNow = !prev || (hour % 6 === 0 && minute < 5);
 const days = [];
 for (let o = -7; o <= 7; o++) if (Math.abs(o) <= 1 || farNow) days.push(o);
 const windowDates = new Set();
@@ -44,6 +44,7 @@ for (const o of days) {
         id: m.id, leagueId: m.league.id, league: m.league.name, round: m.league.round || null,
         date: m.timestamp * 1000,
         home: m.home.name, away: m.away.name,
+        homeLogo: m.home.logo || null, awayLogo: m.away.logo || null, leagueLogo: m.league.logo || null,
         hs: m.goals?.home ?? null, as: m.goals?.away ?? null,
         status: m.status?.short || 'NS', group: m.status?.group || null, minute: m.status?.elapsed ?? null
       });
@@ -53,7 +54,7 @@ for (const o of days) {
     for (const m of (prev?.matches || [])) if (cairoDay(m.date) === date) out.set(m.id, m);
     console.log('skip', date, String(e.message || e));
   }
-  await sleep(1500);
+  await sleep(700);
 }
 if (ok === 0) { console.log('nothing fetched, keeping the old file'); process.exit(0); }
 const matches = [...out.values()].sort((a, b) => a.date - b.date || a.id - b.id);
