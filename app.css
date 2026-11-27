@@ -576,3 +576,8 @@ body.lk-open{overflow:hidden}
 .fl-wrap{left:-16px;top:-22px;width:230px;height:174px;z-index:3!important}
 .featured{padding-left:calc(210px + 10px)}
 @media (max-width:900px){.fl-wrap{left:-8px;top:-14px;width:122px;height:92px}.featured{padding-left:calc(104px + 8px)}}
+
+/* منع قايمة الضغط المطوّل (iOS) على اللوجوهات والصفحة، مع إبقاء الكتابة في الخانات */
+html, body { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
+img, svg { -webkit-touch-callout: none; -webkit-user-drag: none; user-select: none; }
+input, textarea, select, [contenteditable="true"] { -webkit-user-select: text; user-select: text; -webkit-touch-callout: default; }
