@@ -243,3 +243,7 @@ p{line-height:1.8}
 @media (min-width:901px){.swipe-btn{display:block}}
 @media (max-width:900px){.league-block{flex-basis:84vw;max-height:none}.league-blocks{gap:10px}}
 @media (min-width:901px){.swipe-wrap{padding-inline:44px}.swipe-btn.next{left:0}.swipe-btn.prev{right:0}.swipe-btn{top:10px}.league-block{max-height:440px}}
+
+.page-foot{align-items:center;text-align:center;justify-content:center;margin-inline:auto}
+.page-foot span,.page-foot b{text-align:center;width:100%}
+.side-foot{display:none}
