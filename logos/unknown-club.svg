@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" role="img" aria-label="لوجو غير معروف">
+  <path d="M64 7 111 23v33c0 25-19 45-47 58C36 101 17 81 17 56V23z" fill="#1a2632" stroke="#4a637a" stroke-width="4.5" stroke-linejoin="round"/>
+  <circle cx="64" cy="58" r="25" fill="none" stroke="#6e889e" stroke-width="5.5"/>
+  <path d="M64 46.5 73 53l-3.4 10.5h-11L55 53z" fill="none" stroke="#6e889e" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M64 46.5V35M73 53l11-3M69.6 63.5l7 9.5M58.4 63.5l-7 9.5M55 53l-11-3" stroke="#6e889e" stroke-width="4" stroke-linecap="round"/>
+</svg>
