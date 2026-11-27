@@ -275,6 +275,101 @@
     sel.value = filterComp || "";
   }
 
+
+  /* ---------- فلتر البطولات الجديد (شيت بلوجوهات وعدّاد) ---------- */
+  var FX_ON = /[?&]fx=1\b/.test(location.search) || localStorage.getItem("ks_fx") === "1";
+  function fxCounts(res) {
+    var cnt = {}, logo = {};
+    res.matches.forEach(function (m) {
+      cnt[m.comp] = (cnt[m.comp] || 0) + 1;
+      if (m.leagueLogo && !logo[m.comp]) logo[m.comp] = m.leagueLogo;
+    });
+    return { cnt: cnt, logo: logo };
+  }
+  function fxClose() {
+    var sh = document.getElementById("fxSheet");
+    if (sh) sh.hidden = true;
+    document.body.classList.remove("fx-open");
+  }
+  function fxPick(v) {
+    var sel = document.getElementById("compFilter");
+    if (sel) { sel.value = v; sel.dispatchEvent(new Event("change")); }
+    fxClose();
+  }
+  function fxRow(v, name, logoSrc, n, on, dim, icon) {
+    var b = el("button", "fx-row" + (on ? " on" : "") + (dim ? " dim" : ""));
+    b.type = "button";
+    b.setAttribute("role", "option");
+    b.setAttribute("aria-selected", on ? "true" : "false");
+    var ic = el("span", "fx-ic");
+    if (icon) ic.textContent = icon;
+    else { var im = logoImg(logoSrc, "logo"); if (im) ic.appendChild(im); }
+    b.appendChild(ic);
+    b.appendChild(el("span", "fx-nm", name));
+    b.appendChild(el("span", "fx-n", ar(n)));
+    b.addEventListener("click", function () { fxPick(v); });
+    return b;
+  }
+  function fxSync(res, liveN) {
+    if (!FX_ON) return;
+    var row = document.querySelector(".filter-row");
+    var sel = document.getElementById("compFilter");
+    if (!row || !sel) return;
+    row.classList.add("fx");
+    var c = fxCounts(res);
+    var total = res.matches.length;
+    var cur = filterComp || "";
+    var curName = cur === "__live" ? "مباشر" : cur ? ((L.COMPS.filter(function (x) { return x.id === cur; })[0] || {}).name || "") : "كل البطولات";
+    var curN = cur === "__live" ? liveN : cur ? (c.cnt[cur] || 0) : total;
+    var btn = document.getElementById("fxBtn");
+    if (!btn) {
+      btn = el("button", "fx-btn"); btn.id = "fxBtn"; btn.type = "button";
+      btn.setAttribute("aria-haspopup", "listbox");
+      btn.addEventListener("click", function () {
+        var sh = document.getElementById("fxSheet");
+        if (sh) { sh.hidden = false; document.body.classList.add("fx-open"); }
+      });
+      row.appendChild(btn);
+    }
+    btn.innerHTML = "";
+    var li = cur && cur !== "__live" ? (c.logo[cur] || (L.compLogo && L.compLogo(cur))) : null;
+    var ic = el("span", "fx-ic");
+    if (li) { var im = logoImg(li, "logo"); if (im) ic.appendChild(im); } else ic.textContent = cur === "__live" ? "●" : "⚽";
+    if (cur === "__live") ic.classList.add("live");
+    btn.appendChild(ic);
+    btn.appendChild(el("span", "fx-nm", curName));
+    btn.appendChild(el("span", "fx-n", ar(curN)));
+    btn.appendChild(el("span", "fx-chev", "▾"));
+
+    var sh = document.getElementById("fxSheet");
+    if (!sh) {
+      sh = el("div", "fx-ov"); sh.id = "fxSheet"; sh.hidden = true;
+      sh.addEventListener("click", function (e) { if (e.target === sh) fxClose(); });
+      document.addEventListener("keydown", function (e) { if (e.key === "Escape") fxClose(); });
+      document.body.appendChild(sh);
+    }
+    sh.innerHTML = "";
+    var p = el("div", "fx-panel");
+    p.setAttribute("role", "dialog"); p.setAttribute("aria-label", "اختار بطولة");
+    var hd = el("div", "fx-head");
+    hd.appendChild(el("h3", null, "اختار البطولة"));
+    var x = el("button", "fx-x", "✕"); x.type = "button"; x.setAttribute("aria-label", "قفل");
+    x.addEventListener("click", fxClose);
+    hd.appendChild(x);
+    p.appendChild(hd);
+    var list = el("div", "fx-list"); list.setAttribute("role", "listbox");
+    list.appendChild(fxRow("__live", "مباشر دلوقتي", null, liveN, cur === "__live", false, "●"));
+    list.querySelector(".fx-ic").classList.add("live");
+    list.appendChild(fxRow("", "كل البطولات", null, total, cur === "", false, "⚽"));
+    var withM = L.COMPS.filter(function (x) { return c.cnt[x.id]; });
+    var without = L.COMPS.filter(function (x) { return !c.cnt[x.id]; });
+    if (withM.length) list.appendChild(el("div", "fx-sec", "ماتشات في اليوم المختار"));
+    withM.forEach(function (x) { list.appendChild(fxRow(x.id, x.name, c.logo[x.id] || (L.compLogo && L.compLogo(x.id)), c.cnt[x.id], cur === x.id, false)); });
+    if (without.length) list.appendChild(el("div", "fx-sec", "مفيش ماتشات في اليوم ده"));
+    without.forEach(function (x) { list.appendChild(fxRow(x.id, x.name, c.logo[x.id] || (L.compLogo && L.compLogo(x.id)), 0, cur === x.id, true)); });
+    p.appendChild(list);
+    sh.appendChild(p);
+  }
   function initFilter() {
     var sel = document.getElementById("compFilter");
     if (!sel) return;
@@ -300,6 +395,7 @@
     fillFilter();
     var lvOpt = document.querySelector("#compFilter option[value='__live']");
     if (lvOpt) lvOpt.textContent = "● مباشر (" + ar(liveAll.length) + ")";
+    fxSync(res, liveAll.length);
     if (filterComp && !isLiveF && groups[filterComp]) order = [filterComp];
     var gs = order.map(function (id) { return { id: id, list: groups[id], n: groups[id].length }; });
 
