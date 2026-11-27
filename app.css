@@ -84,6 +84,9 @@ a{color:inherit;text-decoration:none}
 .featured-cta{display:inline-flex;align-items:center;gap:8px;margin-top:18px;font-weight:800;font-size:14px;color:var(--green)}
 
 /* league blocks */
+.filter-row{display:flex;gap:8px;align-items:center;margin:0 0 10px;justify-content:flex-start}
+.comp-filter{min-width:200px;background:var(--surface);color:var(--text);border:1px solid var(--line);border-radius:10px;
+  padding:7px 10px;font:inherit;font-size:13px;font-weight:700;max-width:70vw;cursor:pointer}
 .league-blocks{display:flex;flex-direction:row;gap:12px;overflow-x:auto;overflow-y:hidden;
   scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:thin;
   padding:2px 2px 10px;align-items:flex-start;overscroll-behavior-x:contain;cursor:grab}

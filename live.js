@@ -3,43 +3,43 @@ window.KS_LIVE = (function () {
   var ESPN = "https://site.api.espn.com/apis/site/v2/sports/soccer/";
   var TSDB = "https://www.thesportsdb.com/api/v1/json/123/";
   var COMPS = [
-    { id: "egy", src: "curva", name: "الدوري المصري", big: 1 },
-    { id: "egyo", src: "curva", name: "كأس مصر وبطولات مصرية", big: 1 },
-    { id: "caf.champions", name: "دوري أبطال أفريقيا", big: 1 },
-    { id: "caf.confed", name: "كأس الكونفدرالية الأفريقية", big: 1 },
-    { id: "caf.nations", name: "كأس الأمم الأفريقية", big: 1 },
-    { id: "eng.1", name: "الدوري الإنجليزي", big: 1 },
+    { id: "uefa.champions", name: "دوري أبطال أوروبا", big: 1 },
+    { id: "eng.1", name: "الدوري الإنجليزي الممتاز", big: 1 },
+    { id: "egy", src: "curva", name: "الدوري المصري الممتاز", big: 1 },
+    { id: "egycup", src: "curva", name: "كأس مصر", big: 1 },
+    { id: "egycap", src: "curva", name: "كأس العاصمة", big: 1 },
+    { id: "egylc", src: "curva", name: "كأس الرابطة المصرية", big: 1 },
+    { id: "egysuper", src: "curva", name: "كأس السوبر المصري", big: 1 },
+    { id: "ksa.1", name: "دوري روشن السعودي", big: 1 },
+    { id: "ksa.kings.cup", name: "كأس خادم الحرمين الشريفين", big: 1 },
     { id: "esp.1", name: "الدوري الإسباني", big: 1 },
     { id: "ita.1", name: "الدوري الإيطالي", big: 1 },
     { id: "ger.1", name: "الدوري الألماني", big: 1 },
     { id: "fra.1", name: "الدوري الفرنسي", big: 1 },
-    { id: "uefa.champions", name: "دوري أبطال أوروبا", big: 1 },
     { id: "uefa.europa", name: "الدوري الأوروبي", big: 1 },
     { id: "uefa.europa.conf", name: "دوري المؤتمر الأوروبي", big: 1 },
-    { id: "ksa.1", name: "دوري روشن السعودي", big: 1 },
-    { id: "ksa.kings.cup", name: "كأس خادم الحرمين الشريفين", big: 1 },
-    { id: "fifa.world", name: "كأس العالم", big: 1 },
-    { id: "fifa.cwc", name: "كأس العالم للأندية", big: 1 },
-    { id: "afc.champions", name: "دوري أبطال آسيا", big: 1 },
-    { id: "uae", src: "tsdb", tid: "4678", name: "الدوري الإماراتي" },
-    { id: "uaec", src: "tsdb", tid: "5198", name: "كأس رابطة الإمارات" },
-    { id: "conmebol.libertadores", name: "كوبا ليبرتادوريس" },
+    { id: "caf.champions", name: "دوري أبطال أفريقيا", big: 1 },
+    { id: "caf.confed", name: "كأس الكونفدرالية الأفريقية", big: 1 },
+    { id: "caf.supercup", src: "curva", name: "كأس السوبر الأفريقي", big: 1 },
+    { id: "afc.champions", name: "دوري أبطال آسيا للنخبة" },
+    { id: "fifa.world", name: "كأس العالم" },
+    { id: "fifa.worldq.caf", name: "تصفيات كأس العالم - أفريقيا" },
+    { id: "fifa.worldq.uefa", name: "تصفيات كأس العالم - أوروبا" },
+    { id: "fifa.worldq.afc", name: "تصفيات كأس العالم - آسيا" },
+    { id: "fifa.worldq.conmebol", name: "تصفيات كأس العالم - أمريكا الجنوبية" },
+    { id: "caf.nations", name: "كأس الأمم الأفريقية" },
+    { id: "uefa.euro", name: "كأس الأمم الأوروبية" },
+    { id: "conmebol.america", name: "كوبا أمريكا" },
+    { id: "afc.asian.cup", name: "كأس آسيا" },
+    { id: "arab.cup", src: "curva", name: "كأس العرب" },
     { id: "uefa.nations", name: "دوري الأمم الأوروبية" },
-    { id: "por.1", name: "الدوري البرتغالي" },
-    { id: "ned.1", name: "الدوري الهولندي" },
-    { id: "tur.1", name: "الدوري التركي" },
+    { id: "fifa.friendly", name: "مباريات دولية ودية" },
     { id: "eng.fa", name: "كأس الاتحاد الإنجليزي" },
     { id: "eng.league_cup", name: "كأس الرابطة الإنجليزية" },
     { id: "esp.copa_del_rey", name: "كأس ملك إسبانيا" },
     { id: "ita.coppa_italia", name: "كأس إيطاليا" },
-    { id: "ger.dfb_pokal", name: "كأس ألمانيا" },
-    { id: "fra.coupe_de_france", name: "كأس فرنسا" },
-    { id: "esp.super_cup", name: "السوبر الإسباني" },
-    { id: "ita.super_cup", name: "السوبر الإيطالي" },
-    { id: "ger.super_cup", name: "السوبر الألماني" },
-    { id: "fra.super_cup", name: "السوبر الفرنسي" },
-    { id: "eng.charity", name: "الدرع الخيرية" },
-    { id: "fifa.world.u17", name: "كأس العالم تحت ١٧" }
+    { id: "uae", src: "tsdb", tid: "4678", name: "الدوري الإماراتي" },
+    { id: "usa.1", name: "الدوري الأمريكي" }
   ];
   var TEAMS = { "Al Ahly":"الأهلي","Zamalek":"الزمالك","Pyramids":"بيراميدز","Al Masry":"المصري","Smouha":"سموحة","ENPPI":"إنبي","Petrojet":"بتروجت","Ceramica Cleopatra":"سيراميكا كليوباترا","Real Madrid":"ريال مدريد","Barcelona":"برشلونة","Liverpool":"ليفربول","Arsenal":"آرسنال","Manchester City":"مانشستر سيتي","Manchester United":"مانشستر يونايتد","Chelsea":"تشيلسي","Tottenham Hotspur":"توتنهام","Newcastle United":"نيوكاسل","Aston Villa":"أستون فيلا","Bayern Munich":"بايرن ميونخ","Paris Saint-Germain":"باريس سان جيرمان","Juventus":"يوفنتوس","Inter Milan":"إنتر","Internazionale":"إنتر","AC Milan":"ميلان","Napoli":"نابولي","Atlético Madrid":"أتلتيكو مدريد","Borussia Dortmund":"دورتموند","Al Hilal":"الهلال","Al Nassr":"النصر","Al-Hilal":"الهلال","Al-Nassr":"النصر","Al-Ittihad":"الاتحاد","Al-Ahli":"الأهلي السعودي" };
     Object.assign(TEAMS, {"Wadi Degla": "وادي دجلة", "ZED": "زد", "Al Ittihad Alexandria": "الاتحاد السكندري", "Al Ittihad": "الاتحاد", "Abou Qir Fertilizers": "أبو قير للأسمدة", "National Bank of Egypt": "البنك الأهلي", "Tala'ea El Gaish": "طلائع الجيش", "Al-Mokawloon al-Arab": "المقاولون العرب", "Al Mokawloon Al Arab": "المقاولون العرب", "Asyut Petroleum": "بترول أسيوط", "Ghazl El Mahalla": "غزل المحلة", "El Gouna": "الجونة", "Modern Sport": "مودرن سبورت", "El Qanah": "القناة", "Future FC": "فيوتشر", "Al Ahly Cairo": "الأهلي", "Pharco": "فاركو", "Haras El Hodoud": "حرس الحدود", "Ismaily": "الإسماعيلي", "Al Ismaily": "الإسماعيلي", "Ittihad Alexandria": "الاتحاد السكندري", "Tottenham": "توتنهام", "Nottingham Forest": "نوتنجهام فورست", "West Ham United": "وست هام", "Everton": "إيفرتون", "Brighton & Hove Albion": "برايتون", "Fulham": "فولهام", "Brentford": "برينتفورد", "Crystal Palace": "كريستال بالاس", "Wolverhampton Wanderers": "وولفرهامبتون", "Leeds United": "ليدز", "Burnley": "بيرنلي", "Bournemouth": "بورنموث", "AFC Bournemouth": "بورنموث", "Sunderland": "سندرلاند", "Sevilla": "إشبيلية", "Valencia": "فالنسيا", "Villarreal": "فياريال", "Real Sociedad": "ريال سوسيداد", "Athletic Club": "أتلتيك بيلباو", "Real Betis": "ريال بيتيس", "Girona": "جيرونا", "Celta Vigo": "سيلتا فيجو", "Roma": "روما", "AS Roma": "روما", "Lazio": "لاتسيو", "Atalanta": "أتالانتا", "Fiorentina": "فيورنتينا", "Bologna": "بولونيا", "Torino": "تورينو", "Genoa": "جنوى", "Bayer Leverkusen": "باير ليفركوزن", "RB Leipzig": "لايبزيج", "Eintracht Frankfurt": "آينتراخت فرانكفورت", "VfB Stuttgart": "شتوتجارت", "Werder Bremen": "فيردر بريمن", "Borussia Mönchengladbach": "مونشنجلادباخ", "Wolfsburg": "فولفسبورج", "Marseille": "مارسيليا", "Olympique Marseille": "مارسيليا", "Lyon": "ليون", "Olympique Lyonnais": "ليون", "Monaco": "موناكو", "AS Monaco": "موناكو", "Lille": "ليل", "Nice": "نيس", "Lens": "لانس", "Brest": "بريست", "Benfica": "بنفيكا", "Porto": "بورتو", "FC Porto": "بورتو", "Sporting CP": "سبورتينج لشبونة", "Ajax": "أياكس", "PSV Eindhoven": "آيندهوفن", "Galatasaray": "جالطة سراي", "Fenerbahce": "فنربخشة", "Celtic": "سلتيك", "Club Brugge": "كلوب بروج", "Mamelodi Sundowns": "صنداونز", "Wydad AC": "الوداد", "Wydad Casablanca": "الوداد", "Raja Casablanca": "الرجاء", "Raja CA": "الرجاء", "Esperance de Tunis": "الترجي", "ES Tunis": "الترجي", "CR Belouizdad": "شباب بلوزداد", "Al Ahli Tripoli": "الأهلي طرابلس", "Azam FC": "أزام", "Al Qadsiah": "القادسية", "Al Qadsiyah": "القادسية", "Al Ettifaq": "الاتفاق", "Al Fayha": "الفيحاء", "Al Khaleej": "الخليج", "Al Kholood": "الخلود", "Neom SC": "نيوم", "Al Taawoun": "التعاون", "Al Shabab": "الشباب", "Al Fateh": "الفتح", "Damac": "ضمك", "Al Raed": "الرائد", "Al Riyadh": "الرياض", "Al Okhdood": "الأخدود", "Al Wehda": "الوحدة", "Al Ain": "العين", "Shabab Al Ahli": "شباب الأهلي", "Al Wahda": "الوحدة", "Al Jazira": "الجزيرة", "Al Wasl": "الوصل", "Sharjah": "الشارقة", "Al Nasr": "النصر", "Bani Yas": "بني ياس", "Khor Fakkan": "خورفكان", "Ajman": "عجمان", "Al Dhafra": "الظفرة", "Kalba": "كلباء", "Colombia U17": "كولومبيا تحت ١٧", "Serbia U17": "صربيا تحت ١٧", "Japan U17": "اليابان تحت ١٧", "Honduras U17": "هندوراس تحت ١٧", "Brazil U17": "البرازيل تحت ١٧", "Costa Rica U17": "كوستاريكا تحت ١٧", "Tanzania U17": "تنزانيا تحت ١٧", "Republic of Ireland U17": "أيرلندا تحت ١٧", "Egypt U17": "مصر تحت ١٧", "Morocco U17": "المغرب تحت ١٧", "Argentina U17": "الأرجنتين تحت ١٧", "England U17": "إنجلترا تحت ١٧", "France U17": "فرنسا تحت ١٧", "Germany U17": "ألمانيا تحت ١٧", "Spain U17": "إسبانيا تحت ١٧", "Italy U17": "إيطاليا تحت ١٧", "Portugal U17": "البرتغال تحت ١٧", "Mali U17": "مالي تحت ١٧", "Senegal U17": "السنغال تحت ١٧", "USA U17": "أمريكا تحت ١٧", "Mexico U17": "المكسيك تحت ١٧", "Saudi Arabia U17": "السعودية تحت ١٧"});
@@ -135,6 +135,19 @@ Object.assign(TEAMS, {"AL Masry": "المصري", "Abu Qair Semad": "أبو قي
   }
 
 
+  function curvaComp(m) {
+    if (m.leagueId === 233) return "egy";
+    var n = (m.league || "") + " " + (m.country || "");
+    if (m.country && m.country !== "Egypt") {
+      if (/super/i.test(n)) return "caf.supercup";
+      return "arab.cup";
+    }
+    if (/super/i.test(n)) return "egysuper";
+    if (/capital/i.test(n)) return "egycap";
+    if (/league\s*cup/i.test(n)) return "egylc";
+    return "egycup";
+  }
+
   function curvaAll() {
     return cached("curva", 15000, function () {
       return fetch("fixtures.json", { cache: "no-cache" }).then(function (r) {
@@ -147,7 +160,7 @@ Object.assign(TEAMS, {"AL Masry": "المصري", "Abu Qair Semad": "أبو قي
           else if (/^(PST|CANC|ABD|AWD|WO|SUSP)$/.test(sh)) state = "pp";
           else if (/^(1H|HT|2H|ET|BT|P|LIVE|INT)$/.test(sh)) state = "live";
           var hasS = m.hs !== null && m.as !== null;
-          return { comp: m.leagueId === 233 ? "egy" : "egyo", date: m.date, home: team(m.home), away: team(m.away),
+          return { comp: curvaComp(m), date: m.date, home: team(m.home), away: team(m.away),
             homeLogo: m.homeLogo || null, awayLogo: m.awayLogo || null, leagueLogo: m.leagueLogo || null,
             hs: hasS ? +m.hs : NaN, as: hasS ? +m.as : NaN, status: state,
             minute: state === "live" ? (sh === "HT" ? "ا" : String(m.minute || "")) : "", detail: m.league || "" };

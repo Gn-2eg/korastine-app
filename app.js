@@ -91,7 +91,30 @@
     return sec;
   }
 
-  var lastRes = null, lastCols = 0;
+  var lastRes = null, lastCols = 0, filterComp = "";
+
+  function fillFilter() {
+    var sel = document.getElementById("compFilter");
+    if (!sel || sel.dataset.sig === "v1") return;
+    sel.innerHTML = "";
+    var all = el("option", null, "كل البطولات");
+    all.value = ""; sel.appendChild(all);
+    L.COMPS.forEach(function (c) {
+      var o = el("option", null, c.name);
+      o.value = c.id; sel.appendChild(o);
+    });
+    sel.dataset.sig = "v1";
+    sel.value = filterComp || "";
+  }
+
+  function initFilter() {
+    var sel = document.getElementById("compFilter");
+    if (!sel) return;
+    sel.addEventListener("change", function () {
+      filterComp = sel.value;
+      if (lastRes) render(lastRes, false);
+    });
+  }
   function render(res, animate) {
     lastRes = res;
     var wrap = document.getElementById("leagueBlocks"), rail = document.getElementById("leagueRail");
@@ -103,6 +126,8 @@
     });
     var idx = {}; L.COMPS.forEach(function (c, i) { idx[c.id] = i; });
     order.sort(function (a, b) { return idx[a] - idx[b]; });
+    fillFilter();
+    if (filterComp && groups[filterComp]) order = [filterComp];
     var gs = order.map(function (id) { return { id: id, list: groups[id], n: groups[id].length }; });
 
     /* كل عمود يشيل حوالي ٦ ماتشات، والدوري ما يتقسمش غير لو أطول من كده */
@@ -138,10 +163,13 @@
     });
 
     var st = document.getElementById("dataStatus");
+    if (filterComp && !groups[filterComp]) {
+      wrap.appendChild(el("p", "note", "مفيش ماتشات في البطولة دي اليوم ده."));
+    }
     if (!res.matches.length) {
       wrap.appendChild(el("p", "note", res.errors ? "مقدرتش أجيب الداتا دلوقتي. جرّب تاني." : "مفيش ماتشات في الدوريات دي اليوم ده."));
     }
-    var msg = "آخر تحديث " + hhmm(res.at);
+    var msg = "آخر تحديث " + hhmm(res.at) + " · بتوقيتك";
     if (res.errors) msg += " · " + ar(res.errors) + " مصدر ماردّش";
     st.textContent = msg;
     var live = res.matches.filter(function (m) { return m.status === "live"; }).length;
@@ -149,9 +177,17 @@
     renderFeatured(res.matches);
   }
 
+  var HERO = ["egy", "egycup", "egycap", "egylc", "egysuper",
+    "uefa.champions", "eng.1", "esp.1", "ita.1", "ger.1", "fra.1", "uefa.europa", "uefa.europa.conf",
+    "caf.champions", "caf.confed", "caf.supercup",
+    "ksa.1", "ksa.kings.cup",
+    "fifa.world", "caf.nations", "uefa.euro", "conmebol.america", "afc.asian.cup", "arab.cup",
+    "uefa.nations", "fifa.friendly", "afc.champions",
+    "fifa.worldq.caf", "fifa.worldq.uefa", "fifa.worldq.afc", "fifa.worldq.conmebol",
+    "eng.fa", "eng.league_cup", "esp.copa_del_rey", "ita.coppa_italia", "uae", "usa.1"];
   function heroRank(m) {
-    for (var i = 0; i < L.COMPS.length; i++) if (L.COMPS[i].id === m.comp) return L.COMPS[i].big ? i : 100 + i;
-    return 999;
+    var i = HERO.indexOf(m.comp);
+    return i < 0 ? 999 : i;
   }
   /* الماتش الرئيسي: لايف الأول (والمصري قبل غيره)، وبعدين أهم ماتش جاي، وبعدين اللي انتهى */
   function pickHero(matches) {
@@ -160,10 +196,7 @@
     var ft = matches.filter(function (m) { return m.status === "ft"; });
     var byRank = function (a, b) { return heroRank(a) - heroRank(b) || a.date - b.date; };
     if (live.length) return live.slice().sort(byRank)[0];
-    if (up.length) {
-      var big = up.filter(function (m) { return heroRank(m) < 100; });
-      return (big.length ? big : up).slice().sort(byRank)[0];
-    }
+    if (up.length) return up.slice().sort(byRank)[0];
     if (ft.length) return ft.slice().sort(function (a, b) { return heroRank(a) - heroRank(b) || b.date - a.date; })[0];
     return matches[0];
   }
@@ -300,7 +333,7 @@
     });
   }
 
-  renderAnalysis(); renderDetail(); renderStrip(); load(false);
+  renderAnalysis(); renderDetail(); renderStrip(); initFilter(); load(false);
 
   /* سحب الأفقي بالماوس على الديسكتوب */
   (function () {
