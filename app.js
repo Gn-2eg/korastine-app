@@ -221,6 +221,16 @@
     if (lgi) label.appendChild(lgi);
     label.appendChild(el("span", "lg-name", compName[g.id] + (g.more ? " (تكملة)" : "")));
     label.appendChild(el("b", null, ar(g.n) + " ماتش"));
+    /* دوس على اسم/لوجو الدوري تفتح لوحة الترتيب والهدافين */
+    label.appendChild(el("span", "lg-chev", "‹"));
+    label.setAttribute("role", "button");
+    label.tabIndex = 0;
+    label.classList.add("lg-tap");
+    label.setAttribute("aria-label", compName[g.id] + " — الترتيب والهدافين");
+    label.addEventListener("click", function () { openDash(g.id); });
+    label.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openDash(g.id); }
+    });
     if (gi) sec.style.animationDelay = (gi * 45) + "ms";
     sec.appendChild(label);
     g.list.forEach(function (m) { sec.appendChild(matchRow(m)); });
@@ -495,6 +505,281 @@
     });
     box.addEventListener("click", function (e) { if (moved) { e.preventDefault(); e.stopPropagation(); } }, true);
   })();
+
+  /* ---------- لوحة البطولة: ترتيب + هدافين (بيانات حقيقية بس) ---------- */
+  var DASH = { tables: null, t: {}, s: {} };
+  var dashComp = null, dashTab = "table", dashReq = 0;
+
+  function fetchJSON(url) {
+    return fetch(url, { cache: "no-store" }).then(function (r) {
+      if (!r.ok) throw new Error("http " + r.status);
+      return r.json();
+    });
+  }
+  function logoFor(name, remote) {
+    var l = L.teamLogo ? L.teamLogo(name) : null;
+    if (l && l !== L.UNKNOWN_LOGO) return l;
+    return remote || l || L.UNKNOWN_LOGO;
+  }
+  function compById(id) {
+    for (var i = 0; i < L.COMPS.length; i++) if (L.COMPS[i].id === id) return L.COMPS[i];
+    return null;
+  }
+  function tablesFile() {
+    if (DASH.tables) return Promise.resolve(DASH.tables);
+    var bucket = Math.floor(Date.now() / 600000);
+    return fetchJSON("tables.json?b=" + bucket)
+      .then(function (j) { DASH.tables = j; return j; })
+      .catch(function () { return null; });
+  }
+  function statVal(en, name) {
+    var s = en.stats || [];
+    for (var i = 0; i < s.length; i++) if (s[i].name === name) return s[i].value;
+    return null;
+  }
+  function remoteLogo(tm) {
+    return (tm && tm.logos && tm.logos[0] && tm.logos[0].href) || null;
+  }
+  function espnGroups(id) {
+    if (DASH.t[id]) return DASH.t[id];
+    DASH.t[id] = fetchJSON("https://site.api.espn.com/apis/v2/sports/soccer/" + id + "/standings")
+      .then(function (j) {
+        var out = (j.children || []).map(function (ch) {
+          var st = ch.standings || {};
+          var rows = (st.entries || []).map(function (en) {
+            var tm = en.team || {};
+            return {
+              rank: statVal(en, "rank"),
+              name: L.team(tm.displayName || tm.name || ""),
+              logo: logoFor(tm.displayName || tm.name || "", remoteLogo(tm)),
+              played: statVal(en, "gamesPlayed"),
+              win: statVal(en, "wins"),
+              draw: statVal(en, "ties"),
+              lose: statVal(en, "losses"),
+              gf: statVal(en, "pointsFor"),
+              ga: statVal(en, "pointsAgainst"),
+              gd: statVal(en, "pointDifferential"),
+              points: statVal(en, "points")
+            };
+          });
+          var nm = String(ch.name || "").replace(/^\d{4}(\s*-\s*\d{2,4})?\s*/, "").trim();
+          var dash = nm.lastIndexOf(" - ");
+          if (dash > 0) nm = nm.slice(dash + 3);
+          return { name: nm, rows: rows };
+        });
+        return out.filter(function (g) { return g.rows.length; });
+      })
+      .catch(function () { return []; });
+    return DASH.t[id];
+  }
+  function espnScorers(id) {
+    if (DASH.s[id]) return DASH.s[id];
+    DASH.s[id] = fetchJSON("https://site.web.api.espn.com/apis/site/v2/sports/soccer/" + id + "/statistics")
+      .then(function (j) {
+        var stats = j.stats || {};
+        function pick(name) {
+          for (var k in stats) if (stats[k] && stats[k].name === name) return stats[k].leaders || [];
+          return [];
+        }
+        function map(list, n) {
+          return list.slice(0, n).map(function (l) {
+            var a = l.athlete || {}, tm = a.team || {};
+            return {
+              name: a.displayName || a.shortName || "",
+              team: L.team(tm.displayName || tm.name || ""),
+              logo: logoFor(tm.displayName || tm.name || "", remoteLogo(tm)),
+              value: l.value
+            };
+          });
+        }
+        return { goals: map(pick("goalsLeaders"), 15), assists: map(pick("assistsLeaders"), 10) };
+      })
+      .catch(function () { return { goals: [], assists: [] }; });
+    return DASH.s[id];
+  }
+  function curvaData(compId) {
+    return tablesFile().then(function (j) {
+      var e = j && j.leagues && j.leagues[compId];
+      if (!e) return { groups: [], goals: [], assists: [] };
+      var groups = (e.standings || []).map(function (g) {
+        return {
+          name: g.name,
+          rows: (g.rows || []).map(function (r) {
+            return {
+              rank: r.rank, name: L.team(r.team), logo: logoFor(r.team, r.logo),
+              played: r.played, win: r.win, draw: r.draw, lose: r.lose,
+              gf: r.gf, ga: r.ga, gd: r.gd, points: r.points
+            };
+          })
+        };
+      }).filter(function (g) { return g.rows.length; });
+      var goals = (e.scorers || []).map(function (s) {
+        return { name: s.player, team: L.team(s.team), logo: logoFor(s.team, s.logo), photo: s.photo || null, value: s.goals, assists: s.assists };
+      });
+      return { groups: groups, goals: goals, assists: [] };
+    }).catch(function () { return { groups: [], goals: [], assists: [] }; });
+  }
+  function dashData(compId) {
+    var c = compById(compId);
+    if (compId === "egy") return curvaData("egy");
+    if (c && c.src) return Promise.resolve({ groups: [], goals: [], assists: [] });
+    return Promise.all([espnGroups(compId), espnScorers(compId)]).then(function (a) {
+      return { groups: a[0], goals: a[1].goals, assists: a[1].assists };
+    });
+  }
+
+  function dashOverlay() {
+    var ov = document.getElementById("ksDash");
+    if (ov) return ov;
+    ov = el("div", "dash-ov");
+    ov.id = "ksDash";
+    ov.hidden = true;
+    ov.addEventListener("click", function (e) { if (e.target === ov) closeDash(); });
+    document.body.appendChild(ov);
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeDash(); });
+    return ov;
+  }
+  function closeDash() {
+    var ov = document.getElementById("ksDash");
+    if (ov) ov.hidden = true;
+    document.body.classList.remove("dash-open");
+  }
+  function openDash(compId) {
+    if (!compById(compId)) return;
+    dashComp = compId; dashTab = "table";
+    var ov = dashOverlay();
+    ov.hidden = false;
+    document.body.classList.add("dash-open");
+    renderDash();
+  }
+
+  function dnum(v) { return v == null ? "—" : ar(v); }
+  function teamCell(r) {
+    var td = el("td", "d-team");
+    var i = logoImg(r.logo, "logo");
+    if (i) td.appendChild(i);
+    td.appendChild(el("span", null, r.name));
+    return td;
+  }
+  function tableEl(groups) {
+    var box = el("div", "dash-tables");
+    var many = groups.length > 1;
+    groups.forEach(function (g) {
+      if (many) box.appendChild(el("div", "dash-gname", g.name));
+      var t = el("table", "dash-table");
+      var thead = el("thead"), tr = el("tr");
+      ["#", "الفريق", "لعب", "ف", "ت", "خ", "له", "عليه", "نقاط"].forEach(function (h, i) {
+        var th = el("th", i === 1 ? "d-team" : null, h);
+        tr.appendChild(th);
+      });
+      thead.appendChild(tr); t.appendChild(thead);
+      var tb = el("tbody");
+      g.rows.forEach(function (r) {
+        var row = el("tr");
+        row.appendChild(el("td", "d-rank", dnum(r.rank)));
+        row.appendChild(teamCell(r));
+        row.appendChild(el("td", null, dnum(r.played)));
+        row.appendChild(el("td", null, dnum(r.win)));
+        row.appendChild(el("td", null, dnum(r.draw)));
+        row.appendChild(el("td", null, dnum(r.lose)));
+        row.appendChild(el("td", "d-gf", dnum(r.gf) + "-" + dnum(r.ga)));
+        row.appendChild(el("td", "d-pts", dnum(r.points)));
+        tb.appendChild(row);
+      });
+      t.appendChild(tb);
+      box.appendChild(t);
+    });
+    return box;
+  }
+  function scorersEl(list, withAssists) {
+    var t = el("table", "dash-table dash-scorers");
+    var thead = el("thead"), tr = el("tr");
+    ["#", "اللاعب", "الفريق", "أهداف"].forEach(function (h, i) {
+      tr.appendChild(el("th", i === 1 ? "d-team" : null, h));
+    });
+    if (withAssists) tr.appendChild(el("th", null, "أسيست"));
+    thead.appendChild(tr); t.appendChild(thead);
+    var tb = el("tbody");
+    list.forEach(function (p, i) {
+      var row = el("tr");
+      row.appendChild(el("td", "d-rank", ar(i + 1)));
+      var td = el("td", "d-team");
+      var img = logoImg(p.photo || p.logo, "logo");
+      if (img) td.appendChild(img);
+      td.appendChild(el("span", null, p.name));
+      row.appendChild(td);
+      row.appendChild(el("td", "d-team", p.team));
+      row.appendChild(el("td", "d-pts", dnum(p.value)));
+      if (withAssists) row.appendChild(el("td", null, dnum(p.assists)));
+      tb.appendChild(row);
+    });
+    t.appendChild(tb);
+    return t;
+  }
+  function emptyNote(text) { return el("p", "dash-empty", text); }
+
+  function renderDash() {
+    var ov = dashOverlay();
+    var c = compById(dashComp);
+    var logo = (L.compLogo && L.compLogo(dashComp)) || L.UNKNOWN_LOGO;
+    ov.innerHTML = "";
+    var panel = el("div", "dash");
+    panel.setAttribute("role", "dialog");
+    panel.setAttribute("aria-modal", "true");
+    panel.setAttribute("aria-label", c.name);
+
+    var head = el("div", "dash-head");
+    var hi = logoImg(logo, "logo dash-logo");
+    if (hi) head.appendChild(hi);
+    head.appendChild(el("h2", "dash-title", c.name));
+    var x = el("button", "dash-x", "✕");
+    x.type = "button";
+    x.setAttribute("aria-label", "قفل");
+    x.addEventListener("click", closeDash);
+    head.appendChild(x);
+    panel.appendChild(head);
+
+    var tabs = el("div", "dash-tabs");
+    [["table", "الترتيب"], ["scorers", "الهدافين"]].forEach(function (pair) {
+      var b = el("button", "dash-tab" + (dashTab === pair[0] ? " on" : ""), pair[1]);
+      b.type = "button";
+      b.addEventListener("click", function () { dashTab = pair[0]; renderDash(); });
+      tabs.appendChild(b);
+    });
+    panel.appendChild(tabs);
+
+    var body = el("div", "dash-body");
+    body.appendChild(el("p", "dash-load", "بنجيب الداتا…"));
+    panel.appendChild(body);
+    ov.appendChild(panel);
+
+    var my = ++dashReq;
+    dashData(dashComp).catch(function () { return { groups: [], goals: [], assists: [] }; }).then(function (d) {
+      if (my !== dashReq) return;
+      body.innerHTML = "";
+      if (dashTab === "table") {
+        if (d.groups.length) {
+          var played = 0;
+          d.groups.forEach(function (g) { g.rows.forEach(function (r) { played += Number(r.played) || 0; }); });
+          if (!played) body.appendChild(el("p", "dash-note", "الموسم لسه ما بدأش، الترتيب فاضي."));
+          body.appendChild(tableEl(d.groups));
+        } else {
+          body.appendChild(emptyNote("المصدر مش بيوفر ترتيب للبطولة دي."));
+        }
+      } else {
+        var has = d.goals.length || d.assists.length;
+        if (d.goals.length) {
+          body.appendChild(el("div", "dash-gname", "هدافين البطولة"));
+          body.appendChild(scorersEl(d.goals, true));
+        }
+        if (d.assists.length) {
+          body.appendChild(el("div", "dash-gname", "أكتر أسيست"));
+          body.appendChild(scorersEl(d.assists, false));
+        }
+        if (!has) body.appendChild(emptyNote("المصدر مش بيوفر هدافين للبطولة دي."));
+      }
+    });
+  }
 
   window.addEventListener("hashchange", route); route();
 })();
