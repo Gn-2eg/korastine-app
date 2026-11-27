@@ -430,7 +430,9 @@ Object.assign(TEAMS, {"Abha": "أبها", "Al Faisaly": "الفيصلي", "Al Di
   }
   var CAF_REMOTE_N = {};
   Object.keys(CAF_REMOTE).forEach(function (k) { CAF_REMOTE_N[normKey(k)] = CAF_REMOTE[k]; });
+  var LOGO_ALIAS = {"douanes":"AS Douanes","asko kara":"ASKO de Kara","cd primeiro de agosto":"Primeiro de Agosto","club sportif sfaxien":"CS Sfaxien","associacao black bulls":"Black Bulls","real bamako":"AS Real Bamako","red arrows":"Red Arrows FC"};
   function teamLogo(n) {
+    var al = LOGO_ALIAS[normKey(n)]; if (al) n = al;
     if (!LOGO56_AR) {
       LOGO56_AR = {};
       Object.keys(LOGO56).forEach(function (k) { LOGO56_AR[team(k)] = LOGO56[k]; });
