@@ -277,7 +277,7 @@
 
 
   /* ---------- فلتر البطولات الجديد (شيت بلوجوهات وعدّاد) ---------- */
-  var FX_ON = /[?&]fx=1\b/.test(location.search) || localStorage.getItem("ks_fx") === "1";
+  var FX_ON = true;
   function fxCounts(res) {
     var cnt = {}, logo = {};
     res.matches.forEach(function (m) {
