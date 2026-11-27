@@ -9,75 +9,54 @@
     return e;
   }
 
-  /* ---------- featured ---------- */
-  function renderFeatured() {
-    var f = D.featured, box = document.getElementById("featured");
-    box.innerHTML = "";
-    var wm = el("img", "wm");
-    wm.src = "assets-brand.svg"; wm.alt = "";
-    box.appendChild(wm);
-    var tag = el("span", "featured-tag", "⭐ مباراة اليوم");
-    var league = el("p", "featured-league", f.league + " · " + f.kickoff);
-    var title = el("h2", "featured-title");
-    title.innerHTML = f.title;
+  /* ---------- real data ---------- */
+  var L = window.KS_LIVE, compName = {};
+  L.COMPS.forEach(function (c) { compName[c.id] = c.name; });
+  var DAYS = ["الأحد","الاثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
+  var MONTHS = ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"];
+  var sel = 0, lastLive = [], timer = null, reqId = 0;
 
-    var matchup = el("div", "matchup");
-    var home = el("div", "side");
-    home.appendChild(el("span", "team-name", f.home));
-    var num = el("div", "score score-nums");
-    num.appendChild(el("span", null, ar(f.score[0])));
-    num.appendChild(el("span", "sep", ":"));
-    num.appendChild(el("span", null, ar(f.score[1])));
-    var away = el("div", "side away");
-    away.appendChild(el("span", "team-name", f.away));
-    matchup.appendChild(home); matchup.appendChild(num); matchup.appendChild(away);
+  function hhmm(ts) {
+    return new Date(ts).toLocaleTimeString("ar-EG", { hour: "numeric", minute: "2-digit", hour12: true });
+  }
+  function dayDate(off) { var d = new Date(); d.setHours(12, 0, 0, 0); d.setDate(d.getDate() + off); return d; }
 
-    var meta = el("div", "featured-meta");
-    meta.appendChild(el("span", "chip live", "● " + f.minute));
-    meta.appendChild(el("span", "chip", f.broadcaster));
-    var cta = el("a", "featured-cta", "افتح تفاصيل الماتش ←");
-    cta.href = "#/match";
-    box.appendChild(tag); box.appendChild(league); box.appendChild(title);
-    box.appendChild(matchup); box.appendChild(meta); box.appendChild(cta);
-    animateNumber(num);
+  function renderStrip() {
+    var strip = document.getElementById("dayStrip");
+    strip.innerHTML = "";
+    for (var o = -7; o <= 7; o++) {
+      (function (o) {
+        var d = dayDate(o);
+        var b = el("button", "day" + (o === sel ? " on" : ""));
+        b.type = "button";
+        b.appendChild(el("small", null, o === 0 ? "النهارده" : DAYS[d.getDay()]));
+        b.appendChild(el("b", null, ar(d.getDate())));
+        b.appendChild(el("small", null, MONTHS[d.getMonth()]));
+        b.addEventListener("click", function () { sel = o; renderStrip(); load(false); });
+        if (o === sel) b.setAttribute("aria-current", "date");
+        strip.appendChild(b);
+      })(o);
+    }
+    var on = strip.querySelector(".on");
+    if (on && on.scrollIntoView) on.scrollIntoView({ inline: "center", block: "nearest" });
   }
 
-  function animateNumber(node) {
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    node.animate([{ transform: "scale(.82)", opacity: 0 }, { transform: "scale(1)", opacity: 1 }],
-      { duration: 520, easing: "cubic-bezier(.2,.7,.2,1)" });
-  }
-
-  /* ---------- league rail ---------- */
-  function renderRail() {
-    var rail = document.getElementById("leagueRail");
-    rail.innerHTML = "";
-    D.leagues.forEach(function (lg) {
-      var li = el("li");
-      var a = el("a");
-      a.href = "#/scores";
-      a.appendChild(el("span", null, lg.name));
-      a.appendChild(el("b", null, ar(lg.count)));
-      li.appendChild(a); rail.appendChild(li);
-    });
-  }
-
-  /* ---------- league blocks ---------- */
   function matchRow(m) {
     var row = el("div", "match-row" + (m.status === "live" ? " is-live" : ""));
     var home = el("div", "team");
     home.appendChild(el("span", "dot"));
     home.appendChild(el("span", null, m.home));
     var center = el("div", "center");
-    if (m.status === "upcoming") {
-      center.appendChild(el("span", "time", m.time));
+    var hasScore = !isNaN(m.hs) && !isNaN(m.as);
+    if (m.status === "upcoming" || m.status === "pp" || !hasScore) {
+      center.appendChild(el("span", "time", m.status === "pp" ? "مؤجلة" : hhmm(m.date)));
     } else {
       var sc = el("span", "score score-nums");
-      sc.appendChild(el("span", null, ar(m.score[0])));
+      sc.appendChild(el("span", null, ar(m.hs)));
       sc.appendChild(el("span", "sep", "-"));
-      sc.appendChild(el("span", null, ar(m.score[1])));
+      sc.appendChild(el("span", null, ar(m.as)));
       center.appendChild(sc);
-      center.appendChild(el("span", "minute" + (m.status === "ft" ? " ft" : ""), m.status === "live" ? m.minute : "انتهت"));
+      center.appendChild(el("span", "minute" + (m.status === "ft" ? " ft" : ""), m.status === "live" ? "مباشر " + ar(m.minute || "") : "انتهت"));
     }
     var away = el("div", "team away");
     away.appendChild(el("span", "dot"));
@@ -86,20 +65,84 @@
     return row;
   }
 
-  function renderBlocks() {
-    var wrap = document.getElementById("leagueBlocks");
-    wrap.innerHTML = "";
-    D.leagues.forEach(function (lg) {
-      var block = el("section", "league-block");
-      var head = el("div", "league-head");
-      var h3 = el("h3", null, lg.name);
-      head.appendChild(h3);
-      head.appendChild(el("span", null, ar(lg.matches.length) + " ماتش"));
-      block.appendChild(head);
-      lg.matches.forEach(function (m) { block.appendChild(matchRow(m)); });
-      wrap.appendChild(block);
+  function render(res) {
+    var wrap = document.getElementById("leagueBlocks"), rail = document.getElementById("leagueRail");
+    wrap.innerHTML = ""; rail.innerHTML = "";
+    var groups = {}, order = [];
+    res.matches.forEach(function (m) {
+      if (!groups[m.comp]) { groups[m.comp] = []; order.push(m.comp); }
+      groups[m.comp].push(m);
     });
+    var idx = {}; L.COMPS.forEach(function (c, i) { idx[c.id] = i; });
+    order.sort(function (a, b) { return idx[a] - idx[b]; });
+    order.forEach(function (id) {
+      var list = groups[id];
+      var block = el("section", "league-block");
+      block.id = "lg-" + id.replace(/\W/g, "_");
+      var head = el("div", "league-head");
+      head.appendChild(el("h3", null, compName[id]));
+      head.appendChild(el("span", null, ar(list.length) + " ماتش"));
+      block.appendChild(head);
+      list.forEach(function (m) { block.appendChild(matchRow(m)); });
+      wrap.appendChild(block);
+      var li = el("li"), a = el("a");
+      a.href = "#/scores";
+      a.addEventListener("click", function (e) { e.preventDefault(); block.scrollIntoView({ behavior: "smooth", block: "start" }); });
+      a.appendChild(el("span", null, compName[id]));
+      a.appendChild(el("b", null, ar(list.length)));
+      li.appendChild(a); rail.appendChild(li);
+    });
+    var st = document.getElementById("dataStatus");
+    if (!res.matches.length) {
+      wrap.appendChild(el("p", "note", res.errors ? "مقدرتش أجيب الداتا دلوقتي. جرّب تاني." : "مفيش ماتشات في الدوريات دي اليوم ده."));
+    }
+    var msg = "آخر تحديث " + hhmm(res.at);
+    if (res.errors) msg += " · " + ar(res.errors) + " مصدر ماردّش";
+    st.textContent = msg;
+    var live = res.matches.filter(function (m) { return m.status === "live"; }).length;
+    document.getElementById("liveCount").textContent = ar(live);
+    renderFeatured(res.matches);
   }
+
+  function renderFeatured(matches) {
+    var box = document.getElementById("featured");
+    box.innerHTML = "";
+    var pick = matches.filter(function (m) { return m.status === "live"; })[0] ||
+      matches.filter(function (m) { return m.status === "upcoming"; })[0] || matches[0];
+    box.hidden = !pick;
+    if (!pick) return;
+    var wm = el("img", "wm"); wm.src = "assets-brand.svg"; wm.alt = "";
+    box.appendChild(wm);
+    var tag = el("span", "featured-tag", pick.status === "live" ? "● مباشر دلوقتي" : "⭐ ماتش اليوم");
+    var league = el("p", "featured-league", compName[pick.comp] + " · " + hhmm(pick.date));
+    var matchup = el("div", "matchup");
+    var home = el("div", "side"); home.appendChild(el("span", "team-name", pick.home));
+    var num = el("div", "score score-nums");
+    var hasScore = !isNaN(pick.hs) && !isNaN(pick.as) && pick.status !== "upcoming";
+    num.appendChild(el("span", null, hasScore ? ar(pick.hs) : "–"));
+    num.appendChild(el("span", "sep", ":"));
+    num.appendChild(el("span", null, hasScore ? ar(pick.as) : "–"));
+    var away = el("div", "side away"); away.appendChild(el("span", "team-name", pick.away));
+    matchup.appendChild(home); matchup.appendChild(num); matchup.appendChild(away);
+    var meta = el("div", "featured-meta");
+    meta.appendChild(el("span", "chip" + (pick.status === "live" ? " live" : ""),
+      pick.status === "live" ? "● " + ar(pick.minute || "") : pick.status === "ft" ? "انتهت" : "لسه ما بدأتش"));
+    box.appendChild(tag); box.appendChild(league); box.appendChild(matchup); box.appendChild(meta);
+  }
+
+  function load(force) {
+    var my = ++reqId;
+    var st = document.getElementById("dataStatus");
+    if (!force) st.textContent = "بنحمّل الماتشات…";
+    L.loadDay(dayDate(sel), force).then(function (res) { if (my === reqId) render(res); })
+      .catch(function () { if (my === reqId) st.textContent = "مقدرتش أجيب الداتا. جرّب تاني."; });
+  }
+  function tick() {
+    if (document.hidden || sel !== 0) return;
+    load(true);
+  }
+  setInterval(tick, 45000);
+  document.addEventListener("visibilitychange", function () { if (!document.hidden && sel === 0) load(true); });
 
   /* ---------- analysis ---------- */
   function renderAnalysis() {
@@ -163,12 +206,6 @@
   }
 
   /* ---------- live count + install + sw ---------- */
-  function liveCount() {
-    var n = 0;
-    D.leagues.forEach(function (lg) { lg.matches.forEach(function (m) { if (m.status === "live") n++; }); });
-    document.getElementById("liveCount").textContent = ar(n);
-  }
-
   var deferredPrompt = null;
   window.addEventListener("beforeinstallprompt", function (e) {
     e.preventDefault(); deferredPrompt = e;
@@ -185,6 +222,6 @@
     });
   }
 
-  renderFeatured(); renderRail(); renderBlocks(); renderAnalysis(); renderDetail(); liveCount();
+  renderAnalysis(); renderDetail(); renderStrip(); load(false);
   window.addEventListener("hashchange", route); route();
 })();

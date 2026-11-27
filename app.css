@@ -169,3 +169,11 @@ a{color:inherit;text-decoration:none}
   width:250px;opacity:.055;pointer-events:none;z-index:-1;filter:grayscale(1)}
 @media (max-width:900px){.featured .wm{width:210px;inset-inline-end:-58px;opacity:.06}}
 .install-hint{color:var(--gold);font-size:11px;font-weight:700}
+
+.day-strip{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 12px;margin:0 0 8px;scrollbar-width:none}
+.day-strip::-webkit-scrollbar{display:none}
+.day{flex:0 0 auto;min-width:62px;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 10px;border-radius:14px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:inherit;font:inherit;cursor:pointer}
+.day b{font-size:1.15rem}.day small{font-size:.72rem;opacity:.75}
+.day.on{background:#f5c542;color:#0a0f14;border-color:#f5c542}.day.on small{opacity:.9}
+.data-status{font-size:.78rem;opacity:.7}
+.featured[hidden]{display:none}

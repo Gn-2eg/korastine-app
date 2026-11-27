@@ -53,9 +53,10 @@
       <h1 class="sr-only" id="scoresTitle">نتايج الماتشات</h1>
       <article class="featured" id="featured"></article>
       <div class="section-head">
-        <h2>ماتشات النهارده</h2>
-        <span class="badge-demo">بيانات تجريبية</span>
+        <h2>الماتشات</h2>
+        <span class="data-status" id="dataStatus" aria-live="polite"></span>
       </div>
+      <div class="day-strip" id="dayStrip" role="group" aria-label="اختار اليوم"></div>
       <div class="league-blocks" id="leagueBlocks"></div>
     </section>
 
@@ -81,11 +82,12 @@
 
 <footer class="page-foot">
   <b>كورهسطين · KORASTINE</b>
-  <span>بدون بث — القنوات الرسمية بس · بيانات تجريبية للعرض</span>
+  <span>بدون بث — القنوات الرسمية بس · النتايج من ESPN وTheSportsDB</span>
   <span class="install-hint">للتثبيت على الآيفون: زرار المشاركة ← إضافة إلى الشاشة الرئيسية</span>
 </footer>
 
 <script src="data.js"></script>
+<script src="live.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
