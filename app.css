@@ -397,3 +397,11 @@ body.dash-open{overflow:hidden}
   .featured-title{font-size:20px;overflow-wrap:anywhere}
   html,body{overflow-x:hidden}
 }
+
+/* ---- v36: no alpha gradients (iOS rendered them as flat green blocks) ---- */
+body{background:var(--bg)!important;background-image:none!important}
+.featured::before,.featured::after{display:none!important}
+.featured{background:#0b141c!important}
+.match-row.is-live{background:rgba(53,224,125,.06)!important;background-image:none!important;box-shadow:inset -3px 0 0 var(--green)}
+.lg-label{background:rgba(53,224,125,.08)!important;background-image:none!important}
+.side-nav a[aria-current="page"]{background:rgba(53,224,125,.12)!important;background-image:none!important}
