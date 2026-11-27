@@ -571,3 +571,8 @@ body.lk-open{overflow:hidden}
 /* hero v3: ribbon wraps over the card's top edge (loops straddle the border) */
 .fl-wrap{top:-24px;height:176px;z-index:3!important}
 @media (max-width:900px){.fl-wrap{top:-12px;width:100px;height:80px}}
+
+/* hero v4: a real waving Palestinian flag draped over the card's top-left corner */
+.fl-wrap{left:-16px;top:-22px;width:230px;height:174px;z-index:3!important}
+.featured{padding-left:calc(210px + 10px)}
+@media (max-width:900px){.fl-wrap{left:-8px;top:-14px;width:122px;height:92px}.featured{padding-left:calc(104px + 8px)}}
