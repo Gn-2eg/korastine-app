@@ -607,3 +607,4 @@ input, textarea, select, [contenteditable="true"] { -webkit-user-select: text; u
 .dash-head,.dash-tabs{flex:0 0 auto}
 .dash-head{position:relative;z-index:2;background:var(--surface)}
 .dash-body{flex:1 1 auto;min-height:0;overscroll-behavior:contain}
+.dash-body{padding-top:0}.dash-tables,.dash-scorers{padding-top:6px}.dash-table th{background:var(--surface)}
