@@ -29,9 +29,9 @@ jobs:
         run: |
           git config user.name "korastine-bot"
           git config user.email "korastine-bot@users.noreply.github.com"
-          for i in $(seq 1 5); do
+          for i in $(seq 1 10); do
             node scripts/fetch-fixtures.mjs || true
-            node scripts/fetch-tv.mjs || true
+            if [ $((i % 2)) -eq 1 ]; then node scripts/fetch-tv.mjs || true; fi
             if [ -n "$(git status --porcelain fixtures.json tv.json)" ]; then
               git add fixtures.json
               git add tv.json 2>/dev/null || true
