@@ -747,13 +747,13 @@ html.hl-j .mcard .lg-label{padding:8px 10px;gap:8px} html.hl-j .j-tile{width:40p
 #featured.mbp .mb5-top{top:0;background-image:url(1-mb5-top.webp);animation:mb5sway 7s ease-in-out infinite}
 #featured.mbp .mb5-bot{bottom:0;background-image:url(3-mb5-bot.webp);animation:mb5sway 7s ease-in-out infinite reverse}
 @keyframes mb5sway{0%,100%{transform:translateX(0)}50%{transform:translateX(-7px)}}
-#featured.mbp .mb5-col{position:relative;z-index:1;display:flex;flex-direction:column;align-items:flex-end;gap:5px;padding:25px 13px 24px;min-height:126px}
+#featured.mbp .mb5-col{position:relative;z-index:1;display:flex;flex-direction:column;align-items:flex-start;gap:5px;padding:24px 14px 24px;min-height:140px;max-width:100%}
 #featured.mbp .mb5-pill{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:800;color:#1a1200;background:linear-gradient(180deg,#ffe6a6,#f3c455);border-radius:999px;padding:3px 11px;box-shadow:0 0 14px rgba(243,196,85,.45)}
 #featured.mbp .mb5-pill .mb5-dot{width:6px;height:6px;border-radius:50%;background:#1a1200;flex:0 0 auto}
 #featured.mbp .mb5-pill.is-live .mb5-dot{animation:mb5pulse 1.8s ease-in-out infinite}
 @keyframes mb5pulse{0%,100%{opacity:1}50%{opacity:.35}}
 #featured.mbp .mb5-lg{font-size:11px;font-weight:700;color:#cfdcd5;text-shadow:0 1px 6px rgba(0,0,0,.8);text-align:end;line-height:1.4}
-#featured.mbp .mb5-score{display:flex;align-items:center;gap:9px;margin-top:2px;flex-wrap:nowrap;justify-content:flex-end;max-width:100%}
+#featured.mbp .mb5-score{display:flex;align-items:center;gap:9px;margin-top:2px;flex-wrap:nowrap;justify-content:flex-start;max-width:100%}
 #featured.mbp .mb5-tm{display:inline-flex;align-items:center;gap:6px;min-width:0}
 #featured.mbp .mb5-logo{width:24px;height:24px;object-fit:contain;flex:0 0 auto;filter:drop-shadow(0 1px 3px rgba(0,0,0,.6))}
 #featured.mbp .mb5-nm{font-size:12.5px;font-weight:800;color:#f4f8f6;line-height:1.25;white-space:normal;overflow-wrap:break-word;max-width:96px;text-shadow:0 1px 5px rgba(0,0,0,.85)}
