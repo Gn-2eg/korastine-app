@@ -185,7 +185,7 @@ if (typeof module !== "undefined") module.exports = KSHL;
   function build() {
     root.innerHTML = "";
     var strip = el("div", "pd-days");
-    [["النهارده", 0], ["إمبارح", -1]].forEach(function (d) {
+    [["إمبارح", -1], ["النهارده", 0]].forEach(function (d) {
       var b = el("button", "pd-day" + (off === d[1] ? " on" : ""), d[0]); b.type = "button";
       b.addEventListener("click", function () { off = d[1]; build(); refresh(); });
       strip.appendChild(b);
