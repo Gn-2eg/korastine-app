@@ -185,13 +185,12 @@ if (typeof module !== "undefined") module.exports = KSHL;
       links.appendChild(link("https://www.youtube.com/channel/" + ch[1] + "/search?query=" + encodeURIComponent(m.home + " " + m.away), "🔎 " + ch[0], "hl-btn alt"));
     });
     if (mcOn()) {
-      var mb = link("#", "📋 مركز المباراة", "hl-btn alt"); mb.removeAttribute("target"); mb.removeAttribute("rel");
-      mb.addEventListener("click", function (ev) {
-        ev.preventDefault();
-        function v(h) { return h && CH[h.c] ? { url: "https://www.youtube.com/watch?v=" + h.i, label: CH[h.c][0] } : null; }
-        loadMC(function () { window.KSMC.open(m, { compName: compName[m.comp] || "", video: { sum: v(hit.sum), goals: v(hit.goals), search: search("ملخص مباراة " + m.home + " " + m.away) } }); });
-      });
-      links.insertBefore(mb, links.firstChild);
+      function v(h) { return h && CH[h.c] ? { url: "https://www.youtube.com/watch?v=" + h.i, label: CH[h.c][0] } : null; }
+      function openMC() { loadMC(function () { window.KSMC.open(m, { compName: compName[m.comp] || "", video: { sum: v(hit.sum), goals: v(hit.goals), search: search("ملخص مباراة " + m.home + " " + m.away) } }); }); }
+      c.style.cursor = "pointer"; c.setAttribute("role", "button"); c.tabIndex = 0;
+      c.setAttribute("aria-label", "مركز المباراة: " + m.home + " ضد " + m.away);
+      c.addEventListener("click", function (ev) { if (ev.target.closest && ev.target.closest("a")) return; openMC(); });
+      c.addEventListener("keydown", function (ev) { if ((ev.key === "Enter" || ev.key === " ") && ev.target === c) { ev.preventDefault(); openMC(); } });
     }
     c.appendChild(links);
     return c;
