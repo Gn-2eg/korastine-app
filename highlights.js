@@ -153,7 +153,7 @@ if (typeof module !== "undefined") module.exports = KSHL;
     if (mcQ) { mcQ.push(cb); return; }
     mcQ = [cb];
     var l = document.createElement("link"); l.rel = "stylesheet"; l.href = "mc.css?v=3"; document.head.appendChild(l);
-    var s = document.createElement("script"); s.src = "mc.js?v=2";
+    var s = document.createElement("script"); s.src = "mc.js?v=3";
     s.onload = function () { var q = mcQ; mcQ = null; q.forEach(function (f) { f(); }); };
     s.onerror = function () { mcQ = null; };
     document.head.appendChild(s);
