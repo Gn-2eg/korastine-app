@@ -72,8 +72,6 @@ if("7"===mb){
 }
 if("8"===mb){
   var m8=O("div","mb-in mb8");
-  m8.appendChild(O("div","mb8-wave a"));
-  m8.appendChild(O("div","mb8-wave b"));
   var c8=O("div","mb8-col");
   var p8=O("span","mb8-pill"+(live?" is-live":""));
   p8.appendChild(O("i","mb8-dot"));p8.appendChild(O("span",null,live?"مباشر حلوقتي":"ماتش اليوم"));
