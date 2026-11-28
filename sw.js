@@ -1,6 +1,6 @@
 /* كورهسطين app shell */
-const CACHE = "korastine-app-v39";
-const SHELL = ["./", "./index.html", "./app.css", "./app.js", "./data.js", "./live.js",
+const CACHE = "korastine-app-v40";
+const SHELL = ["./", "./index.html", "./app.css", "./app.js", "./live.js",
   "./manifest.webmanifest", "./assets-brand.svg", "./favicon.png",
   "./app-192.png", "./app-256.png", "./app-512.png", "./favicon.svg", "./favicon-48.png", "./apple-touch-icon.png"];
 
