@@ -947,3 +947,7 @@ body.fav-open{overflow:hidden}
 #predictRoot .pdc-sbtn{width:30px;height:30px;flex:0 0 auto}
 #predictRoot .pdc-val{min-width:18px}
 @media (max-width:359px){#predictRoot .pdc-steps{gap:6px}#predictRoot .pdc-sbtn{width:28px;height:28px}}
+/* banner: long team names wrap to two lines instead of being cut */
+#featured.mbp .mb8-nm{white-space:normal;overflow:visible;text-overflow:clip;max-width:16cqw;line-height:1.12;text-align:center;font-size:2.6cqw;overflow-wrap:anywhere}
+#featured.mbp .mb8-tm{max-width:22cqw}
+#featured.mbp .mb8-score{gap:1.2cqw}
