@@ -972,3 +972,9 @@ body.fav-open{overflow:hidden}
 #featured.mbp .mb8-col{left:29%;right:13%}
 #featured.mbp .mb8-nm{font-size:2.9cqw}
 #featured.mbp .mb8-score{gap:1.8cqw}
+
+/* v143: only the away crest sits in the cleared ball spot; both crests bigger and aligned with the score row */
+#featured.mbp .mb8-crests{left:12%;width:15.6%;top:42.4%;height:40%;gap:0}
+#featured.mbp .mb8-crests .mb8-logo{width:10.4cqw;height:10.4cqw}
+#featured.mbp .mb8-score .mb8-tm .mb8-logo{width:6.6cqw;height:6.6cqw}
+#featured.mbp .mb8-score .mb8-tm{gap:1.2cqw}
