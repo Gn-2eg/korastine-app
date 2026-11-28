@@ -146,7 +146,7 @@ if (typeof module !== "undefined") module.exports = KSHL;
   function dayDate(o) { var d = new Date(); d.setHours(12, 0, 0, 0); d.setDate(d.getDate() + o); return d; }
 
   /* مركز المباراة: متقفل افتراضي لحد الموافقة؛ بيتفتح بـ ?mc=1 (والرابط بيفتكر الاختيار) */
-  function mcOn() { try { var q = /[?&]mc=([01])/.exec(location.search); if (q) localStorage.setItem("ks_mc", q[1]); return localStorage.getItem("ks_mc") === "1"; } catch (e) { return false; } }
+  function mcOn() { try { var q = /[?&#]mc=([01])/.exec(location.href); if (q) localStorage.setItem("ks_mc", q[1]); return localStorage.getItem("ks_mc") === "1"; } catch (e) { return false; } }
   var mcQ = null;
   function loadMC(cb) {
     if (window.KSMC) return cb();
