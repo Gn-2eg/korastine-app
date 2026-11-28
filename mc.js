@@ -194,10 +194,24 @@ var KSMC = (function () {
       state(box, "load");
       load().then(function () { if (cur !== m) return; render(box, data.data); }, function () { if (cur !== m) return; state(box, "err", "حصلت مشكلة في الاتصال.", function () { painted = {}; pending = null; ensure(k); }); });
     }
+    function hx(s) { return /^[0-9a-f]{6}$/i.test(s || "") ? [parseInt(s.slice(0, 2), 16), parseInt(s.slice(2, 4), 16), parseInt(s.slice(4, 6), 16)] : null; }
+    function lum(c) { return (0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]) / 255; }
+    function pick(t) { var a = hx(t && t.color), b = hx(t && t.alternateColor), L; if (a && (L = lum(a)) > 0.07 && L < 0.85) return a; if (b && (L = lum(b)) > 0.07 && L < 0.85) return b; return null; }
+    function mix(c, k) { var bg = [17, 30, 40]; return "rgb(" + c.map(function (v, i) { return Math.round(v * k + bg[i] * (1 - k)); }).join(",") + ")"; }
+    function tint(d) {
+      var cs = (d && d.header && d.header.competitions && d.header.competitions[0] && d.header.competitions[0].competitors) || [], t = {};
+      cs.forEach(function (c) { t[c.homeAway] = pick(c.team); });
+      var hs = hero.style;
+      if (t.home) { hs.setProperty("--mc-hl", mix(t.home, 0.62)); hs.setProperty("--mc-sl", "rgb(" + t.home.join(",") + ")"); }
+      if (t.away) {
+        var h = t.home, dist = h ? Math.abs(h[0] - t.away[0]) + Math.abs(h[1] - t.away[1]) + Math.abs(h[2] - t.away[2]) : 999;
+        if (dist > 90) { hs.setProperty("--mc-hr", mix(t.away, 0.62)); hs.setProperty("--mc-sr", "rgb(" + t.away.join(",") + ")"); }
+      }
+    }
     function load() {
       if (data) return Promise.resolve(data);
       if (pending) return pending;
-      pending = getSummary(m, false).then(function (v) { data = v; pending = null; return v; }, function (e) { pending = null; throw e; });
+      pending = getSummary(m, false).then(function (v) { data = v; pending = null; try { tint(v); } catch (e) {} return v; }, function (e) { pending = null; throw e; });
       return pending;
     }
 
