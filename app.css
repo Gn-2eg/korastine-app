@@ -994,3 +994,18 @@ body.fav-open{overflow:hidden}
 .bv-c #featured.mbp .mb8-crests-r{left:auto;right:12%}
 .bv-c #featured.mbp .mb8-crests-r .mb8-logo,.bv-c #featured.mbp .mb8-crests .mb8-logo{width:11cqw;height:11cqw}
 .bv-c #featured.mbp .mb8-crests{top:40%;height:40%}
+
+/* banner effects preview (only with ?bv=c&fx=1): transform/opacity only, paused offscreen via .mb8-paused */
+@keyframes bvin{from{opacity:0;transform:translate3d(0,6%,0)}to{opacity:1;transform:none}}
+@keyframes bvcrest{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:none}}
+@keyframes bvglow{0%,100%{opacity:.25;transform:scale(.92)}50%{opacity:.7;transform:scale(1.06)}}
+@keyframes bvfloat{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(0,-5%,0)}}
+.bv-fx #featured.mbp .mb8-col>*{animation:bvin .7s cubic-bezier(.2,.7,.2,1) both}
+.bv-fx #featured.mbp .mb8-col>*:nth-child(2){animation-delay:.08s}
+.bv-fx #featured.mbp .mb8-col>*:nth-child(3){animation-delay:.16s}
+.bv-fx #featured.mbp .mb8-vc .mb8-n{position:relative;isolation:isolate}
+.bv-fx #featured.mbp .mb8-vc .mb8-n::before{content:"";position:absolute;z-index:-1;inset:-35% -30%;background:radial-gradient(closest-side,rgba(53,224,125,.5),rgba(53,224,125,0) 72%);animation:bvglow 3.8s ease-in-out infinite;will-change:opacity,transform}
+.bv-fx #featured.mbp .mb8-crests{animation:bvcrest .8s cubic-bezier(.2,.7,.2,1) .15s both}
+.bv-fx #featured.mbp .mb8-crests .mb8-logo{animation:bvfloat 5.2s ease-in-out infinite;will-change:transform}
+.bv-fx #featured.mbp .mb8-crests-r .mb8-logo{animation-delay:-2.6s}
+@media (prefers-reduced-motion:reduce){.bv-fx #featured.mbp .mb8-col>*,.bv-fx #featured.mbp .mb8-vc .mb8-n::before,.bv-fx #featured.mbp .mb8-crests,.bv-fx #featured.mbp .mb8-crests .mb8-logo{animation:none!important}}
