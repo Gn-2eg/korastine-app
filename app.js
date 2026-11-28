@@ -146,11 +146,11 @@ function U(e){var n=w.indexOf(e.comp);return n<0?999:n}function z(){return o}fun
   var prev={},seen={};
   function rows(){return [].slice.call(document.querySelectorAll(".match-row[data-k]"))}
   function beep(){ if(reduce)return; try{var C=window.AudioContext||window.webkitAudioContext;if(!C)return;var a=new C();var o=a.createOscillator(),g=a.createGain();o.type="sine";o.frequency.value=680;g.gain.value=.07;o.connect(g);g.connect(a.destination);o.start();setTimeout(function(){try{o.stop();a.close()}catch(e){}},300)}catch(e){} }
-  function goal(row,side){
+  function goal(row,side){ if(!/[?&](goal=1|goaltest=)/.test(location.search))return;
     if(!row)return;
     row.classList.remove("ks-goal-h","ks-goal-a");
     row.classList.add(side==="h"?"ks-goal-h":"ks-goal-a");
-    var w=row.parentNode||row;
+    var w=row;
     var old=w.querySelector(".ks-goal-word");if(old&&old.parentNode)old.parentNode.removeChild(old);
     var g=document.createElement("span");g.className="ks-goal-word";g.textContent="GOAL";
     w.appendChild(g);
