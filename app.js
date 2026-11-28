@@ -189,7 +189,10 @@ function U(e){var n=w.indexOf(e.comp);return n<0?999:n}function z(){return o}fun
           var i=cur.indexOf(t.k);if(i>=0)cur.splice(i,1);else cur.push(t.k);
           var a=all(),idx=-1;a.forEach(function(y,j){if((y.k||key(y.n))===t.k)idx=j});
           if(i>=0){if(idx>=0)a.splice(idx,1)}else if(idx<0)a.push({k:t.k,n:t.n,l:t.l||"",a:t.a||[t.k]});
-          save(a);sync();paint();redrawSoon();
+          save(a);sync();
+          if(q){q="";lastQ="";inp.value=""}
+          if(i<0){var tt=p.querySelector(".fav-toast");if(!tt){tt=document.createElement("div");tt.className="fav-toast";tt.setAttribute("role","status");p.appendChild(tt)}tt.textContent="تم الاختيار";tt.classList.remove("on");void tt.offsetWidth;tt.classList.add("on");clearTimeout(tt._t);tt._t=setTimeout(function(){tt.classList.remove("on")},1400)}
+          paint();redrawSoon();
         });
         box.appendChild(row)
       });
