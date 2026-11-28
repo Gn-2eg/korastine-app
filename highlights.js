@@ -152,7 +152,7 @@ if (typeof module !== "undefined") module.exports = KSHL;
     if (window.KSMC) return cb();
     if (mcQ) { mcQ.push(cb); return; }
     mcQ = [cb];
-    var l = document.createElement("link"); l.rel = "stylesheet"; l.href = "mc.css?v=1"; document.head.appendChild(l);
+    var l = document.createElement("link"); l.rel = "stylesheet"; l.href = "mc.css?v=2"; document.head.appendChild(l);
     var s = document.createElement("script"); s.src = "mc.js?v=1";
     s.onload = function () { var q = mcQ; mcQ = null; q.forEach(function (f) { f(); }); };
     s.onerror = function () { mcQ = null; };
