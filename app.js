@@ -86,6 +86,11 @@ if("8"===mb){
   c8.appendChild(r8);
   m8.appendChild(c8);
   if(live){var mn8=parseInt(String(a.minute||"").replace(/[^0-9]/g,""),10);mn8>0&&m8.appendChild(O("span","mb8-min",D(mn8)+"'"))}
+  m8.insertBefore(O("div","mb8-drift"),m8.firstChild);
+  m8.appendChild(O("div","mb8-sweep"));m8.appendChild(O("div","mb8-flare"));
+  try{var vis8=!0;var upd8=function(){m8.classList.toggle("mb8-paused",document.hidden||!vis8)};
+   new IntersectionObserver(function(es){es.forEach(function(e){vis8=e.isIntersecting});upd8()},{threshold:.05}).observe(m8);
+   document.addEventListener("visibilitychange",upd8);}catch(e){}
   n.appendChild(m8);return;
 }
 if("3"===mb){
