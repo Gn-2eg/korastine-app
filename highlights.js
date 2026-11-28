@@ -145,6 +145,19 @@ if (typeof module !== "undefined") module.exports = KSHL;
   var off = 0, listBox = null, loadId = 0;
   function dayDate(o) { var d = new Date(); d.setHours(12, 0, 0, 0); d.setDate(d.getDate() + o); return d; }
 
+  /* مركز المباراة: متقفل افتراضي لحد الموافقة؛ بيتفتح بـ ?mc=1 (والرابط بيفتكر الاختيار) */
+  function mcOn() { try { var q = /[?&]mc=([01])/.exec(location.search); if (q) localStorage.setItem("ks_mc", q[1]); return localStorage.getItem("ks_mc") === "1"; } catch (e) { return false; } }
+  var mcQ = null;
+  function loadMC(cb) {
+    if (window.KSMC) return cb();
+    if (mcQ) { mcQ.push(cb); return; }
+    mcQ = [cb];
+    var l = document.createElement("link"); l.rel = "stylesheet"; l.href = "mc.css?v=1"; document.head.appendChild(l);
+    var s = document.createElement("script"); s.src = "mc.js?v=1";
+    s.onload = function () { var q = mcQ; mcQ = null; q.forEach(function (f) { f(); }); };
+    s.onerror = function () { mcQ = null; };
+    document.head.appendChild(s);
+  }
   function card(m) {
     var c = el("article", "pd-card");
     var head = el("div", "pd-head");
@@ -171,6 +184,15 @@ if (typeof module !== "undefined") module.exports = KSHL;
       var ch = CH[k];
       links.appendChild(link("https://www.youtube.com/channel/" + ch[1] + "/search?query=" + encodeURIComponent(m.home + " " + m.away), "🔎 " + ch[0], "hl-btn alt"));
     });
+    if (mcOn()) {
+      var mb = link("#", "📋 مركز المباراة", "hl-btn alt"); mb.removeAttribute("target"); mb.removeAttribute("rel");
+      mb.addEventListener("click", function (ev) {
+        ev.preventDefault();
+        function v(h) { return h && CH[h.c] ? { url: "https://www.youtube.com/watch?v=" + h.i, label: CH[h.c][0] } : null; }
+        loadMC(function () { window.KSMC.open(m, { compName: compName[m.comp] || "", video: { sum: v(hit.sum), goals: v(hit.goals), search: search("ملخص مباراة " + m.home + " " + m.away) } }); });
+      });
+      links.insertBefore(mb, links.firstChild);
+    }
     c.appendChild(links);
     return c;
   }
