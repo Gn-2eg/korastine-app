@@ -358,3 +358,6 @@ function U(e){var n=w.indexOf(e.comp);return n<0?999:n}function z(){return o}fun
     }
   };
 })();
+
+/* banner background previews: ?bg=1..4 (preview only, default untouched) */
+(function(){var m=/[?&]bg=([1-4])\b/.exec(location.search);if(m)document.documentElement.classList.add('ksbg'+m[1]);})();
