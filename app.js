@@ -241,11 +241,11 @@ function U(e){var n=w.indexOf(e.comp);return n<0?999:n}function z(){return o}fun
       var h=document.createElement("div");h.className="mb8-vc";
       function mk(t,c,txt,col){var e=document.createElement(t);e.className=c;if(txt!=null)e.textContent=txt;e.style.gridColumn=col;e.style.gridRow="1";return e}
       function crest(x,col){var w=mk("div","mb8-vcr",null,col);if(x){var l=x.cloneNode(true);l.className="mb8-logo";w.appendChild(l)}return w}
-      h.appendChild(crest(x2,"1"));
-      h.appendChild(mk("span","mb8-nm",an,"2"));
-      var sb=mk("b","mb8-n",sc,"3");var mq=m8.querySelector(".mb8-min");if(mq)sb.appendChild(mq);h.appendChild(sb);
-      h.appendChild(mk("span","mb8-nm",hn,"4"));
-      h.appendChild(crest(x1,"5"));
+      var gL=mk("div","mb8-vg",null,"1"),gR=mk("div","mb8-vg",null,"3");
+      gL.appendChild(crest(x2,"auto"));gL.appendChild(mk("span","mb8-nm",an,"auto"));
+      gR.appendChild(mk("span","mb8-nm",hn,"auto"));gR.appendChild(crest(x1,"auto"));
+      var sb=mk("b","mb8-n",sc,"2");var mq=m8.querySelector(".mb8-min");if(mq)sb.appendChild(mq);
+      h.appendChild(gL);h.appendChild(sb);h.appendChild(gR);
       c8.appendChild(h);
     }
   };
