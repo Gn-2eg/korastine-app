@@ -3,7 +3,7 @@ if(MBF.t){clearInterval(MBF.t);MBF.t=0}
 n.classList.add("mbp");n.classList.add("mbp"+mb);
 var lg=t[a.comp]||"",live="live"===a.status,
 known=!isNaN(a.hs)&&!isNaN(a.as)&&"upcoming"!==a.status&&"pp"!==a.status;
-function mix(c,k){var p=String(c).split(","),b=[13,26,31];return"rgb("+[0,1,2].map(function(i){return Math.round(b[i]*(1-k)+(+p[i])*k)}).join(",")+")"}
+function mix(c,k){var p=String(c).split(","),b=[13,26,31];return"rgb("+[0,1,2].map(function(i){return Math.round(b[i]*(1-k)+(+p[i])*k)}).join(",")+")"}function vivid(c){var p=String(c).split(",").map(Number),m=(p[0]+p[1]+p[2])/3;return p.map(function(v){return Math.max(0,Math.min(255,Math.round(m+(v-m)*1.9)))}).join(",")}
 function side(logo,name){var d=O("div","mb-side"),im=A(logo,"mb-logo");im&&d.appendChild(im);d.appendChild(O("span","mb-nm",name));return d}
 var box=O("div","mb-in mb"+mb);
 if("3"===mb){
@@ -20,7 +20,7 @@ if("3"===mb){
   }
   box.appendChild(top);
   var r3=O("div","mb3-teams");
-  r3.appendChild(side(a.homeLogo,a.home));r3.appendChild(O("span","mb3-vs","×"));r3.appendChild(side(a.awayLogo,a.away));
+  r3.appendChild(side(a.homeLogo,a.home));r3.appendChild(O("i","mb3-vs"));r3.appendChild(side(a.awayLogo,a.away));
   box.appendChild(r3);
   lg&&box.appendChild(O("span","mb3-lg",lg));
   n.appendChild(box);return;
@@ -37,7 +37,7 @@ if("1"===mb){
   lg&&mid.appendChild(O("span","mb2-lg",lg));
   F(a.homeLogo,function(h){F(a.awayLogo,function(w){
     if("0"===h&&"0"===w)return;
-    var c1="0"===h?"rgb(18,36,30)":mix(h,.62),c2="0"===w?"rgb(40,20,24)":mix(w,.62);
+    var c1="0"===h?"rgb(16,34,28)":mix(vivid(h),.70),c2="0"===w?"rgb(44,18,22)":mix(vivid(w),.46);
     bg.style.background="linear-gradient(255deg,"+c1+" 0 49.4%,rgba(255,255,255,.28) 49.4% 50.2%,"+c2+" 50.2% 100%)"})});
 }else{
   var fl=O("div","mb4-flag");fl.appendChild(O("i"));box.appendChild(fl);
