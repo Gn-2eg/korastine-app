@@ -243,7 +243,7 @@ function U(e){var n=w.indexOf(e.comp);return n<0?999:n}function z(){return o}fun
       function crest(x,col){var w=mk("div","mb8-vcr",null,col);if(x){var l=x.cloneNode(true);l.className="mb8-logo";w.appendChild(l)}return w}
       h.appendChild(crest(x2,"1"));
       h.appendChild(mk("span","mb8-nm",an,"2"));
-      h.appendChild(mk("b","mb8-n",sc,"3"));
+      var sb=mk("b","mb8-n",sc,"3");var mq=m8.querySelector(".mb8-min");if(mq)sb.appendChild(mq);h.appendChild(sb);
       h.appendChild(mk("span","mb8-nm",hn,"4"));
       h.appendChild(crest(x1,"5"));
       c8.appendChild(h);
