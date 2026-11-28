@@ -731,3 +731,8 @@ html.hl-j .mcard .lg-label{padding:8px 10px;gap:8px} html.hl-j .j-tile{width:40p
  #featured.mbp .mb-time,#featured.mbp .mb2-time,#featured.mbp .mb4-time{font-size:22px}
  #featured.mbp .mb3-cd{font-size:24px}
 }
+
+
+/* v108: عمود الأهداف في جدول الترتيب - "له : عليه" في سطر واحد */
+.dash-table th{white-space:nowrap}
+.dash-table th.th-goals{font-size:10px;font-weight:700;color:var(--muted)}
