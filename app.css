@@ -978,3 +978,19 @@ body.fav-open{overflow:hidden}
 #featured.mbp .mb8-crests .mb8-logo{width:10.4cqw;height:10.4cqw}
 #featured.mbp .mb8-score .mb8-tm .mb8-logo{width:6.6cqw;height:6.6cqw}
 #featured.mbp .mb8-score .mb8-tm{gap:1.2cqw}
+
+/* banner layout previews (only active with ?bv=) */
+.bv-b #featured.mbp .mb8-col{left:27%;right:13%;top:6%;bottom:6%;gap:.5cqw}
+.bv-b #featured.mbp .mb8-vb{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;width:100%;gap:1.4cqw}
+.bv-b #featured.mbp .mb8-vcell{display:flex;flex-direction:column;align-items:center;gap:.6cqw;min-width:0}
+.bv-b #featured.mbp .mb8-vcell .mb8-logo{width:11.5cqw;height:11.5cqw}
+.bv-b #featured.mbp .mb8-vcell .mb8-nm{font-size:2.7cqw;text-align:center;white-space:normal;max-width:none}
+.bv-b #featured.mbp .mb8-vb .mb8-n{font-size:6.2cqw}
+.bv-c #featured.mbp .mb8-col{left:31%;right:31%;top:8%;bottom:8%;gap:.8cqw}
+.bv-c #featured.mbp .mb8-vc{display:flex;flex-direction:column;align-items:center;gap:.8cqw;width:100%}
+.bv-c #featured.mbp .mb8-vc .mb8-n{font-size:7.2cqw;line-height:1}
+.bv-c #featured.mbp .mb8-vnames{display:flex;justify-content:space-between;gap:2cqw;width:100%}
+.bv-c #featured.mbp .mb8-vnames .mb8-nm{flex:1;font-size:2.8cqw;text-align:center;white-space:normal;max-width:none}
+.bv-c #featured.mbp .mb8-crests-r{left:auto;right:12%}
+.bv-c #featured.mbp .mb8-crests-r .mb8-logo,.bv-c #featured.mbp .mb8-crests .mb8-logo{width:11cqw;height:11cqw}
+.bv-c #featured.mbp .mb8-crests{top:40%;height:40%}
