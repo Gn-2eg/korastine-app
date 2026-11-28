@@ -27,7 +27,7 @@ if("3"===mb){
 }
 var mid=O("div","mb-mid");
 if("1"===mb){
-  var st=O("div","mb1-stad");st.appendChild(O("i"));box.appendChild(st);
+  var st=O("div","mb1-stad");st.appendChild(O("b"));st.appendChild(O("i"));box.appendChild(st);
   mid.appendChild(O("span","mb1-lbl","ماتش اليوم"));
   mid.appendChild(O("b","mb1-time",live||known?String(a.hs)+" - "+String(a.as):H(a.date)));
   lg&&mid.appendChild(O("span","mb1-lg",lg));
