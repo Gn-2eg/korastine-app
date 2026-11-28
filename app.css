@@ -673,3 +673,10 @@ html.hl-j .j-tile .lg-logo{width:36px;height:36px;object-fit:contain}
 html.hl-j .j-name{font-size:15px;white-space:nowrap}
 html.hl-j .mcard .lg-label .lg-date{font-size:11px;white-space:nowrap}
 html.hl-j .mcard .lg-label{gap:10px;padding:12px}
+
+/* ?bg=1 / ?bg=2 */
+#ksbg{position:fixed;left:0;top:0;right:0;bottom:0;z-index:-1;pointer-events:none;background:#070b0e}
+#ksbg img{width:100%;height:100%;object-fit:cover;display:block}
+html.bg-1 #ksbg img{opacity:.38}
+html.bg-2 #ksbg img{opacity:.22}
+html[class*="bg-"]{background:#070b0e}html[class*="bg-"] body{background:transparent!important}
