@@ -149,23 +149,28 @@
   function card(m) {
     var k = mkey(m), p = S.preds[k];
     var open = m.status === "upcoming" && m.date > Date.now();
-    var c = el("article", "pd-card" + (m.status === "live" ? " live" : ""));
-    var head = el("div", "pd-head");
-    head.appendChild(el("span", "pd-comp", compName[m.comp] || ""));
-    head.appendChild(el("span", "pd-time", m.status === "live" ? "● مباشر" : m.status === "ft" ? "انتهت" : m.status === "pp" ? "مؤجلة" : hhmm(m.date)));
+    var c = el("article", "pdc" + (m.status === "live" ? " live" : "") + (m.status === "ft" ? " ft" : ""));
+    var head = el("div", "pdc-head");
+    head.appendChild(el("span", "pdc-comp", compName[m.comp] || ""));
+    var tm = el("span", "pdc-time");
+    tm.appendChild(el("i", "pdc-clock"));
+    tm.appendChild(el("span", null, m.status === "live" ? "مباشر" : m.status === "ft" ? "انتهت" : m.status === "pp" ? "مؤجلة" : hhmm(m.date)));
+    head.appendChild(tm);
     c.appendChild(head);
-    var teams = el("div", "pd-teams");
-    function side(name, logo, cls) {
-      var s = el("div", "pd-side " + (cls || "")); var lg = small(logo); if (lg) s.appendChild(lg); s.appendChild(el("span", null, name)); return s;
-    }
-    var mid = el("div", "pd-mid");
-    var hasScore = !isNaN(m.hs) && !isNaN(m.as) && m.status !== "upcoming";
-    mid.textContent = hasScore ? ar(m.hs) + " - " + ar(m.as) : "ضد";
-    teams.appendChild(side(m.home, m.homeLogo)); teams.appendChild(mid); teams.appendChild(side(m.away, m.awayLogo, "away"));
-    c.appendChild(teams);
 
     if (!open) {
-      var foot = el("div", "pd-foot");
+      var rb = el("div", "pdc-body closed");
+      function t2(name, logo, cls) {
+        var t = el("div", "pdc-tile " + (cls || ""));
+        var box = el("div", "pdc-logobox"); var lg = small(logo); if (lg) box.appendChild(lg);
+        t.appendChild(box); t.appendChild(el("div", "pdc-name", name)); return t;
+      }
+      var midc = el("div", "pdc-mid");
+      var hasScore = !isNaN(m.hs) && !isNaN(m.as);
+      midc.appendChild(el("div", "pdc-vs", hasScore ? ar(m.hs) + " - " + ar(m.as) : "VS"));
+      rb.appendChild(t2(m.home, m.homeLogo)); rb.appendChild(midc); rb.appendChild(t2(m.away, m.awayLogo, "away"));
+      c.appendChild(rb);
+      var foot = el("div", "pdc-foot");
       if (m.status === "pp") foot.appendChild(el("span", "pd-muted", "الماتش مؤجل، مفيش توقعات."));
       else if (!p) foot.appendChild(el("span", "pd-muted", "ما توقعتش الماتش ده."));
       else {
@@ -180,7 +185,7 @@
     }
 
     if (p && !editing[k]) {
-      var f2 = el("div", "pd-foot");
+      var f2 = el("div", "pdc-foot");
       f2.appendChild(el("span", null, "توقعك: " + pickText(p, m)));
       var ed = el("button", "pd-link", "عدّل"); ed.type = "button";
       ed.addEventListener("click", function () { editing[k] = true; paintList(); });
@@ -188,41 +193,80 @@
       return c;
     }
 
-    var st = { o: p ? (p.h != null ? sign(p.h, p.a) : p.o) : null, h: p && p.h != null ? p.h : "", a: p && p.a != null ? p.a : "" };
-    var opts = el("div", "pd-opts"), btns = {};
-    [["1", m.home], ["X", "تعادل"], ["2", m.away]].forEach(function (x) {
-      var b = el("button", "pd-opt", x[0] === "X" ? x[1] : "فوز " + x[1]); b.type = "button"; btns[x[0]] = b;
-      b.addEventListener("click", function () {
-        st.o = x[0];
-        if (st.h !== "" && st.a !== "" && sign(+st.h, +st.a) !== st.o) { st.h = ""; st.a = ""; hi.value = ""; ai.value = ""; }
+    var st = { o: p ? (p.h != null ? sign(p.h, p.a) : p.o) : null, h: p && p.h != null ? +p.h : null, a: p && p.a != null ? +p.a : null };
+
+    var body = el("div", "pdc-body");
+    function tile(name, logo, code) {
+      var t = el("button", "pdc-tile"); t.type = "button";
+      var box = el("div", "pdc-logobox"); var lg = small(logo); if (lg) box.appendChild(lg);
+      t.appendChild(box);
+      t.appendChild(el("div", "pdc-name", name));
+      var lab = el("div", "pdc-lab", "فوز");
+      t.appendChild(lab);
+      t.addEventListener("click", function () {
+        st.o = code;
+        if (st.h != null && st.a != null && sign(st.h, st.a) !== code) { st.h = null; st.a = null; }
         mark();
       });
-      opts.appendChild(b);
-    });
-    c.appendChild(opts);
-    var sc = el("div", "pd-score");
-    sc.appendChild(el("span", "pd-muted", "أو النتيجة بالظبط:"));
-    function num() { var i = el("input", "pd-num"); i.type = "number"; i.min = "0"; i.max = "20"; i.inputMode = "numeric"; return i; }
-    var hi = num(), ai = num(); hi.value = st.h; ai.value = st.a;
-    hi.setAttribute("aria-label", "أهداف " + m.home); ai.setAttribute("aria-label", "أهداف " + m.away);
-    function onScore() {
-      st.h = hi.value; st.a = ai.value;
-      if (st.h !== "" && st.a !== "") st.o = sign(+st.h, +st.a);
-      mark();
+      return { el: t, lab: lab };
     }
-    hi.addEventListener("input", onScore); ai.addEventListener("input", onScore);
-    sc.appendChild(hi); sc.appendChild(el("span", null, "-")); sc.appendChild(ai);
-    c.appendChild(sc);
-    var sv = el("button", "pd-btn", "ثبّت توقعي"); sv.type = "button"; sv.disabled = true;
+    var homeT = tile(m.home, m.homeLogo, "1");
+    var awayT = tile(m.away, m.awayLogo, "2");
+    var mid = el("div", "pdc-mid");
+    mid.appendChild(el("div", "pdc-vs", "VS"));
+    var draw = el("button", "pdc-draw", "تعادل"); draw.type = "button";
+    draw.addEventListener("click", function () { st.o = "X"; st.h = null; st.a = null; mark(); });
+    mid.appendChild(draw);
+    body.appendChild(homeT.el); body.appendChild(mid); body.appendChild(awayT.el);
+    c.appendChild(body);
+
+    var srow = el("div", "pdc-scorerow");
+    var slab = el("span", "pdc-scorelab");
+    slab.appendChild(el("i", "pdc-target"));
+    slab.appendChild(el("span", null, "توقع النتيجة الدقيقة"));
+    srow.appendChild(slab);
+    var steps = el("div", "pdc-steps");
+    function stepper(code, val, name) {
+      var g = el("div", "pdc-step");
+      var mi = el("button", "pdc-sbtn", "−"); mi.type = "button";
+      mi.setAttribute("aria-label", "أنقص " + name);
+      var v = el("b", "pdc-val", val == null ? "–" : ar(val));
+      var pl = el("button", "pdc-sbtn", "+"); pl.type = "button";
+      pl.setAttribute("aria-label", "زوّد " + name);
+      function set(d) {
+        var cur = code === "h" ? st.h : st.a;
+        var nv = cur == null ? (d > 0 ? 1 : 0) : Math.max(0, Math.min(20, cur + d));
+        if (code === "h") st.h = nv; else st.a = nv;
+        v.textContent = ar(nv);
+        if (st.h != null && st.a != null) st.o = sign(st.h, st.a);
+        mark();
+      }
+      mi.addEventListener("click", function () { set(-1); });
+      pl.addEventListener("click", function () { set(1); });
+      g.appendChild(mi); g.appendChild(v); g.appendChild(pl);
+      return g;
+    }
+    steps.appendChild(stepper("h", st.h, m.home));
+    steps.appendChild(el("span", "pdc-colon", ":"));
+    steps.appendChild(stepper("a", st.a, m.away));
+    srow.appendChild(steps);
+    c.appendChild(srow);
+
+    var sv = el("button", "pdc-btn", "ثبّت توقعي");
+    sv.type = "button";
     function mark() {
-      Object.keys(btns).forEach(function (q) { btns[q].classList.toggle("on", st.o === q); });
+      homeT.el.classList.toggle("on", st.o === "1");
+      awayT.el.classList.toggle("on", st.o === "2");
+      draw.classList.toggle("on", st.o === "X");
+      homeT.lab.textContent = st.o === "1" ? "اختيارك ✓" : "فوز";
+      awayT.lab.textContent = st.o === "2" ? "اختيارك ✓" : "فوز";
       sv.disabled = !st.o;
     }
     sv.addEventListener("click", function () {
       if (!st.o || m.date <= Date.now()) { paintList(); return; }
-      var one = st.h !== "" && st.a !== "";
-      var h = one ? Math.max(0, Math.min(20, Math.floor(+st.h))) : null, a = one ? Math.max(0, Math.min(20, Math.floor(+st.a))) : null;
-      if (one && (isNaN(h) || isNaN(a))) { h = null; a = null; one = false; }
+      var one = st.h != null && st.a != null;
+      var h = one ? Math.max(0, Math.min(20, Math.floor(st.h))) : null;
+      var a = one ? Math.max(0, Math.min(20, Math.floor(st.a))) : null;
       var n = { o: one ? sign(h, a) : st.o, h: h, a: a, t: Date.now(), date: m.date, comp: m.comp, home: m.home, away: m.away };
       S.preds[k] = n; delete editing[k]; save(); paintProfile(); paintList();
     });
