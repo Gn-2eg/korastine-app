@@ -821,7 +821,7 @@ html.hl-j .mcard .lg-label{padding:8px 10px;gap:8px} html.hl-j .j-tile{width:40p
 }
 /* 8: George's animated banner - his artwork as base, light CSS cloth motion, optional canvas warp */
 #featured.mbp.mbp8{padding:0;overflow:hidden;border-radius:16px;background:#030b12}
-#featured.mbp .mb8{position:relative;padding:0;overflow:hidden;border-radius:14px;container-type:inline-size;aspect-ratio:1495/527;background:#030b12 url(1-mb8c.webp) center/100% 100% no-repeat;isolation:isolate}
+#featured.mbp .mb8{position:relative;padding:0;overflow:hidden;border-radius:14px;container-type:inline-size;aspect-ratio:1495/527;background:#030b12 url(1-mb8e.webp) center/100% 100% no-repeat;isolation:isolate}
 @keyframes mb8swayA{0%,100%{transform:translate3d(0,0,0) rotate(0deg)}50%{transform:translate3d(-.35%,.5%,0) rotate(-.18deg)}}
 @keyframes mb8swayB{0%,100%{transform:translate3d(0,0,0) rotate(0deg)}50%{transform:translate3d(.35%,-.5%,0) rotate(.18deg)}}
 #featured.mbp .mb8::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(46% 64% at 54% 50%,rgba(53,224,125,.10),rgba(53,224,125,0) 72%);animation:mb7glow 6.5s ease-in-out infinite}
@@ -843,7 +843,7 @@ html.hl-j .mcard .lg-label{padding:8px 10px;gap:8px} html.hl-j .j-tile{width:40p
 }
 /* 8 effects: light sweep, floodlight flare, slow drift - GPU only, paused offscreen/hidden */
 #featured.mbp .mb8{background-size:100% 100%}
-#featured.mbp .mb8-drift{position:absolute;inset:0;z-index:0;pointer-events:none;background:url(1-mb8c.webp) center/100% 100% no-repeat;animation:mb8drift 22s ease-in-out infinite}
+#featured.mbp .mb8-drift{position:absolute;inset:0;z-index:0;pointer-events:none;background:url(1-mb8e.webp) center/100% 100% no-repeat;animation:mb8drift 22s ease-in-out infinite}
 @keyframes mb8drift{0%{transform:scale(1.035) rotate(-.22deg) translate3d(0,0,0)}50%{transform:scale(1.05) rotate(.18deg) translate3d(-.5%,-.4%,0)}100%{transform:scale(1.04) rotate(-.12deg) translate3d(.4%,.3%,0)}}
 #featured.mbp .mb8-sweep{position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(104deg,rgba(255,255,255,0) 38%,rgba(255,255,255,.20) 47%,rgba(214,255,232,.30) 50%,rgba(255,255,255,.18) 53%,rgba(255,255,255,0) 62%);transform:translate3d(-70%,0,0);animation:mb8sweep 9s cubic-bezier(.4,0,.2,1) infinite;mix-blend-mode:screen}
 @keyframes mb8sweep{0%{transform:translate3d(-70%,0,0)}55%,100%{transform:translate3d(70%,0,0)}}
@@ -965,3 +965,10 @@ body.fav-open{overflow:hidden}
 #featured.mbp .mb8-n{text-align:center}
 .fav-row span:nth-child(2){display:flex;flex-direction:column;align-items:flex-start;min-width:0;flex:1}
 .fav-en{font-size:.72rem;font-weight:600;color:#8fa5b4;direction:ltr}
+
+/* v139: crests in the cleared ball area, names get the full row */
+#featured.mbp .mb8-crests{position:absolute;z-index:2;left:11.6%;width:16.4%;top:44%;height:38%;display:flex;align-items:center;justify-content:center;gap:.9cqw;pointer-events:none}
+#featured.mbp .mb8-crests .mb8-logo{width:7.4cqw;height:7.4cqw;max-width:none;object-fit:contain;filter:drop-shadow(0 2px 5px rgba(0,0,0,.85))}
+#featured.mbp .mb8-col{left:29%;right:13%}
+#featured.mbp .mb8-nm{font-size:2.9cqw}
+#featured.mbp .mb8-score{gap:1.8cqw}
