@@ -859,6 +859,7 @@ body.fav-open{overflow:hidden}
 .bv-c #featured.mbp .mb8-vc{display:grid;grid-template-columns:auto minmax(0,1fr) auto minmax(0,1fr) auto;column-gap:1.6cqw;align-items:center;justify-items:center;width:100%}
 .bv-c #featured.mbp .mb8-vcr{display:flex;align-items:center;justify-content:center}
 .bv-c #featured.mbp .mb8-vcr .mb8-logo{width:10.5cqw;height:10.5cqw;object-fit:contain;display:block}
+.bv-c #featured.mbp .mb8-vc .mb8-n .mb8-min{left:50%;top:100%;transform:translateX(-50%);margin-top:.5cqw;white-space:nowrap;line-height:1.2;font-size:2.7cqw;color:#fff;background:#e5233a;box-shadow:0 0 10px rgba(229,35,58,.65),0 0 0 .3cqw rgba(0,0,0,.35)}
 .bv-c #featured.mbp .mb8-vc .mb8-n{font-size:7.2cqw;line-height:1;text-align:center}
 .bv-c #featured.mbp .mb8-vc .mb8-nm{align-self:center;width:100%;max-width:none;font-size:2.9cqw;line-height:1.25;text-align:center;white-space:normal;overflow-wrap:anywhere}
 
