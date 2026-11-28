@@ -951,3 +951,17 @@ body.fav-open{overflow:hidden}
 #featured.mbp .mb8-nm{white-space:normal;overflow:visible;text-overflow:clip;max-width:16cqw;line-height:1.12;text-align:center;font-size:2.6cqw;overflow-wrap:anywhere}
 #featured.mbp .mb8-tm{max-width:22cqw}
 #featured.mbp .mb8-score{gap:1.2cqw}
+
+/* v138: standalone safe-area, exact banner centering, favourites list */
+.topbar{padding-top:calc(6px + env(safe-area-inset-top,0px));padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px))}
+@media(min-width:761px){.topbar{padding-top:calc(10px + env(safe-area-inset-top,0px))}}
+.dash-head{padding-top:max(14px,env(safe-area-inset-top,0px))}
+#featured.mbp .mb8-col{left:27%;right:13%;top:7%;bottom:7%;align-items:center;justify-content:center;text-align:center}
+#featured.mbp .mb8-score{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;justify-content:center;width:100%;gap:1.4cqw}
+#featured.mbp .mb8-score .mb8-tm{max-width:none;min-width:0}
+#featured.mbp .mb8-score .mb8-tm:first-child{justify-content:flex-end}
+#featured.mbp .mb8-score .mb8-tm:last-child{justify-content:flex-start}
+#featured.mbp .mb8-nm{max-width:none;white-space:normal;text-overflow:clip;overflow:visible;overflow-wrap:normal;word-break:normal;line-height:1.12;text-align:center;font-size:2.5cqw;min-width:0}
+#featured.mbp .mb8-n{text-align:center}
+.fav-row span:nth-child(2){display:flex;flex-direction:column;align-items:flex-start;min-width:0;flex:1}
+.fav-en{font-size:.72rem;font-weight:600;color:#8fa5b4;direction:ltr}
