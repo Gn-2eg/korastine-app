@@ -864,3 +864,39 @@ html.hl-j .mcard .lg-label{padding:8px 10px;gap:8px} html.hl-j .j-tile{width:40p
 .ks-goal-word{position:absolute;inset:0;z-index:5;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:26px;font-weight:900;letter-spacing:3px;color:#fff;text-shadow:0 0 18px rgba(53,224,125,.95),0 2px 8px rgba(0,0,0,.8);pointer-events:none;animation:ksGoal 4s ease-out forwards}
 @keyframes ksGoal{0%{opacity:0;transform:scale(.55)}16%{opacity:1;transform:scale(1.12)}30%{transform:scale(1)}72%{opacity:1}100%{opacity:0;transform:scale(1.18)}}
 @media (prefers-reduced-motion:reduce){.ks-goal-word{animation:none;opacity:1}.match-row.ks-goal-h,.match-row.ks-goal-a{animation:none}}
+
+/* ---- التوقعات: كارت التوقع الجديد (pdc) ---- */
+#predictRoot .pdc{background:#0e1a22;border:1px solid rgba(255,255,255,.07);border-radius:18px;padding:12px 12px 14px;margin:0 0 12px;box-shadow:0 10px 24px rgba(0,0,0,.35)}
+#predictRoot .pdc.live{border-color:rgba(53,224,125,.45);box-shadow:0 0 0 1px rgba(53,224,125,.18),0 10px 24px rgba(0,0,0,.35)}
+#predictRoot .pdc-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
+#predictRoot .pdc-comp{color:#e8c26a;font-weight:800;font-size:.82rem}
+#predictRoot .pdc-time{display:inline-flex;align-items:center;gap:6px;color:#b9cbd8;font-weight:700;font-size:.8rem;font-variant-numeric:tabular-nums}
+#predictRoot .pdc-clock{width:14px;height:14px;border-radius:50%;border:2px solid #b9cbd8;display:inline-block;position:relative}
+#predictRoot .pdc-clock::after{content:"";position:absolute;inset:2px 4.5px 4.5px 2px;border-left:2px solid #b9cbd8;border-bottom:2px solid #b9cbd8;border-radius:1px}
+#predictRoot .pdc-body{display:grid;grid-template-columns:1fr auto 1fr;align-items:stretch;gap:8px}
+#predictRoot .pdc-tile{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:8px;padding:12px 6px 10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:16px;color:inherit;font:inherit;cursor:pointer;transition:background .18s,border-color .18s,transform .12s}
+#predictRoot .pdc-tile:active{transform:scale(.985)}
+#predictRoot .pdc-tile.on{background:linear-gradient(180deg,#1d6b45,#14512f);border-color:rgba(53,224,125,.6);box-shadow:0 0 0 1px rgba(53,224,125,.25) inset}
+#predictRoot .pdc-logobox{width:56px;height:56px;border-radius:14px;background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden}
+#predictRoot .pdc-logobox img,#predictRoot .pdc-logobox .pd-logo{width:46px;height:46px;object-fit:contain}
+#predictRoot .pdc-name{font-weight:800;font-size:.86rem;color:#f2f7f4;text-align:center;line-height:1.25;max-width:100%;overflow-wrap:break-word}
+#predictRoot .pdc-lab{font-size:.78rem;font-weight:700;color:#8fa5b4}
+#predictRoot .pdc-tile.on .pdc-lab{color:#6ff2a6}
+#predictRoot .pdc-mid{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:0 2px}
+#predictRoot .pdc-vs{font-weight:900;font-size:1.15rem;color:#9fb3c8;letter-spacing:.5px}
+#predictRoot .pdc-draw{border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.07);color:#cfe0d6;font:inherit;font-size:.78rem;font-weight:800;padding:7px 10px;border-radius:999px;cursor:pointer}
+#predictRoot .pdc-draw.on{background:#35e07d;border-color:#35e07d;color:#06210f}
+#predictRoot .pdc-scorerow{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:8px 10px}
+#predictRoot .pdc-scorelab{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:800;color:#cfdae3}
+#predictRoot .pdc-target{width:15px;height:15px;border-radius:50%;border:2px solid #e8c26a;position:relative;flex:0 0 auto}
+#predictRoot .pdc-target::after{content:"";position:absolute;left:50%;top:50%;width:4px;height:4px;background:#e8c26a;border-radius:50%;transform:translate(-50%,-50%)}
+#predictRoot .pdc-steps{display:inline-flex;align-items:center;gap:6px}
+#predictRoot .pdc-step{display:inline-flex;align-items:center;gap:6px}
+#predictRoot .pdc-sbtn{width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.18);background:transparent;color:#e6f2ea;font-size:1.05rem;font-weight:800;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+#predictRoot .pdc-sbtn:active{background:rgba(255,255,255,.12)}
+#predictRoot .pdc-val{min-width:20px;text-align:center;font-size:1.15rem;font-weight:900;color:#fff;font-variant-numeric:tabular-nums}
+#predictRoot .pdc-colon{color:#8fa5b4;font-weight:900;padding:0 2px}
+#predictRoot .pdc-btn{margin-top:12px;width:100%;min-height:46px;border:0;border-radius:14px;background:linear-gradient(180deg,#63f0a6,#35e07d);color:#06210f;font:inherit;font-size:1rem;font-weight:900;cursor:pointer;box-shadow:0 6px 16px rgba(53,224,125,.28)}
+#predictRoot .pdc-btn[disabled]{opacity:.45;box-shadow:none;cursor:default}
+#predictRoot .pdc-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:10px;font-size:.85rem;font-weight:700;color:#dbe8e1}
+#predictRoot .pdc-body.closed{opacity:.95}
