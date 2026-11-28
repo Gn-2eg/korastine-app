@@ -658,3 +658,14 @@ html.cd-1 .mcard .more-btn.pill{display:flex;align-items:center;justify-content:
 html.cd-1 .more-btn.pill .chev{width:9px;height:9px;border-right:2px solid #c9cfd4;border-bottom:2px solid #c9cfd4;transform:rotate(45deg);margin-top:-4px}
 html.cd-1 .more-btn.pill[aria-expanded="true"] .chev{transform:rotate(-135deg);margin-top:4px}
 html.cd-1 .mcard .match-row,html.cd-1 .mcard .match-row.is-live{padding-bottom:12px}
+
+html.cd-1 .more-btn.pill{text-decoration:none}
+/* hl-j */
+html.hl-j .mcard .lg-label{padding:12px 14px;gap:12px;background:#10241f!important}
+html.hl-j .j-tile{flex:0 0 auto;width:54px;height:54px;border-radius:16px;background:#1d3a2f;display:flex;align-items:center;justify-content:center}
+html.hl-j .j-blk{display:flex;flex-direction:column;gap:6px;min-width:0}
+html.hl-j .j-name{font-size:17px;font-weight:800;color:#f1f5f2;line-height:1.2}
+html.hl-j .j-sub{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:#8fa79b}
+html.hl-j .j-sep{width:1px;height:12px;background:#4a5e55}
+html.hl-j .j-chev{margin-inline-start:auto;color:#9fb3a8;font-size:22px;line-height:1}
+html.hl-j .mcard .lg-label .lg-date{margin-inline-start:0;font-size:13px;color:#b9c7bf}
