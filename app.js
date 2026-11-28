@@ -162,10 +162,7 @@ function U(e){var n=w.indexOf(e.comp);return n<0?999:n}function z(){return o}fun
   function teams(){var m={};var base=ALL||loadCache()||[];base.forEach(function(t){m[t.k]=t});var r=rowsTeams();Object.keys(r).forEach(function(k){if(!m[k])m[k]=r[k]});all().forEach(function(x){var k=x.k||key(x.n);if(!m[k])m[k]={k:k,n:x.n,e:"",l:x.l||"",a:x.a||[k],h:(x.a||[k]).join(" | ")}});return Object.keys(m).map(function(k){return m[k]}).sort(function(a,b){var sa=cur0().indexOf(a.k)>=0?0:1,sb=cur0().indexOf(b.k)>=0?0:1;return sa-sb||a.n.localeCompare(b.n,"ar")})}
   function cur0(){return all().map(function(x){return x.k||key(x.n)})}
   function sheet(){var ov=document.getElementById("favSheet");if(ov)return ov;ov=document.createElement("div");ov.id="favSheet";ov.className="fav-ov";ov.hidden=true;ov.addEventListener("click",function(e){if(e.target===ov)close()});document.body.appendChild(ov);return ov}
-  var kbT=0,VV=window.visualViewport;
-  function kbSync(){var ov=document.getElementById("favSheet");if(!ov||!VV||!document.body.classList.contains("fav-kb"))return;ov.style.setProperty("--vvt",VV.offsetTop+"px");ov.style.setProperty("--vvh",VV.height+"px")}
-  if(VV){VV.addEventListener("resize",kbSync);VV.addEventListener("scroll",kbSync)}
-  function close(){document.body.classList.remove("fav-kb");lastQ="";var o=document.getElementById("favSheet");if(o)o.hidden=true;document.body.classList.remove("fav-open")}
+  function close(){lastQ="";var o=document.getElementById("favSheet");if(o)o.hidden=true;document.body.classList.remove("fav-open")}
   function render(){
     var ov=sheet(),list=teams(),q=lastQ,cur=cur0();
     ov.innerHTML="";
@@ -176,7 +173,6 @@ function U(e){var n=w.indexOf(e.comp);return n<0?999:n}function z(){return o}fun
     p.appendChild(hd);
     var note=document.createElement("div");note.className="fav-note";note.textContent="اختار فريق أو أكثر، والبانر هيعرض ماتشه. لو مفيش اختيار، هيفضل يعرض ماتش اليوم زي العادي.";p.appendChild(note);
     var inp=document.createElement("input");inp.className="fav-in";inp.type="search";inp.placeholder="دوّر على فريق…";inp.setAttribute("aria-label","بحث عن فريق");p.appendChild(inp);
-    inp.addEventListener("focus",function(){clearTimeout(kbT);document.body.classList.add("fav-kb");kbSync()});inp.addEventListener("blur",function(){clearTimeout(kbT);kbT=setTimeout(function(){document.body.classList.remove("fav-kb")},250)});
     var box=document.createElement("div");box.className="fav-list";
     function paint(){
       box.innerHTML="";
