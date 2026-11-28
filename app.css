@@ -856,3 +856,14 @@ html.hl-j .mcard .lg-label{padding:8px 10px;gap:8px} html.hl-j .j-tile{width:40p
 @media (prefers-reduced-motion:reduce){
  #featured.mbp .mb8-drift,#featured.mbp .mb8-sweep,#featured.mbp .mb8-flare{animation:none;display:none}
 }
+/* smart=1 preview: goal glow, GOAL word, countdown, bell */
+.match-row{position:relative}
+.ks-bell{position:absolute;top:3px;left:3px;z-index:4;width:22px;height:22px;border-radius:50%;border:1px solid rgba(255,255,255,.16);background:rgba(8,18,14,.62);color:#9fb3a8;font-size:11px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+.ks-bell.on{color:#08150f;background:#35e07d;border-color:#35e07d;box-shadow:0 0 10px rgba(53,224,125,.55)}
+.ks-cd{display:block;font-size:10px;font-weight:800;color:#ffd166;margin-top:2px}
+.match-row.ks-goal-h{box-shadow:inset 3px 0 0 #35e07d,0 0 18px rgba(53,224,125,.4);animation:ksGlow 4s ease-out}
+.match-row.ks-goal-a{box-shadow:inset -3px 0 0 #35e07d,0 0 18px rgba(53,224,125,.4);animation:ksGlow 4s ease-out}
+@keyframes ksGlow{0%{background-color:rgba(53,224,125,.22)}100%{background-color:transparent}}
+.ks-goal-word{position:absolute;inset:0;z-index:5;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:26px;font-weight:900;letter-spacing:3px;color:#fff;text-shadow:0 0 18px rgba(53,224,125,.95),0 2px 8px rgba(0,0,0,.8);pointer-events:none;animation:ksGoal 4s ease-out forwards}
+@keyframes ksGoal{0%{opacity:0;transform:scale(.55)}16%{opacity:1;transform:scale(1.12)}30%{transform:scale(1)}72%{opacity:1}100%{opacity:0;transform:scale(1.18)}}
+@media (prefers-reduced-motion:reduce){.ks-goal-word{animation:none;opacity:1}.match-row.ks-goal-h,.match-row.ks-goal-a{animation:none}}
