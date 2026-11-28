@@ -856,14 +856,15 @@ body.fav-open{overflow:hidden}
 .bv-b #featured.mbp .mb8-vcell .mb8-nm{font-size:2.7cqw;text-align:center;white-space:normal;max-width:none}
 .bv-b #featured.mbp .mb8-vb .mb8-n{font-size:6.2cqw}
 .bv-c #featured.mbp .mb8-col{left:11%;right:11%;top:6%;bottom:6%;gap:.8cqw}
-.bv-c #featured.mbp .mb8-vc{display:grid;grid-template-columns:auto minmax(0,1fr) auto minmax(0,1fr) auto;column-gap:1.6cqw;align-items:center;justify-items:center;width:100%}
-.bv-c #featured.mbp .mb8-vcr{display:flex;align-items:center;justify-content:center}
-.bv-c #featured.mbp .mb8-vcr .mb8-logo{width:12.5cqw;height:12.5cqw;object-fit:contain;display:block}
+.bv-c #featured.mbp .mb8-vc{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);column-gap:2cqw;align-items:center;width:100%}
+.bv-c #featured.mbp .mb8-vg{display:flex;align-items:center;gap:1cqw;min-width:0;max-width:100%}
+.bv-c #featured.mbp .mb8-vg:first-child{justify-self:end}
+.bv-c #featured.mbp .mb8-vg:last-child{justify-self:start}
+.bv-c #featured.mbp .mb8-vcr{display:flex;flex:none;align-items:center;justify-content:center}
+.bv-c #featured.mbp .mb8-vcr .mb8-logo{width:13.5cqw;height:13.5cqw;object-fit:contain;display:block}
 .bv-c #featured.mbp .mb8-vc .mb8-n .mb8-min{left:50%;top:100%;transform:translateX(-50%);margin-top:.5cqw;white-space:nowrap;line-height:1.2;font-size:2.7cqw;color:#fff;background:#e5233a;box-shadow:0 0 10px rgba(229,35,58,.65),0 0 0 .3cqw rgba(0,0,0,.35)}
 .bv-c #featured.mbp .mb8-vc .mb8-n{font-size:7.2cqw;line-height:1;text-align:center}
-.bv-c #featured.mbp .mb8-vc .mb8-nm:nth-of-type(1){text-align:left}
-.bv-c #featured.mbp .mb8-vc .mb8-nm:nth-of-type(2){text-align:right}
-.bv-c #featured.mbp .mb8-vc .mb8-nm{align-self:center;width:100%;max-width:none;font-size:2.9cqw;line-height:1.25;text-align:center;white-space:normal;overflow-wrap:anywhere}
+.bv-c #featured.mbp .mb8-vc .mb8-nm{min-width:0;font-size:2.9cqw;line-height:1.25;text-align:center;white-space:normal;overflow-wrap:anywhere}
 
 /* banner effects preview (only with ?bv=c&fx=1): transform/opacity only, paused offscreen via .mb8-paused */
 @keyframes bvin{from{opacity:0;transform:translate3d(0,6%,0)}to{opacity:1;transform:none}}
@@ -877,5 +878,5 @@ body.fav-open{overflow:hidden}
 .bv-fx #featured.mbp .mb8-vc .mb8-n::before{content:"";position:absolute;z-index:-1;inset:-35% -30%;background:radial-gradient(closest-side,rgba(53,224,125,.5),rgba(53,224,125,0) 72%);animation:bvglow 3.8s ease-in-out infinite;will-change:opacity,transform}
 .bv-fx #featured.mbp .mb8-vcr{animation:bvcrest .8s cubic-bezier(.2,.7,.2,1) .15s both}
 .bv-fx #featured.mbp .mb8-vcr .mb8-logo{animation:bvfloat 5.2s ease-in-out infinite;will-change:transform}
-.bv-fx #featured.mbp .mb8-vcr:last-of-type .mb8-logo{animation-delay:-2.6s}
+.bv-fx #featured.mbp .mb8-vg:last-child .mb8-vcr .mb8-logo{animation-delay:-2.6s}
 @media (prefers-reduced-motion:reduce){.bv-fx #featured.mbp .mb8-col>*,.bv-fx #featured.mbp .mb8-vc .mb8-n::before,.bv-fx #featured.mbp .mb8-vcr,.bv-fx #featured.mbp .mb8-vcr .mb8-logo{animation:none!important}}
