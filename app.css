@@ -1009,3 +1009,13 @@ body.fav-open{overflow:hidden}
 .bv-fx #featured.mbp .mb8-crests .mb8-logo{animation:bvfloat 5.2s ease-in-out infinite;will-change:transform}
 .bv-fx #featured.mbp .mb8-crests-r .mb8-logo{animation-delay:-2.6s}
 @media (prefers-reduced-motion:reduce){.bv-fx #featured.mbp .mb8-col>*,.bv-fx #featured.mbp .mb8-vc .mb8-n::before,.bv-fx #featured.mbp .mb8-crests,.bv-fx #featured.mbp .mb8-crests .mb8-logo{animation:none!important}}
+
+/* bg previews */
+html.ksbg1 #featured.mbp .mb8{background-image:url(1-bg1.webp)}
+html.ksbg1 #featured.mbp .mb8-drift{background-image:url(1-bg1.webp)}
+html.ksbg2 #featured.mbp .mb8{background-image:url(2-bg2.webp)}
+html.ksbg2 #featured.mbp .mb8-drift{background-image:url(2-bg2.webp)}
+html.ksbg3 #featured.mbp .mb8{background-image:url(3-bg3.webp)}
+html.ksbg3 #featured.mbp .mb8-drift{background-image:url(3-bg3.webp)}
+html.ksbg4 #featured.mbp .mb8{background-image:url(4-bg4.webp)}
+html.ksbg4 #featured.mbp .mb8-drift{background-image:url(4-bg4.webp)}
