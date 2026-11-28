@@ -938,3 +938,12 @@ html.hl-j .mcard .lg-label{padding:8px 10px;gap:8px} html.hl-j .j-tile{width:40p
 .fav-row .fav-star{margin-inline-start:auto;color:#35e07d;font-size:14px}
 .fav-empty{font-size:13px;color:#9fb3a8;padding:8px}
 body.fav-open{overflow:hidden}
+/* predictions exact-score row: never wider than the card; label on top, steppers centred below */
+#predictRoot .pdc,#predictRoot .pdc-body,#predictRoot .pdc-scorerow{min-width:0;max-width:100%;box-sizing:border-box}
+#predictRoot .pdc-scorerow{flex-wrap:wrap;justify-content:center;row-gap:8px;column-gap:10px;overflow:hidden}
+#predictRoot .pdc-scorelab{flex:1 1 100%;justify-content:center}
+#predictRoot .pdc-steps{flex:0 1 auto;max-width:100%;justify-content:center;gap:10px;direction:ltr}
+#predictRoot .pdc-step{gap:4px}
+#predictRoot .pdc-sbtn{width:30px;height:30px;flex:0 0 auto}
+#predictRoot .pdc-val{min-width:18px}
+@media (max-width:359px){#predictRoot .pdc-steps{gap:6px}#predictRoot .pdc-sbtn{width:28px;height:28px}}
