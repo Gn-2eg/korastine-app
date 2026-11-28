@@ -678,3 +678,54 @@ html[class*="bg-"] body{background:transparent!important}
 
 /* merged live: compact hl-j + cd-1 default */
 html.hl-j .mcard .lg-label{padding:8px 10px;gap:8px} html.hl-j .j-tile{width:40px;height:40px;border-radius:12px} html.hl-j .j-tile .lg-logo{width:26px;height:26px} html.hl-j .j-blk{gap:3px} html.hl-j .j-name{font-size:13px} html.hl-j .j-sub{font-size:10px;gap:6px} html.hl-j .j-sep{height:9px} html.hl-j .j-chev{font-size:17px} html.hl-j .mcard .lg-label .lg-date{font-size:10px}
+
+
+/* ---- mb preview: match-of-the-day banner variants (?mb=1..4). Preview only, default banner untouched ---- */
+#featured.mbp{padding:0;overflow:hidden;border-radius:18px}
+#featured.mbp .mb-in{position:relative;z-index:1;padding:13px 11px 13px;overflow:hidden;border-radius:18px}
+#featured.mbp .mb-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(86px,auto) minmax(0,1fr);align-items:center;gap:8px;position:relative;z-index:1}
+#featured.mbp .mb-side{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-width:0}
+#featured.mbp .mb-logo{width:44px;height:44px;object-fit:contain;flex:0 0 auto}
+#featured.mbp .mb-nm{font-size:13px;font-weight:800;line-height:1.35;text-align:center;white-space:normal;overflow:visible;text-overflow:clip;overflow-wrap:break-word;word-break:break-word;max-width:100%;color:#eaf1ee}
+#featured.mbp .mb-mid{display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;min-width:0;max-width:132px}
+#featured.mbp .mb-time{font-family:var(--display);font-size:25px;font-weight:800;line-height:1.15;color:#f3f7f5;letter-spacing:.5px;white-space:nowrap}
+
+/* 1: calm stadium, big logos, big time */
+#featured.mbp .mb1-stad{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.55;background:
+ radial-gradient(120% 90% at 50% 118%,rgba(53,224,125,.20),rgba(53,224,125,0) 58%),
+ radial-gradient(45% 40% at 6% -14%,rgba(243,196,85,.26),transparent 72%),
+ radial-gradient(45% 40% at 94% -14%,rgba(243,196,85,.26),transparent 72%),
+ repeating-linear-gradient(90deg,rgba(255,255,255,.045) 0 2px,transparent 2px 13px),
+ linear-gradient(180deg,#0b1e2b 0%,#08131c 55%,#060e14 100%)}
+#featured.mbp .mb1-stad i{position:absolute;inset:auto -14% -60% -14%;height:82%;border-radius:50%;background:radial-gradient(ellipse at 50% 42%,rgba(53,224,125,.18),rgba(53,224,125,0) 62%);border-top:1px solid rgba(255,255,255,.12)}
+#featured.mbp .mb1-lbl{font-size:10px;font-weight:800;color:#9fb3a8;letter-spacing:.8px}
+#featured.mbp .mb1-lg{font-size:10px;font-weight:700;color:#8fa79b;line-height:1.35}
+
+/* 2: split by the two teams' colors, diagonal divider */
+#featured.mbp .mb2-bg{position:absolute;inset:0;z-index:0;pointer-events:none;background:linear-gradient(255deg,#12332a 0 49.4%,rgba(255,255,255,.28) 49.4% 50.2%,#33161a 50.2% 100%)}
+#featured.mbp .mb2-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,12,16,.10),rgba(6,12,16,.55))}
+#featured.mbp .mb2-time{font-family:var(--display);font-size:25px;font-weight:800;line-height:1.15;color:#fff;letter-spacing:.5px;text-shadow:0 1px 6px rgba(0,0,0,.55);white-space:nowrap}
+#featured.mbp .mb2-lg{font-size:10px;font-weight:700;color:rgba(255,255,255,.82);line-height:1.35;text-shadow:0 1px 4px rgba(0,0,0,.5)}
+
+/* 3: big countdown, teams below */
+#featured.mbp .mb3-top{display:flex;flex-direction:column;align-items:center;gap:5px;padding:2px 0 9px}
+#featured.mbp .mb3-cd{font-family:var(--display);font-size:27px;font-weight:800;color:#35e07d;line-height:1.15}
+#featured.mbp .mb3-score{font-family:var(--display);font-size:30px;font-weight:800;color:#f3f7f5;line-height:1.15}
+#featured.mbp .mb3-live{font-size:11px;font-weight:800;color:#35e07d;background:rgba(53,224,125,.12);border:1px solid rgba(53,224,125,.35);border-radius:999px;padding:2px 11px}
+#featured.mbp .mb3-teams{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:start;gap:8px}
+#featured.mbp .mb3-teams .mb-logo{width:38px;height:38px}
+#featured.mbp .mb3-vs{font-size:12px;color:#6d8177;padding-top:12px}
+#featured.mbp .mb3-lg{display:block;text-align:center;font-size:10px;font-weight:700;color:#8fa79b;margin-top:9px}
+
+/* 4: one thin Palestine flag along the right edge */
+#featured.mbp .mb4-flag{position:absolute;top:0;bottom:0;right:0;width:16px;z-index:2;pointer-events:none;background:linear-gradient(180deg,#000 0 33.33%,#fff 33.33% 66.66%,#007a3d 66.66% 100%)}
+#featured.mbp .mb4-flag i{position:absolute;top:0;left:0;width:16px;height:62px;background:#ce1126;-webkit-clip-path:polygon(100% 0,0 0,0 100%);clip-path:polygon(100% 0,0 0,0 100%)}
+#featured.mbp .mb-in.mb4{padding-right:23px}
+#featured.mbp .mb4-time{font-family:var(--display);font-size:25px;font-weight:800;line-height:1.15;color:#f3f7f5;letter-spacing:.5px;white-space:nowrap}
+#featured.mbp .mb4-lg{font-size:10px;font-weight:700;color:#8fa79b;line-height:1.35}
+
+@media (max-width:360px){
+ #featured.mbp .mb-logo{width:38px;height:38px}
+ #featured.mbp .mb-time,#featured.mbp .mb2-time,#featured.mbp .mb4-time{font-size:22px}
+ #featured.mbp .mb3-cd{font-size:24px}
+}
