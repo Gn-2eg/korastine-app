@@ -794,6 +794,10 @@ html.hl-j .mcard .lg-label{padding:8px 10px;gap:8px} html.hl-j .j-tile{width:40p
 .fav-btn.on .fav-star{color:#08150f}
 .fav-ov{position:fixed;inset:0;z-index:130;background:rgba(2,8,6,.74);display:flex;align-items:flex-end;justify-content:center}
 .fav-ov[hidden]{display:none}
+body.fav-kb .fav-ov{bottom:auto;top:var(--vvt,0px);height:var(--vvh,100%);align-items:flex-start}
+body.fav-kb .fav-panel{max-height:calc(var(--vvh,100vh) - 6px);border-radius:0 0 18px 18px;padding-bottom:12px}
+body.fav-kb .fav-note{display:none}
+body.fav-kb .fav-list{min-height:120px}
 .fav-panel{width:100%;max-width:560px;max-height:84vh;display:flex;flex-direction:column;background:#08131a;border:1px solid rgba(53,224,125,.25);border-radius:18px 18px 0 0;padding:14px 14px calc(16px + env(safe-area-inset-bottom));gap:10px}
 .fav-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .fav-head h3{margin:0;font-size:15px;font-weight:800}
