@@ -942,7 +942,7 @@ body.fav-open{overflow:hidden}
 #predictRoot .pdc,#predictRoot .pdc-body,#predictRoot .pdc-scorerow{min-width:0;max-width:100%;box-sizing:border-box}
 #predictRoot .pdc-scorerow{flex-wrap:wrap;justify-content:center;row-gap:8px;column-gap:10px;overflow:hidden}
 #predictRoot .pdc-scorelab{flex:1 1 100%;justify-content:center}
-#predictRoot .pdc-steps{flex:0 1 auto;max-width:100%;justify-content:center;gap:10px;direction:ltr}
+#predictRoot .pdc-steps{flex:0 1 auto;max-width:100%;justify-content:center;gap:10px}
 #predictRoot .pdc-step{gap:4px}
 #predictRoot .pdc-sbtn{width:30px;height:30px;flex:0 0 auto}
 #predictRoot .pdc-val{min-width:18px}
