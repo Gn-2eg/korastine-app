@@ -904,7 +904,6 @@ html.hl-j .mcard .lg-label{padding:8px 10px;gap:8px} html.hl-j .j-tile{width:40p
 /* كروت التوقعات: الكريستة على البلاطة مباشرة من غير صندوق أبيض */
 #predictRoot .pdc-logobox{background:transparent;border-radius:0;overflow:visible;width:58px;height:58px}
 #predictRoot .pdc-logobox img,#predictRoot .pdc-logobox .pd-logo{width:54px;height:54px;object-fit:contain;filter:drop-shadow(0 2px 5px rgba(0,0,0,.6))}
-/* mb=8: صورة ثابتة بدون أي حركة */
-#featured.mbp .mb8-drift{display:none}
-#featured.mbp .mb8-sweep,#featured.mbp .mb8-flare{display:none}
-#featured.mbp .mb8::before{animation:none}
+/* GOAL overlay: anchor to the match row itself so iOS Safari paints it on top */
+.match-row{position:relative}
+#featured .ks-goal-word,.ks-goal-word{z-index:9;will-change:opacity,transform}
