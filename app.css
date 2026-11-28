@@ -670,3 +670,6 @@ html.hl-j .j-sep{width:1px;height:12px;background:#4a5e55}
 html.hl-j .j-chev{margin-inline-start:auto;color:#9fb3a8;font-size:22px;line-height:1}
 html.hl-j .mcard .lg-label .lg-date{margin-inline-start:0;font-size:13px;color:#b9c7bf}
 html.hl-j .j-tile .lg-logo{width:36px;height:36px;object-fit:contain}
+html.hl-j .j-name{font-size:15px;white-space:nowrap}
+html.hl-j .mcard .lg-label .lg-date{font-size:11px;white-space:nowrap}
+html.hl-j .mcard .lg-label{gap:10px;padding:12px}
