@@ -6,6 +6,29 @@ known=!isNaN(a.hs)&&!isNaN(a.as)&&"upcoming"!==a.status&&"pp"!==a.status;
 function mix(c,k){var p=String(c).split(","),b=[13,26,31];return"rgb("+[0,1,2].map(function(i){return Math.round(b[i]*(1-k)+(+p[i])*k)}).join(",")+")"}function vivid(c){var p=String(c).split(",").map(Number),m=(p[0]+p[1]+p[2])/3;return p.map(function(v){return Math.max(0,Math.min(255,Math.round(m+(v-m)*1.9)))}).join(",")}
 function side(logo,name){var d=O("div","mb-side"),im=A(logo,"mb-logo");im&&d.appendChild(im);d.appendChild(O("span","mb-nm",name));return d}
 var box=O("div","mb-in mb"+mb);
+if("5"===mb){
+  var m5=O("div","mb-in mb5");
+  m5.appendChild(O("div","mb5-mid"));
+  var rb1=O("div","mb5-top"),rb2=O("div","mb5-bot");
+  var col=O("div","mb5-col");
+  var pill=O("span","mb5-pill"+(live?" is-live":""));
+  pill.appendChild(O("i","mb5-dot"));pill.appendChild(O("span",null,live?"مباشر حلوقتي":"ماتش اليوم"));
+  col.appendChild(pill);
+  col.appendChild(O("span","mb5-lg",lg?lg+" · "+H(a.date):H(a.date)));
+  var row5=O("div","mb5-score");
+  var t1=O("span","mb5-tm"),i1=A(a.homeLogo,"mb5-logo");
+  i1&&t1.appendChild(i1);t1.appendChild(O("span","mb5-nm",a.home));
+  var t2=O("span","mb5-tm"),i2=A(a.awayLogo,"mb5-logo");
+  i2&&t2.appendChild(i2);t2.appendChild(O("span","mb5-nm",a.away));
+  row5.appendChild(t1);
+  row5.appendChild(O("b","mb5-n",live||known?String(a.hs)+" : "+String(a.as):"– : –"));
+  row5.appendChild(t2);
+  col.appendChild(row5);
+  m5.appendChild(col);
+  m5.appendChild(rb1);m5.appendChild(rb2);
+  if(live){var mnt=parseInt(String(a.minute||"").replace(/[^0-9]/g,""),10);mnt>0&&m5.appendChild(O("span","mb5-min",D(mnt)+"'"))}
+  n.appendChild(m5);return;
+}
 if("3"===mb){
   var top=O("div","mb3-top");
   if(live||known){
