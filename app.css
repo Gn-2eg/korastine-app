@@ -821,15 +821,15 @@ html.hl-j .mcard .lg-label{padding:8px 10px;gap:8px} html.hl-j .j-tile{width:40p
 }
 /* 8: George's animated banner - his artwork as base, light CSS cloth motion, optional canvas warp */
 #featured.mbp.mbp8{padding:0;overflow:hidden;border-radius:16px;background:#030b12}
-#featured.mbp .mb8{position:relative;padding:0;overflow:hidden;border-radius:16px;container-type:inline-size;aspect-ratio:1536/594;background:#030b12 url(1-mb8.webp) center/100% 100% no-repeat;isolation:isolate}
-#featured.mbp .mb8-wave{position:absolute;inset:0;z-index:0;pointer-events:none;background:url(1-mb8.webp) center/100% 100% no-repeat;will-change:transform}
+#featured.mbp .mb8{position:relative;padding:0;overflow:hidden;border-radius:14px;container-type:inline-size;aspect-ratio:1495/527;background:#030b12 url(1-mb8c.webp) center/100% 100% no-repeat;isolation:isolate}
+#featured.mbp .mb8-wave{position:absolute;inset:0;z-index:0;pointer-events:none;background:url(1-mb8c.webp) center/100% 100% no-repeat;will-change:transform}
 #featured.mbp .mb8-wave.a{clip-path:inset(0 0 76% 0);animation:mb8swayA 7.5s ease-in-out infinite}
 #featured.mbp .mb8-wave.b{clip-path:inset(76% 0 0 0);animation:mb8swayB 7.5s ease-in-out infinite}
 @keyframes mb8swayA{0%,100%{transform:translate3d(0,0,0) rotate(0deg)}50%{transform:translate3d(-.35%,.5%,0) rotate(-.18deg)}}
 @keyframes mb8swayB{0%,100%{transform:translate3d(0,0,0) rotate(0deg)}50%{transform:translate3d(.35%,-.5%,0) rotate(.18deg)}}
 #featured.mbp .mb8::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(46% 64% at 54% 50%,rgba(53,224,125,.10),rgba(53,224,125,0) 72%);animation:mb7glow 6.5s ease-in-out infinite}
-#featured.mbp .mb8::after{content:"";position:absolute;z-index:1;pointer-events:none;top:16%;right:12%;bottom:13%;left:26%;background:radial-gradient(62% 76% at 56% 50%,rgba(2,12,9,.55),rgba(2,12,9,.22) 62%,rgba(2,12,9,0) 82%)}
-#featured.mbp .mb8-col{position:absolute;z-index:2;left:27%;right:14.5%;top:17%;bottom:15%;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:1cqw}
+#featured.mbp .mb8::after{content:"";position:absolute;z-index:1;pointer-events:none;top:11%;right:11%;bottom:11%;left:26%;background:radial-gradient(62% 76% at 56% 50%,rgba(2,12,9,.55),rgba(2,12,9,.22) 62%,rgba(2,12,9,0) 82%)}
+#featured.mbp .mb8-col{position:absolute;z-index:2;left:26.6%;right:13.4%;top:12%;bottom:12%;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:1cqw}
 #featured.mbp .mb8-pill{display:inline-flex;align-items:center;gap:1cqw;font-size:2.3cqw;font-weight:800;color:#1a1200;background:linear-gradient(180deg,#ffe6a6,#f3c455);border-radius:999px;padding:.5cqw 2.3cqw;box-shadow:0 0 14px rgba(243,196,85,.5);white-space:nowrap}
 #featured.mbp .mb8-pill .mb8-dot{width:1.4cqw;height:1.4cqw;border-radius:50%;background:#1a1200;flex:0 0 auto}
 #featured.mbp .mb8-pill.is-live .mb8-dot{animation:mb5pulse 1.8s ease-in-out infinite}
