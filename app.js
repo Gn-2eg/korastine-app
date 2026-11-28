@@ -242,15 +242,36 @@ function U(e){var n=w.indexOf(e.comp);return n<0?999:n}function z(){return o}fun
   function key(s){return String(s==null?"":s).replace(/[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED\u0640]/g,"").replace(/[\u0623\u0625\u0622\u0671]/g,"\u0627").replace(/\u0649/g,"\u064a").replace(/\u0629/g,"\u0647").replace(/[|\u060C,.()\-\u2013\u2014]/g," ").replace(/\s+/g," ").trim().toLowerCase()}
   function all(){try{var a=JSON.parse(localStorage.getItem(LS)||"[]");return Array.isArray(a)?a:[]}catch(e){return[]}}
   function save(a){try{localStorage.setItem(LS,JSON.stringify(a))}catch(e){}}
-  function keys(){return all().map(function(x){return x.k||key(x.n)})}
+  function keys(){var o=[];all().forEach(function(x){var k=x.k||key(x.n);if(o.indexOf(k)<0)o.push(k);(x.a||[]).forEach(function(z){if(z&&o.indexOf(z)<0)o.push(z)})});return o}
   function redraw(){try{if(window.KSREDRAW){window.KSREDRAW();return}}catch(e){}try{location.reload()}catch(e){}}
   var rt=null;function redrawSoon(){clearTimeout(rt);rt=setTimeout(redraw,150)}
   function sync(){var b=document.getElementById("favBtn");if(!b)return;var n=all().length;b.classList.toggle("on",n>0);var t=b.querySelector(".fav-nm");if(t)t.textContent=n?("المفضلة ("+n+")"):"المفضلة"}
-  function teams(){var out={},rows=document.querySelectorAll("#leagueBlocks .match-row");for(var i=0;i<rows.length;i++){var r=rows[i],k=r.dataset&&r.dataset.k;if(!k)continue;var p=k.split("|"),imgs=r.querySelectorAll("img"),logos=[];for(var j=0;j<imgs.length;j++)logos.push(imgs[j].getAttribute("src")||"");[p[0],p[1]].forEach(function(nm,idx){var kk=key(nm);if(!kk||out[kk])return;out[kk]={k:kk,n:nm,l:logos[idx]||""}})}return Object.keys(out).map(function(k){return out[k]}).sort(function(a,b){return String(a.n).localeCompare(String(b.n),"ar")})}
+  var LSA="ks_allteams",ALL=null,loading=null,lastQ="";
+  function baseKey(s){return key(String(s==null?"":s).normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[\u00e6]/g,"ae").replace(/[\u00f8]/g,"o").replace(/\u0131/g,"i").replace(/\u0142/g,"l").replace(/\u00df/g,"ss"))}
+  function arOf(en){try{var a=window.KS_LIVE&&window.KS_LIVE.team?window.KS_LIVE.team(en):en;return a||en}catch(e){return en}}
+  function mk(en,logo,extra){var ar=arOf(en),hasAr=ar&&ar!==en,disp=hasAr?ar:en,k=baseKey(disp),al=[baseKey(en)];if(hasAr)al.push(baseKey(ar));(extra||[]).forEach(function(x){var kx=baseKey(x);if(kx&&al.indexOf(kx)<0)al.push(kx)});return{k:k,n:disp,e:en,l:logo||"",a:al,h:al.join(" | ")}}
+  function rowsTeams(){var out={},rows=document.querySelectorAll("#leagueBlocks .match-row");for(var i=0;i<rows.length;i++){var r=rows[i],k=r.dataset&&r.dataset.k;if(!k)continue;var p=k.split("|"),imgs=r.querySelectorAll("img"),logos=[];for(var j=0;j<imgs.length;j++)logos.push(imgs[j].getAttribute("src")||"");[p[0],p[1]].forEach(function(nm,idx){if(!nm)return;var t=mk(nm,logos[idx]||"");if(!out[t.k])out[t.k]=t})}return out}
+  function loadCache(){try{var c=JSON.parse(localStorage.getItem(LSA)||"null");if(c&&c.list&&Date.now()-c.t<3*864e5)return c.list}catch(e){}return null}
+  function fetchJSON(u){return fetch(u).then(function(r){if(!r.ok)throw 0;return r.json()})}
+  function loadAll(){
+    if(ALL)return Promise.resolve(ALL);
+    var c=loadCache();if(c){ALL=c;return Promise.resolve(ALL)}
+    if(loading)return loading;
+    var map={};function add(en,logo,extra){if(!en)return;var t=mk(en,logo,extra);if(!map[t.k])map[t.k]=t;else if(!map[t.k].l&&logo)map[t.k].l=logo}
+    var comps=(window.KS_LIVE&&window.KS_LIVE.COMPS||[]).filter(function(c){return!c.src});
+    var chain=Promise.resolve();
+    comps.forEach(function(cp){chain=chain.then(function(){return fetchJSON("https://site.api.espn.com/apis/v2/sports/soccer/"+cp.id+"/standings").then(function(j){(function w(o){if(!o)return;if(o.standings&&o.standings.entries)o.standings.entries.forEach(function(e){var t=e.team;if(t)add(t.displayName||t.name,t.logos&&t.logos[0]&&t.logos[0].href,[t.shortDisplayName,t.name,t.location])});(o.children||[]).forEach(w)})(j)}).catch(function(){})})});
+    ["caf.confed","ksa.kings.cup"].forEach(function(id){chain=chain.then(function(){return fetchJSON("https://site.api.espn.com/apis/site/v2/sports/soccer/"+id+"/teams?limit=200").then(function(j){((((j.sports||[{}])[0].leagues||[{}])[0]).teams||[]).forEach(function(x){var t=x.team;if(t)add(t.displayName||t.name,t.logos&&t.logos[0]&&t.logos[0].href,[t.shortDisplayName,t.name,t.location])})}).catch(function(){})})});
+    chain=chain.then(function(){return fetchJSON("fixtures.json").then(function(j){(j.matches||[]).forEach(function(m){add(m.home,m.homeLogo);add(m.away,m.awayLogo)})}).catch(function(){})});
+    loading=chain.then(function(){var l=Object.keys(map).map(function(k){return map[k]});if(l.length>40){ALL=l;try{localStorage.setItem(LSA,JSON.stringify({t:Date.now(),list:l}))}catch(e){}}loading=null;return l});
+    return loading}
+  function match(t,qk){var h=t.h||key(t.n),h2=h.replace(/(^| )\u0627\u0644/g,"$1");var toks=qk.split(" ");for(var i=0;i<toks.length;i++){var x=toks[i];if(!x)continue;var x2=x.replace(/^\u0627\u0644/,"");if(h.indexOf(x)<0&&h2.indexOf(x2)<0)return false}return true}
+  function teams(){var m={};var base=ALL||loadCache()||[];base.forEach(function(t){m[t.k]=t});var r=rowsTeams();Object.keys(r).forEach(function(k){if(!m[k])m[k]=r[k]});all().forEach(function(x){var k=x.k||key(x.n);if(!m[k])m[k]={k:k,n:x.n,e:"",l:x.l||"",a:x.a||[k],h:(x.a||[k]).join(" | ")}});return Object.keys(m).map(function(k){return m[k]}).sort(function(a,b){var sa=cur0().indexOf(a.k)>=0?0:1,sb=cur0().indexOf(b.k)>=0?0:1;return sa-sb||a.n.localeCompare(b.n,"ar")})}
+  function cur0(){return all().map(function(x){return x.k||key(x.n)})}
   function sheet(){var ov=document.getElementById("favSheet");if(ov)return ov;ov=document.createElement("div");ov.id="favSheet";ov.className="fav-ov";ov.hidden=true;ov.addEventListener("click",function(e){if(e.target===ov)close()});document.body.appendChild(ov);return ov}
-  function close(){var o=document.getElementById("favSheet");if(o)o.hidden=true;document.body.classList.remove("fav-open")}
+  function close(){lastQ="";var o=document.getElementById("favSheet");if(o)o.hidden=true;document.body.classList.remove("fav-open")}
   function render(){
-    var ov=sheet(),list=teams(),q="",cur=keys();
+    var ov=sheet(),list=teams(),q=lastQ,cur=cur0();
     ov.innerHTML="";
     var p=document.createElement("div");p.className="fav-panel";p.setAttribute("role","dialog");p.setAttribute("aria-label","الفرق المفضلة");
     var hd=document.createElement("div");hd.className="fav-head";
@@ -262,19 +283,19 @@ function U(e){var n=w.indexOf(e.comp);return n<0?999:n}function z(){return o}fun
     var box=document.createElement("div");box.className="fav-list";
     function paint(){
       box.innerHTML="";
-      var qk=key(q),shown=0;
+      var qk=baseKey(q),shown=0;
       list.forEach(function(t){
-        if(qk&&key(t.n).indexOf(qk)<0)return;
+        if(qk&&!match(t,qk))return;
         shown++;
         var on=cur.indexOf(t.k)>=0;
         var row=document.createElement("button");row.type="button";row.className="fav-row"+(on?" on":"");
         if(t.l){var im=document.createElement("img");im.src=t.l;im.alt="";im.loading="lazy";row.appendChild(im)}
-        var nm=document.createElement("span");nm.textContent=t.n;row.appendChild(nm);
+        var nm=document.createElement("span");nm.textContent=t.n;row.appendChild(nm);if(t.e&&baseKey(t.e)!==baseKey(t.n)){var sb=document.createElement("small");sb.className="fav-en";sb.textContent=t.e;nm.appendChild(sb)}
         var st=document.createElement("span");st.className="fav-star";st.textContent=on?"\u2605":"\u2606";row.appendChild(st);
         row.addEventListener("click",function(){
           var i=cur.indexOf(t.k);if(i>=0)cur.splice(i,1);else cur.push(t.k);
           var a=all(),idx=-1;a.forEach(function(y,j){if((y.k||key(y.n))===t.k)idx=j});
-          if(i>=0){if(idx>=0)a.splice(idx,1)}else if(idx<0)a.push({k:t.k,n:t.n,l:t.l||""});
+          if(i>=0){if(idx>=0)a.splice(idx,1)}else if(idx<0)a.push({k:t.k,n:t.n,l:t.l||"",a:t.a||[t.k]});
           save(a);sync();paint();redrawSoon();
         });
         box.appendChild(row)
@@ -283,10 +304,10 @@ function U(e){var n=w.indexOf(e.comp);return n<0?999:n}function z(){return o}fun
       if(cur.length){var cl=document.createElement("button");cl.type="button";cl.className="fav-row";cl.style.justifyContent="center";cl.textContent="مسح كل المفضلة";cl.addEventListener("click",function(){save([]);cur.length=0;sync();paint();redrawSoon()});box.appendChild(cl)}
     }
     paint();
-    inp.addEventListener("input",function(){q=inp.value;paint()});
+    inp.value=q;inp.addEventListener("input",function(){q=inp.value;lastQ=q;paint()});
     p.appendChild(box);ov.appendChild(p)
   }
-  function open(){render();var ov=sheet();ov.hidden=false;document.body.classList.add("fav-open");var i=ov.querySelector(".fav-in");if(i&&window.matchMedia("(min-width:520px)").matches)try{i.focus()}catch(e){}}
+  function open(){render();var ov=sheet();ov.hidden=false;if(!ALL&&!loadCache()){var nt=ov.querySelector(".fav-note");if(nt)nt.textContent="بنحمّل كل الفرق…";}loadAll().then(function(){var o2=document.getElementById("favSheet");if(o2&&!o2.hidden){var sc=o2.querySelector(".fav-list"),st=sc?sc.scrollTop:0,fv=o2.querySelector(".fav-in"),v=fv?fv.value:"";render();var l2=o2.querySelector(".fav-list");if(l2)l2.scrollTop=st}});document.body.classList.add("fav-open");var i=ov.querySelector(".fav-in");if(i&&window.matchMedia("(min-width:520px)").matches)try{i.focus()}catch(e){}}
   function mount(){
     var fr=document.querySelector(".filter-row");if(!fr)return;
     if(document.getElementById("favBtn")){sync();return}
@@ -298,5 +319,5 @@ function U(e){var n=w.indexOf(e.comp);return n<0?999:n}function z(){return o}fun
   function boot(){mount();var host=document.getElementById("leagueBlocks");if(host&&window.MutationObserver){var t=null;new MutationObserver(function(){clearTimeout(t);t=setTimeout(mount,200)}).observe(host,{childList:true,subtree:true})}}
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",boot);else boot();
   document.addEventListener("keydown",function(e){if("Escape"===e.key)close()});
-  window.KSFAV={key:key,keys:keys,all:all};
+  window.KSFAV={key:key,keys:keys,all:all,loadAll:loadAll,teams:teams};
 })();
