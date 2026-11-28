@@ -211,7 +211,7 @@ var KSMC = (function () {
     function load() {
       if (data) return Promise.resolve(data);
       if (pending) return pending;
-      pending = getSummary(m, false).then(function (v) { data = v; pending = null; try { tint(v); } catch (e) {} return v; }, function (e) { pending = null; throw e; });
+      pending = getSummary(m, false).then(function (v) { data = v; pending = null; try { tint(v && v.data); } catch (e) {} return v; }, function (e) { pending = null; throw e; });
       return pending;
     }
 
