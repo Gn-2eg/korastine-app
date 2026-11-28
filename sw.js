@@ -1,5 +1,5 @@
 /* كورهسطين app shell */
-const CACHE = "korastine-app-v57";
+const CACHE = "korastine-app-v58";
 const SHELL = ["./", "./index.html", "./app.css", "./app.js", "./live.js",
   "./manifest.webmanifest", "./assets-brand.svg", "./favicon.png",
   "./app-192.png", "./app-256.png", "./app-512.png", "./favicon.svg", "./favicon-48.png", "./apple-touch-icon.png"];
@@ -29,7 +29,7 @@ self.addEventListener("fetch", (e) => {
   const netFirst = NET_FIRST.test(url.pathname) || url.pathname.endsWith("/");
   if (netFirst) {
     e.respondWith(
-      fetch(req).then((res) => {
+      fetch(req, { cache: "no-cache" }).then((res) => {
         if (res && res.ok) {
           const copy = res.clone();
           caches.open(CACHE).then((c) => c.put(req, copy)).catch(() => null);
