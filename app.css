@@ -900,3 +900,11 @@ html.hl-j .mcard .lg-label{padding:8px 10px;gap:8px} html.hl-j .j-tile{width:40p
 #predictRoot .pdc-btn[disabled]{opacity:.45;box-shadow:none;cursor:default}
 #predictRoot .pdc-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:10px;font-size:.85rem;font-weight:700;color:#dbe8e1}
 #predictRoot .pdc-body.closed{opacity:.95}
+
+/* كروت التوقعات: الكريستة على البلاطة مباشرة من غير صندوق أبيض */
+#predictRoot .pdc-logobox{background:transparent;border-radius:0;overflow:visible;width:58px;height:58px}
+#predictRoot .pdc-logobox img,#predictRoot .pdc-logobox .pd-logo{width:54px;height:54px;object-fit:contain;filter:drop-shadow(0 2px 5px rgba(0,0,0,.6))}
+/* mb=8: صورة ثابتة بدون أي حركة */
+#featured.mbp .mb8-drift{display:none}
+#featured.mbp .mb8-sweep,#featured.mbp .mb8-flare{display:none}
+#featured.mbp .mb8::before{animation:none}
