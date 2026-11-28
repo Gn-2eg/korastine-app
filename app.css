@@ -794,7 +794,7 @@ html.hl-j .mcard .lg-label{padding:8px 10px;gap:8px} html.hl-j .j-tile{width:40p
 .fav-btn.on .fav-star{color:#08150f}
 .fav-ov{position:fixed;inset:0;z-index:130;background:rgba(2,8,6,.74);display:flex;align-items:flex-start;justify-content:center}
 .fav-ov[hidden]{display:none}
-.fav-panel{width:calc(100% - 16px);max-width:560px;margin-top:max(10px,env(safe-area-inset-top));height:max(320px,min(470px,52vh));height:max(320px,min(470px,52dvh));display:flex;flex-direction:column;background:#08131a;border:1px solid rgba(53,224,125,.25);border-radius:18px;padding:14px;gap:10px}
+.fav-panel{position:relative;width:calc(100% - 16px);max-width:560px;margin-top:max(10px,env(safe-area-inset-top));height:max(320px,min(470px,52vh));height:max(320px,min(470px,52dvh));display:flex;flex-direction:column;background:#08131a;border:1px solid rgba(53,224,125,.25);border-radius:18px;padding:14px;gap:10px}
 .fav-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .fav-head h3{margin:0;font-size:15px;font-weight:800}
 .fav-x{width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.16);background:transparent;color:#cfe;font-size:15px;cursor:pointer;line-height:1}
@@ -805,6 +805,8 @@ html.hl-j .mcard .lg-label{padding:8px 10px;gap:8px} html.hl-j .j-tile{width:40p
 .fav-row.on{border-color:#35e07d;box-shadow:inset 0 0 0 1px rgba(53,224,125,.4)}
 .fav-row img{width:26px;height:26px;object-fit:contain;flex:0 0 auto}
 .fav-row .fav-star{margin-inline-start:auto;color:#35e07d;font-size:14px}
+.fav-toast{position:absolute;left:50%;top:104px;transform:translateX(-50%);background:#35e07d;color:#06150d;font-size:13px;font-weight:800;padding:6px 16px;border-radius:999px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:2;box-shadow:0 4px 14px rgba(0,0,0,.4)}
+.fav-toast.on{opacity:1}
 .fav-empty{font-size:13px;color:#9fb3a8;padding:8px}
 body.fav-open{overflow:hidden}
 /* predictions exact-score row: never wider than the card; label on top, steppers centred below */
