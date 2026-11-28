@@ -331,9 +331,14 @@ function U(e){var n=w.indexOf(e.comp);return n<0?999:n}function z(){return o}fun
   window.KS_AR=true;
   document.documentElement.classList.add("bv-"+V);
   function cell(logo,name){var d=document.createElement("div");d.className="mb8-vcell";if(logo){var l=logo.cloneNode(true);l.className="mb8-logo";d.appendChild(l)}var n=document.createElement("span");n.className="mb8-nm";n.textContent=name;d.appendChild(n);return d}
+  var FX=/[?&]fx=1\b/.test(location.search);if(FX)document.documentElement.classList.add("bv-fx");
+  var BT=(/[?&]bvt=(\w+)/.exec(location.search)||[])[1];
   window.KSBV=function(m8,c8,x1,x2,a,live,known){
     var row=c8.querySelector(".mb8-score"),sc=row.querySelector(".mb8-n").textContent;
     var hn=row.children[0].querySelector(".mb8-nm").textContent,an=row.children[2].querySelector(".mb8-nm").textContent;
+    if(BT==="long"||BT==="live"){hn="مانشستر يونايتد";an="برايتون آند هوف ألبيون"}
+    if(BT==="live"){sc="٢ : ١";var pl=c8.querySelector(".mb8-pill");if(pl){pl.className="mb8-pill is-live";pl.innerHTML='<i class="mb8-dot"></i>مباشر دلوقتي'}var mb=document.createElement("span");mb.className="mb8-min";mb.textContent="٦٧'";m8.appendChild(mb)}
+    if(BT==="en"){hn="Manchester United";an="Brighton & Hove Albion"}
     var cr=m8.querySelector(".mb8-crests");
     if(V==="b"){
       row.style.display="none";if(cr)cr.style.display="none";
