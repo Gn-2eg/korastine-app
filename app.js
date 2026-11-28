@@ -78,12 +78,12 @@ if("8"===mb){
   c8.appendChild(p8);
   c8.appendChild(O("span","mb8-lg",lg?lg+" · "+H(a.date):H(a.date)));
   var r8=O("div","mb8-score");
-  var w1=O("span","mb8-tm"),x1=A(a.homeLogo,"mb8-logo");w1.appendChild(O("span","mb8-nm",a.home));
+  var w1=O("span","mb8-tm"),x1=A(a.homeLogo,"mb8-logo");x1&&w1.appendChild(x1);w1.appendChild(O("span","mb8-nm",a.home));
   var w2=O("span","mb8-tm"),x2=A(a.awayLogo,"mb8-logo");w2.appendChild(O("span","mb8-nm",a.away));
   r8.appendChild(w1);r8.appendChild(O("b","mb8-n",live||known?String(a.hs)+" : "+String(a.as):"– : –"));r8.appendChild(w2);
   c8.appendChild(r8);
   m8.appendChild(c8);
-  if(x1||x2){var cr8=O("div","mb8-crests");x1&&cr8.appendChild(x1);x2&&cr8.appendChild(x2);m8.appendChild(cr8)}
+  if(x2){var cr8=O("div","mb8-crests");cr8.appendChild(x2);m8.appendChild(cr8)}
   if(live){var mn8=parseInt(String(a.minute||"").replace(/[^0-9]/g,""),10);mn8>0&&m8.appendChild(O("span","mb8-min",D(mn8)+"'"))}
   m8.insertBefore(O("div","mb8-drift"),m8.firstChild);
   m8.appendChild(O("div","mb8-sweep"));m8.appendChild(O("div","mb8-flare"));
